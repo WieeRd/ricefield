@@ -13,14 +13,21 @@
 [commit]
 	gpgSign = true
 
+[diff]
+	colorMoved = default
+	algorithm = histogram
+
 [pull]
 	rebase = true
 
-[diff]
-	colorMoved = default
+[push]
+	default = current
 
 [merge]
     conflictStyle = zdiff3
+
+[rebase]
+	autoStash = true
 
 [interactive]
 	diffFilter = delta --color-only --features=interactive
