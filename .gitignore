@@ -21,3 +21,6 @@
 
 !nushell/
 !nushell/**
+
+!wezterm/
+!wezterm/**
