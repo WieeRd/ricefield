@@ -39,14 +39,11 @@
   ;; Esc when tapped / LCtrl when held
   xxx (tap-hold-press 200 200 esc lctl)
 
-  ;; LShift + Backspace => Backspace x5
-  bsp (fork bspc (macro bspc bspc bspc bspc bspc) (lsft))
-
   ;; LAlt + hjkl => Arrow keys
   vim (multi lalt (layer-while-held hjkl))
 
   ;; temporarily enable qwerty while typing Korean
-  ;; NOTE: `toggle` is not available in v1.4.0, need to manually build HEAD
+  ;; FIX: colemak is occasionally enabled while typing Korean
   kor (multi ralt (on-press-fakekey korean toggle))
 
   ;; LAlt + {arrow} => {arrow}
@@ -60,7 +57,7 @@
 ;; hackable qwerty
 (deflayer qwerty
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    @bsp
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @xxx a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
@@ -70,7 +67,7 @@
 ;; hackable colemak
 (deflayer colemak
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    @bsp
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
   @xxx a    r    s    t    d    h    n    e    i    o    '    ret
   lsft z    x    c    v    b    k    m    ,    .    /    rsft
