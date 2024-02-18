@@ -16,27 +16,27 @@ let zoxide_completer = { |spans|
 # | https://github.com/nushell/nushell/issues/8483
 # | below workaround method will be removed after the issue gets resolved
 let external_completer = { |spans| 
-	# if the current command is an alias, get it's expansion
-	let expanded_alias = (scope aliases | where name == $spans.0 | get -i expansion.0)
+    # if the current command is an alias, get it's expansion
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -i expansion.0)
 
-	# put the first word of the expanded alias first in the span
-	let spans = if $expanded_alias != null  {
-		$spans | skip 1 | prepend ($expanded_alias | split row " ")
-	} else {
-		$spans
-	}
+    # put the first word of the expanded alias first in the span
+    let spans = if $expanded_alias != null  {
+        $spans | skip 1 | prepend ($expanded_alias | split row " ")
+    } else {
+        $spans
+    }
 
-	match $spans.0 {
-		z | zi => $zoxide_completer,
-		_ => $fish_completer,
-	} | do $in $spans
+    match $spans.0 {
+        z | zi => $zoxide_completer,
+        _ => $fish_completer,
+    } | do $in $spans
 } 
 
 $env.config = {
     show_banner: false
 
     datetime_format: {
-		normal: "%Y-%m-%d %H:%M:%S %z %a"
+        normal: "%Y-%m-%d %H:%M:%S %z %a"
         # table: "" # default: 'humanized' time delta
     }
 
@@ -54,7 +54,7 @@ $env.config = {
     }
 
     cursor_shape: {
-		# block, underscore, line, blink_block, blink_underscore, blink_line
+        # block, underscore, line, blink_block, blink_underscore, blink_line
         emacs: line
         vi_insert: line
         vi_normal: block
@@ -66,11 +66,11 @@ $env.config = {
     highlight_resolved_externals: true
 
     hooks: {
-		pre_prompt: [{ direnv export json | from json | default {} | load-env }]
-		display_output: {
-			# FEAT: auto paging, save last command result
-			table -e | into string | less -FR err> /dev/null
-		}
+        pre_prompt: [{ direnv export json | from json | default {} | load-env }]
+        display_output: {
+            # FEAT: auto paging, save last command result
+            table -e | into string | less -FR err> /dev/null
+        }
     }
 
     menus: [
@@ -125,42 +125,42 @@ $env.config = {
     ]
 
     keybindings: [
-		# FIX: not all emacs keybinds are available in vi_insert
-		# | make a PR to `nushell/reedline` to move default keybinds
-		{
-			name: history_completion
-			modifier: control
-			keycode: char_f
-			mode: [emacs, vi_insert]
-			event: { send: historyhintcomplete }
-		}
-		{
-			name: pipe_on_newline
-			modifier: shift
-			keycode: enter
-			mode: [emacs, vi_insert]
-			event: {
-				edit: InsertString
-				value: "\n| "
-			}
-		}
+        # FIX: not all emacs keybinds are available in vi_insert
+        # | make a PR to `nushell/reedline` to move default keybinds
+        {
+            name: history_completion
+            modifier: control
+            keycode: char_f
+            mode: [emacs, vi_insert]
+            event: { send: historyhintcomplete }
+        }
+        {
+            name: pipe_on_newline
+            modifier: shift
+            keycode: enter
+            mode: [emacs, vi_insert]
+            event: {
+                edit: InsertString
+                value: "\n| "
+            }
+        }
     ]
 }
 
 def git-log [n: int = 999] {
-	^git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n $n
-	| lines
-	| split column "»¦«" commit subject name email date
-	| upsert date { |d| $d.date | into datetime }
-	| reject email # rarely used
-	| reverse
+    ^git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n $n
+    | lines
+    | split column "»¦«" commit subject name email date
+    | upsert date { |d| $d.date | into datetime }
+    | reject email # rarely used
+    | reverse
 }
 
 # captures the output of the given command and saves it in the clipboard
 def termshot [command: string] {
-	script --return --quiet --command $command -O /dev/null
-	| (print $in; echo $in)
-	| xclip -selection clipboard # -loop 2
+    script --return --quiet --command $command -O /dev/null
+    | (print $in; echo $in)
+    | xclip -selection clipboard # -loop 2
 }
 
 alias e = eza --icons --group-directories-first --sort=extension --width=80

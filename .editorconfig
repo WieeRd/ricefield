@@ -13,11 +13,17 @@ indent_size = 2
 indent_style = space
 indent_size = 4
 
+[*.kbd]
+indent_style = space
+indent_size = 2
+
+[*.nu]
+indent_style = space
+indent_size = 4
+
 
 [git/config]
 indent_style = tab
 indent_size = 4
 
-[kanata/*.kbd]
-indent_style = space
-indent_size = 2
+# TODO: wezterm, systemd, bash

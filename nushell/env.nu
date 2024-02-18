@@ -1,13 +1,13 @@
 # NOTE: the conversions happen *after* config.nu is loaded
 let PATH_CONVERSION = {
-	from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-	to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
 }
 
 $env.ENV_CONVERSIONS = {
-	# Linux
-	"PATH": $PATH_CONVERSION
-	# Windows
+    # Linux
+    "PATH": $PATH_CONVERSION
+    # Windows
     "Path": $PATH_CONVERSION
 }
 
