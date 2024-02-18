@@ -2,5 +2,7 @@
 !.gitignore
 !.editorconfig
 
+!starship.toml
+
 !git/
 !git/*

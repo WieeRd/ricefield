@@ -1,0 +1,75 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """\
+($cmd_duration\n)\
+($python\n)\
+($username$hostname\n)\
+$directory( $git_branch)( $git_commit)( $git_state)
+$character\
+"""
+
+add_newline = true
+
+
+# How long has it been?
+[cmd_duration]
+format = "[󱎫 $duration]($style)"
+style = "yellow"
+min_time = 3000
+
+
+[python]
+format = '([\( $virtualenv\)]($style))'
+style = "yellow"
+
+# FEAT: nix environment indicator
+[nix_shell]
+format = '[❄️ $state( \($name\))]($style) '
+style = "bright-blue"
+# symbol = "❄️" # 󱄅
+
+
+# Who am I?
+[username]
+format = "[$user]($style)"
+style_user = "bold green"
+style_root = "bold red"
+
+# What is this place?
+[hostname]
+format = "[@$hostname]($style)"
+style = "bold green"
+
+[directory]
+format = "[$path]($style)"
+style = "blue"
+use_os_path_sep = false
+truncation_length = 3
+
+
+# What am I doing?
+[git_branch]
+format = "on [$branch(:$remote_branch)]($style)"
+# format = "on [ $branch(:$remote_branch)]($style)"
+style = "bold purple"
+only_attached = true
+
+[git_commit]
+format = "on [$hash]($style)[$tag](white)"
+# format = "on [ $hash]($style)[$tag](white)"
+style = "bold yellow"
+only_detached = true
+tag_symbol = " 󰓹 "
+tag_disabled = false
+
+[git_state]
+format = "[$state( $progress_current/$progress_total)]($style)"
+style = "bold red"
+
+
+# What should I do?
+[character]
+format = "$symbol " # ❯
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[:](bold green)"
