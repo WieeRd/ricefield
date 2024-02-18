@@ -60,6 +60,16 @@ $env.config = {
         vi_normal: block
     }
 
+    # FEAT: MAYBE: history autocomplete integration with atuin
+    # | currently history is written to both `history.sqlite` and atuin
+    # | ghost text and Ctrl+F uses `history.sqlite`, while Ctrl+R uses atuin
+    history: {
+        max_size: 10000
+        sync_on_enter: true
+        file_format: "sqlite"
+        isolation: false
+    }
+
     edit_mode: vi # emacs, vi
     shell_integration: true
     use_kitty_protocol: true
