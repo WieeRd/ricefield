@@ -1,5 +1,6 @@
 *
 !.gitignore
+!.editorconfig
 
 !git/
 !git/*
