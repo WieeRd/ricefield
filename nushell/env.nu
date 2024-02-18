@@ -29,8 +29,6 @@ keychain --eval --quiet --timeout 15 --quick --agents gpg,ssh
 | transpose --ignore-titles --header-row --as-record
 | load-env
 
-# FIX: LATER: zoxide nushell template is outdated
-# | using manually patched version for now
-# zoxide init nushell | save -f ($env.NU_LIB_DIRS.0 | path join "zoxide.nu")
+zoxide init nushell | save -f ($env.NU_LIB_DIRS.0 | path join "zoxide.nu")
 starship init nu | save -f ($env.NU_LIB_DIRS.0| path join "starship.nu")
 atuin init nu | save -f ($env.NU_LIB_DIRS.0| path join "atuin.nu")
