@@ -5,4 +5,10 @@
 !starship.toml
 
 !git/
-!git/*
+!git/**
+
+!fcitx5/
+!fcitx5/**
+
+!kanata/
+!kanata/**
