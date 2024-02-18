@@ -1,0 +1,61 @@
+[user]
+	name = WieeRd
+	email = <verywieerd@gmail.com>
+
+[core]
+	editor = nvim
+	pager = delta
+
+
+[init]
+	defaultBranch = master
+
+[commit]
+	gpgSign = true
+
+[pull]
+	rebase = true
+
+[diff]
+	colorMoved = default
+
+[merge]
+    conflictStyle = zdiff3
+
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+
+[help]
+	autoCorrect = prompt
+
+
+[alias]
+    s = status
+    d = diff
+    c = commit
+
+    b = branch
+    co = checkout
+
+    m = merge
+    r = rebase
+
+    f = fetch
+    ps = push
+    pl = pull
+
+    lg = log --oneline --graph
+    ls = ls-tree -r --name-only HEAD
+
+
+[delta]
+	navigate = true
+	hyperlinks = true
+	line-numbers = true
+	; side-by-side = true
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
