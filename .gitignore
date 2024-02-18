@@ -1,14 +1,16 @@
 *
+
 !.gitignore
 !.editorconfig
 
-!starship.toml
-
-!git/
-!git/**
+!alacritty/
+!alacritty/**
 
 !fcitx5/
 !fcitx5/**
+
+!git/
+!git/**
 
 !kanata/
 !kanata/**
@@ -16,11 +18,10 @@
 !kitty/
 !kitty/**
 
-!alacritty/
-!alacritty/**
-
 !nushell/
 !nushell/**
+
+!starship.toml
 
 !wezterm/
 !wezterm/**

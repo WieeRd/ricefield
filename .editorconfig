@@ -13,14 +13,6 @@ indent_size = 2
 indent_style = space
 indent_size = 4
 
-[*.kbd]
-indent_style = space
-indent_size = 2
-
-[*.nu]
-indent_style = space
-indent_size = 4
-
 [*.lua]
 indent_style = space
 indent_size = 2
@@ -30,4 +22,10 @@ indent_size = 2
 indent_style = tab
 indent_size = 4
 
-# TODO: wezterm, systemd, bash
+[kanata/*.kbd]
+indent_style = space
+indent_size = 2
+
+[nushell/*.nu]
+indent_style = space
+indent_size = 4
