@@ -1,12 +1,14 @@
-;; NOTE: Caps Lock and Esc are already swapped in `defsrc`,
+;; FIX: LATER: setup kanata on windows and remove firmware keymaps
+;; | Caps Lock and Esc are already swapped in `defsrc`,
 ;; | this is because I swapped them using keyboard firmware.
 ;; | I'll eventually remove them since Kanata supports Windows.
 
-;; FIX: setup kanata on windows and remove firmware keymaps
+;; FEAT: force-enable qwerty while Korean IME is enabled
+;; FEAT: MAYBE: remap LCtrl to Meta
 
 (defcfg
   process-unmapped-keys yes
-  log-layer-changes yes
+  log-layer-changes false
 
   ;; Linux exclusive
   linux-x11-repeat-delay-rate 400,25
@@ -35,16 +37,13 @@
   fac (layer-switch factory)
 
   lay (layer-while-held layouts)
+  num (layer-while-held numbers)
 
   ;; Esc when tapped / LCtrl when held
   xxx (tap-hold-press 200 200 esc lctl)
 
   ;; LAlt + hjkl => Arrow keys
   vim (multi lalt (layer-while-held hjkl))
-
-  ;; temporarily enable qwerty while typing Korean
-  ;; FIX: colemak is occasionally enabled while typing Korean
-  kor (multi ralt (on-press-fakekey korean toggle))
 
   ;; LAlt + {arrow} => {arrow}
   ;; LAlt + {other} => LAlt + {other}
@@ -54,27 +53,27 @@
   up (multi (release-key lalt) up)
 ) 
 
-;; hackable qwerty
+;; custom qwerty
 (deflayer qwerty
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @xxx a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet @vim           spc            @kor rmet cmp  @col
+  lctl lmet @vim           spc            @num rmet cmp  @col
 )
 
-;; hackable colemak
+;; custom colemak
 (deflayer colemak
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
   @xxx a    r    s    t    d    h    n    e    i    o    '    ret
   lsft z    x    c    v    b    k    m    ,    .    /    rsft
-  lctl lmet @vim           spc            @kor rmet cmp  @qwe
+  lctl lmet @vim           spc            @num rmet cmp  @qwe
 )
 
-;; factory settings
+;; default qwerty
 (deflayer factory
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -84,6 +83,7 @@
   lctl lmet lalt           spc            ralt rmet cmp  @lay
 )
 
+;; layout selection
 (deflayer layouts
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    @qwe @col @fac _    _    _    _    _    _    _    _    _    _
@@ -104,17 +104,14 @@
 )
 
 ;; type numbers on the home row + layout switching
-;; FEAT: LATER: not sure where to bind this layout
-;; | maybe use RAlt and switch Hangul IME with Ctrl + Space
-
-;; (deflayer numbers
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    1    2    3    4    5    6    7    8    9    0    `    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _              _              _    _    _    _
-;; )
+(deflayer numbers
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    1    2    3    4    5    6    7    8    9    0    `    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _
+)
 
 ;; (deflayer template
 ;;   _    _    _    _    _    _    _    _    _    _    _    _    _
