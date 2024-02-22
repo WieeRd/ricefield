@@ -1,10 +1,10 @@
 [Groups/0]
 # Group Name
-Name="Group 2"
+Name=Default
 # Layout
 Default Layout=us
 # Default Input Method
-DefaultIM=keyboard-us
+DefaultIM=hangul
 
 [Groups/0/Items/0]
 # Name
@@ -12,27 +12,12 @@ Name=keyboard-us
 # Layout
 Layout=
 
-[Groups/1]
-# Group Name
-Name="Group 1"
-# Layout
-Default Layout=kr-kr104
-# Default Input Method
-DefaultIM=hangul
-
-[Groups/1/Items/0]
-# Name
-Name=keyboard-kr-kr104
-# Layout
-Layout=
-
-[Groups/1/Items/1]
+[Groups/0/Items/1]
 # Name
 Name=hangul
 # Layout
 Layout=
 
 [GroupOrder]
-0="Group 1"
-1="Group 2"
+0=Default
 
