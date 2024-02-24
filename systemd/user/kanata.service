@@ -7,7 +7,7 @@ Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=DISPLAY=:0
 ExecStart=kanata
 Type=simple
-Restart=no
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
