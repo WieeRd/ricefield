@@ -1,10 +1,14 @@
+# vim: filetype=gitconfig
+
+[include]
+	path = delta
+
 [user]
 	name = WieeRd
-	email = <verywieerd@gmail.com>
+	email = verywieerd@gmail.com
 
 [core]
 	editor = nvim
-	pager = delta
 
 
 [init]
@@ -29,9 +33,6 @@
 [rebase]
 	autoStash = true
 
-[interactive]
-	diffFilter = delta --color-only --features=interactive
-
 [help]
 	autoCorrect = prompt
 
@@ -54,12 +55,6 @@
     lg = log --oneline --graph
     ls = ls-tree -r --name-only HEAD
 
-
-[delta]
-	navigate = true
-	hyperlinks = true
-	line-numbers = true
-	; side-by-side = true
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
