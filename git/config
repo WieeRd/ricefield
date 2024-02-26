@@ -33,6 +33,9 @@
 [rebase]
 	autoStash = true
 
+[rerere]
+	enabled = true
+
 [help]
 	autoCorrect = prompt
 
@@ -43,17 +46,23 @@
     c = commit
 
     b = branch
-    co = checkout
+	sw = switch
+	sc = switch --create
 
     m = merge
+	ms = merge --squash
     r = rebase
+	ri = rebase --interactive
 
     f = fetch
-    ps = push
     pl = pull
+	plr = pull --rebase
+    ps = push
+	psf = push --force-with-lease
 
-    lg = log --oneline --graph
     ls = ls-tree -r --name-only HEAD
+    lg = log --oneline --graph
+	who = blame -w -C -C -C
 
 
 [filter "lfs"]
