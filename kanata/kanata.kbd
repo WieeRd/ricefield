@@ -4,7 +4,9 @@
 ;; | I'll eventually remove them since Kanata supports Windows.
 
 ;; FEAT: force-enable qwerty while Korean IME is enabled
-;; FEAT: MAYBE: remap LCtrl to Meta
+;; FEAT: LATER: make Meta key easier to reach
+;; | Need a mod key for tiling WMs.
+;; | Candidates: RAlt, LCtrl, Caps Lock
 
 (defcfg
   process-unmapped-keys yes
