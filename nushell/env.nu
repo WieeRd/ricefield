@@ -11,6 +11,13 @@ $env.ENV_CONVERSIONS = {
     "Path": $PATH_CONVERSION
 }
 
+# merge systemd user environments (`environment.d/`)
+systemctl --user show-environment
+| lines
+| parse "{name}={value}"
+| transpose --ignore-titles --header-row --as-record
+| load-env
+
 $env.NU_LIB_DIRS = [($nu.default-config-dir | path join "scripts")]
 $env.NU_PLUGIN_DIRS = [($nu.default-config-dir | path join "plugins")]
 
