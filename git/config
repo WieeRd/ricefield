@@ -2,6 +2,7 @@
 
 [include]
 	path = delta
+	path = maintenance
 
 [user]
 	name = WieeRd

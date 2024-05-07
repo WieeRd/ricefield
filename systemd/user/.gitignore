@@ -1,2 +1,5 @@
-# do not track symlinks of enabled daemons
+# symlinks of enabled daemons
 *.wants/
+
+# wonder why these aren't placed inside `~/.local/share/systemd` instead
+git-maintenance@*
