@@ -1,3 +1,16 @@
+# NOTE: the conversions happen *after* `{env, config}.nu` are loaded
+let PATH_CONVERSION = {
+	from_string: { |s| $s | split row (char esep) | path expand | uniq }
+	to_string: { |v| $v | path expand | str join (char esep) }
+}
+
+$env.ENV_CONVERSIONS = {
+	# Linux
+	"PATH": $PATH_CONVERSION
+	# Windows
+    "Path": $PATH_CONVERSION
+}
+
 $env.NU_LIB_DIRS = [($nu.default-config-dir | path join "scripts")]
 $env.NU_PLUGIN_DIRS = [($nu.default-config-dir | path join "plugins")]
 
@@ -6,12 +19,10 @@ $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = "∙"
 
 # merge systemd user environments from `environment.d/`
-# `str trim` is for stripping $'' escape applied by systemctl
-systemctl --user show-environment
+/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator
 | lines
 | parse "{name}={value}"
-| str trim value --left --char "$"
-| str trim value --char "'"
+| str trim value --char '"'
 | transpose --header-row --as-record
 | load-env
 
