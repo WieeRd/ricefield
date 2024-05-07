@@ -30,12 +30,12 @@ $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
 $env.MANPAGER = "nvim +Man!"
 
-$env.LS_COLORS = (vivid generate snazzy)
+$env.LS_COLORS = (vivid generate one-dark)
 
-keychain --eval --quiet --timeout 15 --quick --agents gpg,ssh
-| parse --regex '(\w+)=(.*); export \1'
-| transpose --ignore-titles --header-row --as-record
-| load-env
+gpgconf --launch gpg-agent
+$env.GPG_TTY = (tty)
+$env.SSH_AGENT_PID = ""
+$env.SSH_AUTH_SOCK = (gpgconf --list-dirs agent-ssh-socket)
 
 # FIX: save scripts to `/tmp` to reduce SSD I/O and btrfs fragmentation
 # FEAT: need a way to resolve standard paths (`XDG_*`, `TMPDIR`, etc)
