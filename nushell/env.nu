@@ -1,16 +1,3 @@
-# NOTE: the conversions happen *after* config.nu is loaded
-let PATH_CONVERSION = {
-    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
-}
-
-$env.ENV_CONVERSIONS = {
-    # Linux
-    "PATH": $PATH_CONVERSION
-    # Windows
-    "Path": $PATH_CONVERSION
-}
-
 # merge systemd user environments (`environment.d/`)
 systemctl --user show-environment
 | lines
@@ -24,11 +11,6 @@ $env.NU_PLUGIN_DIRS = [($nu.default-config-dir | path join "plugins")]
 $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = "∙"
-
-# FIX: move environment variables to `~/.config/environment.d/*.conf`
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim"
-$env.MANPAGER = "nvim +Man!"
 
 $env.LS_COLORS = (vivid generate one-dark)
 

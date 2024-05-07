@@ -12,6 +12,9 @@
 !alacritty/
 !alacritty/**
 
+!environment.d/
+!environment.d/**
+
 !fcitx5/
 !fcitx5/**
 
