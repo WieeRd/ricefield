@@ -166,11 +166,11 @@ def git-log [n: int = 999] {
     | reverse
 }
 
-# captures the output of the given command and saves it in the clipboard
-def termshot [command: string] {
+# Captures the output of the given command in the clipboard.
+def capture [command: string] {
     script --return --quiet --command $command -O /dev/null
     | (print $in; echo $in)
-    | xclip -selection clipboard # -loop 2
+    | xclip -selection clipboard
 }
 
 alias l = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
@@ -187,6 +187,6 @@ alias uctl = systemctl --user
 alias clip = xclip -selection clipboard
 alias ssh = kitty +kitten ssh # FIX: set this alias iff inside kitty terminal
 
-source zoxide.nu
-source starship.nu
 source atuin.nu
+source starship.nu
+source zoxide.nu

@@ -1,18 +1,15 @@
 # NOTE: the conversions happen *after* `{env, config}.nu` are loaded
 let PATH_CONVERSION = {
-	from_string: { |s| $s | split row (char esep) | path expand | uniq }
-	to_string: { |v| $v | path expand | str join (char esep) }
+    from_string: { |s| $s | split row (char esep) | path expand | uniq }
+    to_string: { |v| $v | path expand | str join (char esep) }
 }
 
 $env.ENV_CONVERSIONS = {
-	# Linux
-	"PATH": $PATH_CONVERSION
-	# Windows
+    # Linux
+    "PATH": $PATH_CONVERSION
+    # Windows
     "Path": $PATH_CONVERSION
 }
-
-$env.NU_LIB_DIRS = [($nu.default-config-dir | path join "scripts")]
-$env.NU_PLUGIN_DIRS = [($nu.default-config-dir | path join "plugins")]
 
 $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
@@ -34,8 +31,15 @@ $env.SSH_AUTH_SOCK = (gpgconf --list-dirs agent-ssh-socket)
 
 $env.LS_COLORS = (vivid generate one-dark)
 
-# FIX: save scripts to `/tmp` to reduce SSD I/O and btrfs fragmentation
-# FEAT: need a way to resolve standard paths (`XDG_*`, `TMPDIR`, etc)
-zoxide init nushell | save -f ($env.NU_LIB_DIRS.0 | path join "zoxide.nu")
-starship init nu | save -f ($env.NU_LIB_DIRS.0| path join "starship.nu")
-atuin init nu | save -f ($env.NU_LIB_DIRS.0| path join "atuin.nu")
+# generate integration scripts inside tmpfs to reduce disk I/O
+$env.NU_TMP_DIR = ($env.XDG_RUNTIME_DIR | path join "nu")
+$env.NU_LIB_DIRS = [$env.NU_TMP_DIR]
+
+do {
+    mkdir $env.NU_TMP_DIR
+    cd $env.NU_TMP_DIR
+
+    atuin init nu | save -f atuin.nu
+    starship init nu | save -f starship.nu
+    zoxide init nushell | save -f zoxide.nu
+}
