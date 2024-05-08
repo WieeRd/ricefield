@@ -30,6 +30,9 @@
 !nushell/
 !nushell/**
 
+!qtile/
+!qtile/**
+
 !starship.toml
 
 !systemd
