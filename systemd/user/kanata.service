@@ -3,7 +3,7 @@ Description=Kanata Keyboard Remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]
-ExecStart=env kanata
+ExecStart=env kanata -n
 Type=simple
 Restart=on-failure
 
