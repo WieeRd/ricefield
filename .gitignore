@@ -30,6 +30,8 @@
 !nushell/
 !nushell/**
 
+!picom.conf
+
 !qtile/
 !qtile/**
 
