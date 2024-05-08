@@ -37,7 +37,7 @@
 
 !starship.toml
 
-!systemd
+!systemd/
 !systemd/**
 
 !wezterm/
@@ -45,3 +45,5 @@
 
 !xplr/
 !xplr/**
+
+__pycache__/
