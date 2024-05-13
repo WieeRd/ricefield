@@ -5,6 +5,7 @@
   log-layer-changes false
 
   ;; Linux exclusive
+  ;; FIX: LATER: xset fails if Kanata starts before Xorg
   linux-x11-repeat-delay-rate 400,25
 
   ;; Windows exclusive

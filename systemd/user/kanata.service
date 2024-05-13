@@ -1,5 +1,5 @@
 [Unit]
-Description=Kanata Keyboard Remapper
+Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]

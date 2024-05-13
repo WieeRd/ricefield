@@ -29,6 +29,7 @@
 	default = current
 
 [merge]
+	autoStash = true
     conflictStyle = zdiff3
 
 [rebase]
@@ -60,6 +61,10 @@
 	plr = pull --rebase
     ps = push
 	psf = push --force-with-lease
+
+	shallow = clone --depth 1
+	partial = clone --filter=blob:none
+	dwarf = clone --filter=tree:0  # what are you, a bloody leaf lover?
 
     ls = ls-tree -r --name-only HEAD
     lg = log --oneline --graph

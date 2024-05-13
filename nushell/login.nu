@@ -1,3 +1,5 @@
+#!/usr/bin/env nu
+
 open /etc/locale.conf
 | lines
 | parse "{name}={value}"

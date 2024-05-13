@@ -1,8 +1,8 @@
 # WieeRd Dotfiles
 
-> [Rice] is a word that is commonly used to refer to making visual improvements\
-> and customizations on one's desktop. It was inherited from the practice of\
-> customizing cheap Asian import cars to make them appear to be faster than they\
+> [Rice] is a word that is commonly used to refer to making visual improvements
+> and customizations on one's desktop. It was inherited from the practice of
+> customizing cheap Asian import cars to make them appear to be faster than they
 > actually were - which was also known as "ricing".
 
 Welcome to my rice field, nerd.

@@ -173,9 +173,13 @@ def capture [command: string] {
     | xclip -selection clipboard
 }
 
-alias l = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
-alias ll = l --long
-alias lt = l --tree --level 2 --git-ignore
+alias eza = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
+alias l = eza
+alias ll = eza --long
+alias la = eza --long --all
+alias lt = eza --tree --level 2 --git-ignore
+
+# FEAT: keymaps/aliases for `cd -`, `cd ..` and `cd (xplr)`
 
 alias g = git
 alias v = nvim
@@ -183,6 +187,7 @@ alias x = xplr
 
 alias sctl = sudo systemctl
 alias uctl = systemctl --user
+alias jctl = journalctl
 
 alias clip = xclip -selection clipboard
 alias ssh = kitty +kitten ssh # FIX: set this alias iff inside kitty terminal
