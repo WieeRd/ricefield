@@ -1,0 +1,10 @@
+[Unit]
+Description=Picom compositor
+Documentation=man:picom(1)
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=picom
+
+[Install]
+WantedBy=xsession.target
