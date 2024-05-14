@@ -1,0 +1,11 @@
+[Unit]
+Description=Nitrogen wallpaper setter
+Documentation=man:nitrogen(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=nitrogen --restore
+
+[Install]
+WantedBy=xsession.target
