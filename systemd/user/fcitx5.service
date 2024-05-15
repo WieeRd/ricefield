@@ -1,0 +1,10 @@
+[Unit]
+Description=Fcitx5 input method
+Documentation=https://fcitx-im.org/wiki/Fcitx_5
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=fcitx5 -r
+
+[Install]
+WantedBy=xsession.target
