@@ -3,9 +3,7 @@ Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]
-ExecStart=env kanata -n
-Type=simple
-Restart=on-failure
+ExecStart=kanata --nodelay
 
 [Install]
 WantedBy=default.target

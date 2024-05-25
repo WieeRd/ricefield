@@ -33,10 +33,10 @@
   fac (layer-switch factory)
 
   ;; Esc when tapped / LCtrl when held
-  e/c (tap-hold-press 200 200 esc lctl)
+  e/c (tap-hold-press 300 300 esc lctl)
 
   ;; RAlt when tapped / LMeta when held
-  a/m (tap-hold-press 200 200 ralt lmet)
+  a/m (tap-hold-press 300 300 ralt lmet)
 
   ;; LAlt + hjkl => Arrow keys
   ;; LAlt + {other} => LAlt + {other}
