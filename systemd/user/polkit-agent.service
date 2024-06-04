@@ -1,0 +1,10 @@
+[Unit]
+Description=LXQt polkit agent
+Documentation=man:polkit(8)
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=lxqt-policykit-agent
+
+[Install]
+WantedBy=xsession.target
