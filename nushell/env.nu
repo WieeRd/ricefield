@@ -1,3 +1,5 @@
+#!/usr/bin/env nu
+
 # NOTE: the conversions happen *after* `{env, config}.nu` are loaded
 let PATH_CONVERSION = {
     from_string: { |s| $s | split row (char esep) | path expand | uniq }
