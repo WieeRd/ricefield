@@ -9,6 +9,18 @@ Welcome to my rice field, nerd.
 
 [Rice]: https://www.reddit.com/r/unixporn/wiki/themeing/dictionary/#wiki_rice
 
+## Deployment
+
+I honestly got tired of gimmicks and hassles of so called "dotfiles managers".
+
+This repository is now simply a `$HOME/.config` directory managed by Git.
+
+```bash
+git clone https://github.com/WieeRd/ricefield ~/.config
+```
+
+Should be enough to get things started.
+
 ## The Workflow
 
 I will (try to) document things later (hopefully).
