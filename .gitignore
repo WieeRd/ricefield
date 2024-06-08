@@ -1,3 +1,5 @@
+# FIX: use `status.showUntrackedFiles no` instead of spamming ignore globs
+
 *
 
 !README.md
@@ -29,6 +31,9 @@
 
 !nushell/
 !nushell/**
+
+!nvim/
+!nvim/**
 
 !picom/
 !picom/**
