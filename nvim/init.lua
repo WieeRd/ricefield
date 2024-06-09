@@ -26,6 +26,10 @@ require("cfg").setup({
       desc = "Override each colorscheme using `after/colors/` directory",
     },
   },
+  commands = {
+    ["Shrug"] = "echo 'Works On My Machine ¯\\_(ツ)_/¯'",
+    ["Bind"] = "windo set cursorline! cursorbind! scrollbind!",
+  },
 
   colorscheme = "habamax",
 })

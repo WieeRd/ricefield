@@ -53,6 +53,25 @@ function M.load_autocmds(autocmds)
   end
 end
 
+function M.load_commands(commands)
+  local command = vim.api.nvim_create_user_command
+
+  for name, cmd_and_opts in pairs(commands) do
+    local cmd, opts
+
+    if type(cmd_and_opts) == "table" then
+      cmd = cmd_and_opts[1]
+      cmd_and_opts[1] = nil
+      opts = cmd_and_opts
+    else
+      cmd = cmd_and_opts
+      opts = {}
+    end
+
+    command(name, cmd, opts)
+  end
+end
+
 function M.setup(cfg)
   cfg = cfg or {}
 
@@ -60,6 +79,7 @@ function M.setup(cfg)
   M.load_options(cfg.options or {})
   M.load_keymaps(cfg.keymaps or {})
   M.load_autocmds(cfg.autocmds or {})
+  M.load_commands(cfg.commands or {})
 
   vim.cmd.colorscheme(cfg.colorscheme or "default")
 end
