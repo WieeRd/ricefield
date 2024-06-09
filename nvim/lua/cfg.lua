@@ -38,12 +38,28 @@ function M.load_keymaps(keymaps)
   end
 end
 
+function M.load_autocmds(autocmds)
+  local autocmd = vim.api.nvim_create_autocmd
+  local augroup = vim.api.nvim_create_augroup
+  local group = augroup("cfg", { clear = true })
+
+  for i = 1, #autocmds do
+    local opts = autocmds[i]
+    local event = opts[1]
+    opts[1] = nil
+    opts.group = opts.group or group
+
+    autocmd(event, opts)
+  end
+end
+
 function M.setup(cfg)
   cfg = cfg or {}
 
   M.load_globals(cfg.globals or {})
   M.load_options(cfg.options or {})
   M.load_keymaps(cfg.keymaps or {})
+  M.load_autocmds(cfg.autocmds or {})
 
   vim.cmd.colorscheme(cfg.colorscheme or "default")
 end
