@@ -3,10 +3,10 @@ vim.loader.enable()
 
 require("cfg").setup({
   globals = { mapleader = " " },
-  options = require("core.options"),
-  keymaps = require("core.keymaps"),
-  autocmds = require("core.autocmds"),
-  commands = require("core.commands"),
+  options = "core.options",
+  keymaps = "core.keymaps",
+  autocmds = "core.autocmds",
+  commands = "core.commands",
 
   colorscheme = "habamax",
 })

@@ -1,6 +1,15 @@
 local vim = vim
 local M = {}
 
+function M.tbl_or_mod(target)
+  if type(target) == "table" then
+    return target
+  else
+    package.loaded[target] = nil
+    return require(target)
+  end
+end
+
 function M.load_globals(globals)
   local g = vim.g
 
@@ -75,11 +84,11 @@ end
 function M.setup(cfg)
   cfg = cfg or {}
 
-  M.load_globals(cfg.globals or {})
-  M.load_options(cfg.options or {})
-  M.load_keymaps(cfg.keymaps or {})
-  M.load_autocmds(cfg.autocmds or {})
-  M.load_commands(cfg.commands or {})
+  M.load_globals(M.tbl_or_mod(cfg.globals or {}))
+  M.load_options(M.tbl_or_mod(cfg.options or {}))
+  M.load_keymaps(M.tbl_or_mod(cfg.keymaps or {}))
+  M.load_autocmds(M.tbl_or_mod(cfg.autocmds or {}))
+  M.load_commands(M.tbl_or_mod(cfg.commands or {}))
 
   vim.cmd.colorscheme(cfg.colorscheme or "default")
 end
