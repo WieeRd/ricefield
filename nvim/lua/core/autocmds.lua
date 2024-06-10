@@ -1,8 +1,21 @@
 return {
   {
+    "TextYankPost",
+    callback = function(_)
+      vim.highlight.on_yank({
+        higroup = "CursorLine",
+        timeout = 150,
+        on_macro = false,
+        on_visual = true,
+      })
+    end,
+    desc = "Briefly highlight the yanked text",
+  },
+
+  {
     "ColorScheme",
-    callback = function(args)
-      local theme = args.match
+    callback = function(event)
+      local theme = event.match
       -- overrides for the 'default' theme are applied to every theme
       vim.cmd.runtime("after/colors/default.vim")
       -- override each theme at the `after/colors/{theme}.vim`
@@ -22,25 +35,24 @@ return {
       wo.number = false
       wo.relativenumber = false
     end,
-    desc = "set terminal window options",
-  },
-
-  {
-    "TextYankPost",
-    callback = function(_)
-      vim.highlight.on_yank({
-        higroup = "CursorLine",
-        timeout = 150,
-        on_macro = false,
-        on_visual = true,
-      })
-    end,
-    desc = "briefly highlight the yanked text",
+    desc = "Set terminal window options",
   },
 
   {
     "VimResized",
     command = "tabdo wincmd =",
-    desc = "resize panes on terminal window resize",
+    desc = "Resize panes on terminal window resize",
+  },
+
+  {
+    "BufWritePre",
+    callback = function(event)
+      if event.match:match("^%w%w+:[\\/][\\/]") then
+        return
+      end
+      local file = vim.uv.fs_realpath(event.match) or event.match
+      vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+    desc = "Auto create intermediate parent directories upon write",
   },
 }

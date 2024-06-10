@@ -45,6 +45,8 @@ return {
     ["<Leader>+"] = "<Cmd>tabnew<CR>",
     ["<Leader>-"] = "<Cmd>tabclose<CR>",
     ["<Leader>0"] = "<Cmd>tabonly<CR>",
+
+    ["<C-p>"] = "<Cmd>FZF<CR>",
   },
 
   [VISUAL] = {
@@ -53,6 +55,12 @@ return {
   },
 
   [MOTION] = {
+    -- move based on display lines rather than real lines
+    ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+    ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+    ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+    ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+
     -- delete without worrying about yanked content
     ["yp"] = [["0p]], -- paste from yank register
     ["yd"] = [["0d]], -- delete into yank register
