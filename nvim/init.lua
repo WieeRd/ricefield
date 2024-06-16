@@ -7,28 +7,7 @@ require("setup").setup({
   keymaps = "config.keymaps",
   autocmds = "config.autocmds",
   commands = "config.commands",
-
-  plugins = {
-    enabled = true,
-    bootstrap = true,
-    spec = {
-      {
-        "rebelot/kanagawa.nvim",
-        opts = {
-          colors = {
-            theme = {
-              all = {
-                ui = {
-                  bg_gutter = "none",
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    opts = {},
-  },
+  plugins = "config.plugins",
 
   colorscheme = {
     builtin = "habamax",

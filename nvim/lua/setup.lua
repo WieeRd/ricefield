@@ -4,6 +4,8 @@ local M = {}
 -- FEAT: add loaders - signs, lsp(diagnostics, keymaps)
 -- FEAT: add unloaders
 -- FEAT: add management commands
+-- FEAT: keep both original and evaluated config table
+-- NOTE: autolsp.nvim
 
 function M.tbl_or_mod(target)
   if type(target) == "table" then
@@ -98,12 +100,12 @@ function M.load_plugins(plugins)
     return false
   end
 
-  if not M.bool_or_func(plugins.bootstrap) then
-    return false
-  end
-
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.uv.fs_stat(lazypath) then
+    if not M.bool_or_func(plugins.bootstrap) then
+      return false
+    end
+
     vim.fn.system({
       "git",
       "clone",
