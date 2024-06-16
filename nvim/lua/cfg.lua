@@ -10,6 +10,14 @@ function M.tbl_or_mod(target)
   end
 end
 
+function M.bool_or_func(target)
+  if type(target) == "function" then
+    return target()
+  else
+    return target
+  end
+end
+
 function M.load_globals(globals)
   local g = vim.g
 
@@ -81,14 +89,41 @@ function M.load_commands(commands)
   end
 end
 
+function M.load_plugins(plugins)
+  if not M.bool_or_func(plugins.enabled) then
+    return false
+  end
+
+  if not M.bool_or_func(plugins.bootstrap) then
+    return false
+  end
+
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.uv.fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim",
+      lazypath,
+    })
+  end
+
+  vim.opt.runtimepath:prepend(lazypath)
+  require("lazy").setup(plugins.spec, plugins.opts)
+
+  return true
+end
+
 function M.setup(cfg)
-  cfg = cfg or {}
+  cfg = M.tbl_or_mod(cfg or {})
 
   M.load_globals(M.tbl_or_mod(cfg.globals or {}))
   M.load_options(M.tbl_or_mod(cfg.options or {}))
   M.load_keymaps(M.tbl_or_mod(cfg.keymaps or {}))
   M.load_autocmds(M.tbl_or_mod(cfg.autocmds or {}))
   M.load_commands(M.tbl_or_mod(cfg.commands or {}))
+  M.load_plugins(M.tbl_or_mod(cfg.plugins or {}))
 
   vim.cmd.colorscheme(cfg.colorscheme or "default")
 end

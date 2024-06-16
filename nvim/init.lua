@@ -8,5 +8,12 @@ require("cfg").setup({
   autocmds = "core.autocmds",
   commands = "core.commands",
 
+  plugins = {
+    enabled = true,
+    bootstrap = true,
+    spec = {},
+    opts = {},
+  },
+
   colorscheme = "habamax",
 })
