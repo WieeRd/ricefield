@@ -1,6 +1,10 @@
 local vim = vim
 local M = {}
 
+-- FEAT: add loaders - signs, lsp(diagnostics, keymaps)
+-- FEAT: add unloaders
+-- FEAT: add management commands
+
 function M.tbl_or_mod(target)
   if type(target) == "table" then
     return target
@@ -123,9 +127,12 @@ function M.setup(cfg)
   M.load_keymaps(M.tbl_or_mod(cfg.keymaps or {}))
   M.load_autocmds(M.tbl_or_mod(cfg.autocmds or {}))
   M.load_commands(M.tbl_or_mod(cfg.commands or {}))
-  M.load_plugins(M.tbl_or_mod(cfg.plugins or {}))
 
-  vim.cmd.colorscheme(cfg.colorscheme or "default")
+  if M.load_plugins(M.tbl_or_mod(cfg.plugins or {})) then
+    vim.cmd.colorscheme(cfg.colorscheme.plugin or "default")
+  else
+    vim.cmd.colorscheme(cfg.colorscheme.builtin or "default")
+  end
 end
 
 return M

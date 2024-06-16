@@ -11,9 +11,27 @@ require("cfg").setup({
   plugins = {
     enabled = true,
     bootstrap = true,
-    spec = {},
+    spec = {
+      {
+        "rebelot/kanagawa.nvim",
+        opts = {
+          colors = {
+            theme = {
+              all = {
+                ui = {
+                  bg_gutter = "none",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     opts = {},
   },
 
-  colorscheme = "habamax",
+  colorscheme = {
+    builtin = "habamax",
+    plugin = "kanagawa",
+  },
 })
