@@ -1,12 +1,12 @@
 local vim = vim
 vim.loader.enable()
 
-require("cfg").setup({
+require("setup").setup({
   globals = { mapleader = " " },
-  options = "core.options",
-  keymaps = "core.keymaps",
-  autocmds = "core.autocmds",
-  commands = "core.commands",
+  options = "config.options",
+  keymaps = "config.keymaps",
+  autocmds = "config.autocmds",
+  commands = "config.commands",
 
   plugins = {
     enabled = true,
