@@ -26,7 +26,6 @@ end
 
 function M.load_globals(globals)
   local g = vim.g
-
   for name, value in pairs(globals) do
     g[name] = value
   end
@@ -34,7 +33,6 @@ end
 
 function M.load_options(options)
   local opt = vim.opt
-
   for name, value in pairs(options) do
     opt[name] = value
   end
@@ -95,6 +93,13 @@ function M.load_commands(commands)
   end
 end
 
+function M.load_signs(signs)
+  local sign_define = vim.fn.sign_define
+  for name, attr in pairs(signs) do
+    sign_define(name, attr)
+  end
+end
+
 function M.load_plugins(plugins)
   if not M.bool_or_func(plugins.enabled) then
     return false
@@ -129,6 +134,7 @@ function M.setup(cfg)
   M.load_keymaps(M.tbl_or_mod(cfg.keymaps or {}))
   M.load_autocmds(M.tbl_or_mod(cfg.autocmds or {}))
   M.load_commands(M.tbl_or_mod(cfg.commands or {}))
+  M.load_signs(M.tbl_or_mod(cfg.signs or {}))
 
   if M.load_plugins(M.tbl_or_mod(cfg.plugins or {})) then
     vim.cmd.colorscheme(cfg.colorscheme.plugin or "default")
