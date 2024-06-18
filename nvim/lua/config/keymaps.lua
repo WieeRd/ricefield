@@ -18,13 +18,10 @@ return {
     ["<Leader>t."] = "<Cmd>term<CR>",
     ["<Leader>ts"] = "<Cmd>split +term<CR>",
     ["<Leader>tv"] = "<Cmd>vsplit +term<CR>",
-    ["<Leader>tt"] = "<Cmd>tab term<CR>",
+    ["<Leader>t<Tab>"] = "<Cmd>tab term<CR>",
 
     ["<Leader>="] = ":lua =",
-
-    -- very magic, very nomagic (:h /magic)
-    ["g/"] = { "/\\v", desc = "regex search" },
-    ["g?"] = { "/\\V", desc = "literal search" },
+    ["<Leader>h"] = ":h ",
 
     -- tabpage management
     ["]t"] = "gt",
@@ -55,11 +52,19 @@ return {
   },
 
   [MOTION] = {
+    ["<Leader>"] = "<Nop>",
+
     -- move based on display lines rather than real lines
     ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
     ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+
+    -- I hate the semi-regex 'magic' search mode (:h /magic)
+    ["/"] = { "/\\V", desc = "literal search" },
+    ["?"] = { "/\\V", desc = "literal reverse search" },
+    ["g/"] = { "/\\v", desc = "regex search" },
+    ["g?"] = { "?\\v", desc = "regex reverse search" },
 
     -- delete without worrying about yanked content
     ["yp"] = [["0p]], -- paste from yank register
@@ -82,6 +87,7 @@ return {
   [TEXTOBJ] = {
     ["."] = "iw",
     [","] = "aW",
+
     ["ae"] = function()
       vim.cmd("norm! m'vV")
       vim.cmd("keepjumps 0")
