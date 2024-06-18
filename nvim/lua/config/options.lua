@@ -9,7 +9,7 @@ return {
   -- CursorHold event delay
   updatetime = 150,
   -- keymap sequence delay
-  timeoutlen = 300,
+  timeoutlen = 400,
 
   -- what to save in session files
   -- FIX: loading folds frequently fail when using semantic folding methods
@@ -47,16 +47,19 @@ return {
   relativenumber = true,
   numberwidth = 3,
 
-  -- scroll / line wrapping
+  -- scrolling
   scrolloff = 7,
   sidescrolloff = 5,
-  wrap = false,
   smoothscroll = true,
   virtualedit = "block",
 
+  -- cursorline
+  cursorline = true,
+  cursorlineopt = "number",
+
   -- special characters
   list = false,
-  listchars = { eol = "↲", tab = "» ", trail = "•" },
+  listchars = { eol = "↲", tab = "󰌒 ", trail = "•" },
   fillchars = {
     diff = " ",
     eob = " ",
@@ -85,9 +88,17 @@ return {
   shiftround = true,
   smartindent = true,
 
+  -- line wrapping
+  wrap = false,
+  showbreak = " ",
+  linebreak = true,
+  breakindent = true,
+  -- FEAT: LATER: sync shift value to 'shiftwidth'
+  -- breakindentopt = { "shift:4", "sbr" },
+
   -- spell
   spelllang = "en",
   spelloptions = "camel",
 
-  -- FEAT: `:h 'diffopt'`
+  -- FEAT: LATER: adjust diff options (:h 'diffopt`)
 }
