@@ -12,37 +12,31 @@ return {
 
   [NORMAL] = {
     -- frequently used commands
-    ["<Leader>w"] = "<Cmd>silent update<CR>",
-    ["<Leader>W"] = "<Cmd>silent wall<CR>",
+    ["<C-s>"] = "<Cmd>silent update<CR>",
+    ["<Leader>h"] = { ":h ", desc = ":help" },
+    ["<Leader>="] = { ":lua =", desc = ":lua" },
 
-    ["<Leader>t."] = "<Cmd>term<CR>",
-    ["<Leader>ts"] = "<Cmd>split +term<CR>",
-    ["<Leader>tv"] = "<Cmd>vsplit +term<CR>",
-    ["<Leader>t<Tab>"] = "<Cmd>tab term<CR>",
-
-    ["<Leader>="] = ":lua =",
-    ["<Leader>h"] = ":h ",
+    -- +term: open embedded terminal
+    ["<Leader>t."] = { "<Cmd>term<CR>", desc = "Current Window" },
+    ["<Leader>ts"] = { "<Cmd>split +term<CR>", desc = "Horizontal Split" },
+    ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>", desc = "Vertical Split" },
+    ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>", desc = "New Tabpage" },
 
     -- tabpage management
-    ["]t"] = "gt",
-    ["[t"] = "gT",
+    ["+"] = "<Cmd>tabnew<CR>",
+    ["-"] = "<Cmd>tabclose<CR>",
+    ["_"] = "<Cmd>tabonly<CR>",
+
+    -- {count}<Tab> opens tabpage {count}
+    -- FEAT: MAYBE: on-demand tabpage auto creation
+    ["<Tab>"] = { "v:count == 0 ? '<C-i>' : 'gt'", expr = true },
+
+    ["]t"] = "<Cmd>tabnext<CR>",
+    ["[t"] = "<Cmd>tabprevious<CR>",
     ["]T"] = "<Cmd>tabmove +1<CR>",
     ["[T"] = "<Cmd>tabmove -1<CR>",
 
-    ["<Leader>1"] = "1gt",
-    ["<Leader>2"] = "2gt",
-    ["<Leader>3"] = "3gt",
-    ["<Leader>4"] = "4gt",
-    ["<Leader>5"] = "5gt",
-    ["<Leader>6"] = "6gt",
-    ["<Leader>7"] = "7gt",
-    ["<Leader>8"] = "8gt",
-    ["<Leader>9"] = "9gt",
-
-    ["<Leader>+"] = "<Cmd>tabnew<CR>",
-    ["<Leader>-"] = "<Cmd>tabclose<CR>",
-    ["<Leader>0"] = "<Cmd>tabonly<CR>",
-
+    -- fzf package provides simple fuzzy finder plugin
     ["<C-p>"] = "<Cmd>FZF<CR>",
   },
 
@@ -61,14 +55,10 @@ return {
     ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
 
     -- I hate the semi-regex 'magic' search mode (:h /magic)
-    ["/"] = { "/\\V", desc = "literal search" },
-    ["?"] = { "/\\V", desc = "literal reverse search" },
-    ["g/"] = { "/\\v", desc = "regex search" },
-    ["g?"] = { "?\\v", desc = "regex reverse search" },
-
-    -- delete without worrying about yanked content
-    ["yp"] = [["0p]], -- paste from yank register
-    ["yd"] = [["0d]], -- delete into yank register
+    ["/"] = { "/\\V", desc = "Literal Search" },
+    ["?"] = { "/\\V", desc = "Reverse Literal Search" },
+    ["g/"] = { "/\\v", desc = "Regex Search" },
+    ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
 
     -- yes I use colemak, how could you tell?
     ["<C-w>n"] = "<C-w>j",
@@ -85,14 +75,17 @@ return {
   },
 
   [TEXTOBJ] = {
-    ["."] = "iw",
-    [","] = "aW",
+    ["."] = { "iw", desc = "inner word" },
+    [","] = { "aW", desc = "a WORD (with white space)" },
 
-    ["ae"] = function()
-      vim.cmd("norm! m'vV")
-      vim.cmd("keepjumps 0")
-      vim.cmd("norm! o")
-      vim.cmd("keepjumps $")
-    end,
+    ["ae"] = {
+      function()
+        vim.cmd("norm! m'vV")
+        vim.cmd("keepjumps 0")
+        vim.cmd("norm! o")
+        vim.cmd("keepjumps $")
+      end,
+      desc = "Entire Buffer",
+    },
   },
 }
