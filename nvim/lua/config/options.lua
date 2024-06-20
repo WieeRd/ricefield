@@ -26,6 +26,9 @@ return {
     "winsize",
   },
 
+  -- stack-like jumplist and preserve the viewport upon jumping
+  jumpoptions = { "stack", "view" },
+
   -- window splits
   splitright = true,
   splitbelow = false,
@@ -89,8 +92,8 @@ return {
   smartindent = true,
 
   -- line wrapping
-  wrap = false,
-  showbreak = " ",
+  wrap = true,
+  showbreak = "↪ ",
   linebreak = true,
   breakindent = true,
   -- FEAT: LATER: sync shift value to 'shiftwidth'

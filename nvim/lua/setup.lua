@@ -115,7 +115,7 @@ function M.load_plugins(plugins)
       "git",
       "clone",
       "--filter=blob:none",
-      "https://github.com/folke/lazy.nvim",
+      "https://github.com/folke/lazy.nvim.git",
       lazypath,
     })
   end

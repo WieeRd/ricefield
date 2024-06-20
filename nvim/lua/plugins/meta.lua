@@ -11,7 +11,7 @@ return {
     event = "VeryLazy",
     opts = {
       -- top, right, bottom, left
-      window = { margin = { 1, 0.2, 1, 0.2 }, },
+      window = { margin = { 1, 0.2, 1, 0.2 } },
       layout = { align = "center" },
     },
     config = function(_, opts)

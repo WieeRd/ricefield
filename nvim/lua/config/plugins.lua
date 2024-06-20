@@ -15,5 +15,8 @@ return {
       enabled = true,
       notify = false,
     },
+    performance = {
+      rtp = { reset = false },
+    },
   },
 }

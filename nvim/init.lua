@@ -8,7 +8,6 @@ require("setup").setup({
   autocmds = "config.autocmds",
   commands = "config.commands",
   plugins = "config.plugins",
-
   colorscheme = {
     builtin = "habamax",
     plugin = "kanagawa",

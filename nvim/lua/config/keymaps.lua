@@ -17,10 +17,10 @@ return {
     ["<Leader>="] = { ":lua =", desc = ":lua" },
 
     -- +term: open embedded terminal
-    ["<Leader>t."] = { "<Cmd>term<CR>", desc = "Current Window" },
-    ["<Leader>ts"] = { "<Cmd>split +term<CR>", desc = "Horizontal Split" },
-    ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>", desc = "Vertical Split" },
-    ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>", desc = "New Tabpage" },
+    ["<Leader>t."] = { "<Cmd>term<CR>a", desc = "Current Window" },
+    ["<Leader>ts"] = { "<Cmd>split +term<CR>a", desc = "Horizontal Split" },
+    ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>a", desc = "Vertical Split" },
+    ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>a", desc = "New Tabpage" },
 
     -- tabpage management
     ["+"] = "<Cmd>tabnew<CR>",
