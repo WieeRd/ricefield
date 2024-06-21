@@ -1,7 +1,11 @@
+# FIX: MAYBE: Alacritty cannot recognize `Shift + Enter`
+# | https://github.com/alacritty/alacritty/issues/7256
+# | ^ looks like it may be fixable, but I've moved to Kitty already
+
 import = ["~/.config/alacritty/themes/kanagawa.toml"]
 
 [font]
-size = 10
+size = 12.3
 
 [font.bold]
 family = "Hack Nerd Font Mono"
@@ -19,21 +23,10 @@ style = "Italic"
 family = "Hack Nerd Font Mono"
 style = "Normal"
 
-[font.offset]
-x = 1
-y = 1
-
-
-# FIX: remove fullscreen keybind and use tiling wm
 [[keyboard.bindings]]
 action = "ToggleFullscreen"
 key = "Return"
 mods = "Alt"
-
-# FIX: LATER: Alacritty cannot recognize `Shift + Enter`
-# | https://github.com/alacritty/alacritty/issues/7256
-# | ^ looks like it may be fixable, but I've moved to Kitty already
-
 
 [mouse]
 hide_when_typing = true
