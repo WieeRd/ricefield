@@ -85,7 +85,7 @@ return {
   smartcase = true,
 
   -- tabs / indentation
-  expandtab = false,
+  expandtab = true,
   tabstop = 4,
   shiftwidth = 0,
   shiftround = true,
