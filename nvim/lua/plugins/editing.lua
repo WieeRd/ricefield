@@ -8,7 +8,7 @@ return {
         matchup = {
           enable = true,
           disable_virtual_text = true,
-        }
+        },
       })
     end,
   },
@@ -51,6 +51,25 @@ return {
     },
   },
 
+  -- current indentation level as a textobject
+  {
+    "kiyoon/treesitter-indent-object.nvim",
+    keys = {
+      { "ai", mode = { "o", "x" }, desc = "Around indented block" },
+      { "ii", mode = { "o", "x" }, desc = "Inner indented block" },
+    },
+    config = function()
+      local indentobj = require("treesitter_indent_object.textobj")
+      local map = vim.keymap.set
+      map({ "o", "x" }, "ai", function()
+        indentobj.select_indent_outer(true, "V")
+      end)
+      map({ "o", "x" }, "ii", function()
+        indentobj.select_indent_inner(false, "v")
+      end)
+    end,
+  },
+
   -- tree-sitter nodes as textobjects
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -65,13 +84,10 @@ return {
         enable = true,
         lookahead = true,
         keymaps = {
-          -- FIX: replace @block.* with context-aware indent textobject
           ["ac"] = "@class.outer",
           ["ic"] = "@class.inner",
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
-          ["ai"] = "@block.outer",
-          ["ii"] = "@block.inner",
         },
         include_surrounding_whitespace = function(args)
           return args.query_string:match(".outer$")
@@ -122,4 +138,11 @@ return {
     },
     opts = { use_default_keymaps = false },
   },
+
+  -- the year is 2024 and people still do not have .editorconfig in their repo
+  {
+    "nmac427/guess-indent.nvim",
+    event = "BufReadPre",
+    opts = {},
+  }
 }
