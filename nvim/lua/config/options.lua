@@ -29,6 +29,9 @@ return {
   -- stack-like jumplist and preserve the viewport upon jumping
   jumpoptions = { "stack", "view" },
 
+  -- always open all fold of new buffers
+  foldlevelstart = 99,
+
   -- window splits
   splitright = true,
   splitbelow = false,
@@ -96,7 +99,7 @@ return {
   showbreak = "↪ ",
   linebreak = true,
   breakindent = true,
-  -- FEAT: LATER: sync shift value to 'shiftwidth'
+  -- FEAT: MAYBE: sync shift value to 'shiftwidth'
   -- breakindentopt = { "shift:4", "sbr" },
 
   -- spell

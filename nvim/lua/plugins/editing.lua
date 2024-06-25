@@ -61,6 +61,8 @@ return {
     config = function()
       local indentobj = require("treesitter_indent_object.textobj")
       local map = vim.keymap.set
+      -- FEAT: include surrounding whitespace in `ai`
+      -- | kiyoon/treesitter-indent-object.nvim#3
       map({ "o", "x" }, "ai", function()
         indentobj.select_indent_outer(true, "V")
       end)

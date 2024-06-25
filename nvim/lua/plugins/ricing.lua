@@ -29,4 +29,28 @@ return {
       filetype_exclude = { "help", "markdown", "text", "gitcommit" },
     },
   },
+
+  -- smooth scrolling
+  {
+    "karb94/neoscroll.nvim",
+    keys = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "z" },
+    opts = {
+      mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "zt", "zz", "zb" },
+      hide_cursor = false,
+      easing = "quadratic",
+    },
+  },
+
+  -- fancy folding powered by LSP/TS
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    opts = {
+      provider_selector = function(bufnr, filetype, buftype)
+        return { "treesitter", "indent" }
+      end,
+      -- FEAT: MAYBE: custom fold text
+      -- | fold_virt_text_handler = nil,
+    },
+  },
 }
