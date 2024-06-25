@@ -42,8 +42,8 @@ return {
   {
     "echasnovski/mini.ai",
     keys = {
-      { "a", mode = { "o", "x" } },
-      { "i", mode = { "o", "x" } },
+      { "a", mode = { "x", "o" } },
+      { "i", mode = { "x", "o" } },
     },
     opts = {
       n_lines = 500,
@@ -55,18 +55,18 @@ return {
   {
     "kiyoon/treesitter-indent-object.nvim",
     keys = {
-      { "ai", mode = { "o", "x" }, desc = "Around indented block" },
-      { "ii", mode = { "o", "x" }, desc = "Inner indented block" },
+      { "ai", mode = { "x", "o" }, desc = "Around indented block" },
+      { "ii", mode = { "x", "o" }, desc = "Inner indented block" },
     },
     config = function()
       local indentobj = require("treesitter_indent_object.textobj")
       local map = vim.keymap.set
       -- FEAT: include surrounding whitespace in `ai`
       -- | kiyoon/treesitter-indent-object.nvim#3
-      map({ "o", "x" }, "ai", function()
+      map({ "x", "o" }, "ai", function()
         indentobj.select_indent_outer(true, "V")
       end)
-      map({ "o", "x" }, "ii", function()
+      map({ "x", "o" }, "ii", function()
         indentobj.select_indent_inner(false, "v")
       end)
     end,
@@ -76,10 +76,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     keys = {
-      { "a", mode = { "o", "x" } },
-      { "i", mode = { "o", "x" } },
-      { "]", mode = { "n", "x" } },
-      { "[", mode = { "n", "x" } },
+      { "a", mode = { "x", "o" } },
+      { "i", mode = { "x", "o" } },
+      { "]", mode = { "n", "x", "o" } },
+      { "[", mode = { "n", "x", "o" } },
     },
     opts = {
       select = {

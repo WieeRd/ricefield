@@ -5,6 +5,25 @@ return {
   -- opt-in neovim stdlib at this point
   { "nvim-lua/plenary.nvim" },
 
+  -- install and manage tree-sitter parsers and modules
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    main = "nvim-treesitter.configs",
+    opts = {
+      ensure_installed = {
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "vim",
+        "vimdoc",
+      },
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+  },
+
   -- keymap cheatsheets
   {
     "folke/which-key.nvim",
@@ -20,27 +39,6 @@ return {
       wk.register({
         ["<Leader>t"] = { name = "term" },
       })
-    end,
-  },
-
-  -- install and manage tree-sitter parsers and modules
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    opts = {
-      ensure_installed = {
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "vim",
-        "vimdoc",
-      },
-      auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 }
