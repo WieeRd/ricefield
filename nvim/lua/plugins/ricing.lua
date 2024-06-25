@@ -46,11 +46,24 @@ return {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     opts = {
+      -- FEAT: MAYBE: custom fold text
+      -- | fold_virt_text_handler = nil,
       provider_selector = function(bufnr, filetype, buftype)
         return { "treesitter", "indent" }
       end,
-      -- FEAT: MAYBE: custom fold text
-      -- | fold_virt_text_handler = nil,
     },
+    config = function(_, opts)
+      local ufo = require("ufo")
+      local map = vim.keymap.set
+      -- FIX: LATER: implement default-ish zr/zm behavior
+      -- | kevinhwang91/nvim-ufo#150
+      ufo.setup(opts)
+      map("n", "zR", ufo.openAllFolds)
+      map("n", "zM", ufo.closeAllFolds)
+      map("n", "zr", ufo.openFoldsExceptKinds)
+      map("n", "zm", ufo.closeFoldsWith)
+      map("n", "z[", ufo.goPreviousClosedFold)
+      map("n", "z]", ufo.goNextClosedFold)
+    end
   },
 }
