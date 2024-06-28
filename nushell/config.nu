@@ -91,10 +91,8 @@ $env.config = {
 
     hooks: {
         pre_prompt: [{ direnv export json | from json | default {} | load-env }]
-        display_output: {
-            # FEAT: auto paging, save last command result
-            table -e | into string | less -FR err> /dev/null
-        }
+        # FEAT: auto paging, save last command result
+        # display_output: { table -e | into string | less -FR err> /dev/null }
         # FEAT: ls on pwd change?
         # env_change: {
         #     PWD: [{|before, after| null }]
@@ -176,6 +174,32 @@ $env.config = {
     ]
 }
 
+# Basically `z` but child dirs instead of frequently visited
+def --env __fuzzy_cd [search: string] {
+    fd --type directory
+    | fzf --scheme path --filter $search
+    | head -n1
+    | cd $in
+}
+
+# Basically `zi` but child dirs instead of frequently visited
+def --env __interactive_cd [] {
+    let prevcmd = "eza --icons --group-directories-first --sort=extension --color=always {}"
+    fd --type directory
+    | fzf --scheme path --height 45% --preview-window down,30% --preview $prevcmd
+    | cd $in
+}
+
+# Fuzzy & Interactive `cd` using `fd` and `fzf`
+def --env c [search?: string] {
+    if $search != null {
+        __fuzzy_cd $search
+    } else {
+        __interactive_cd
+    }
+}
+
+# Parses `git log` result into a Nushell table
 def git-log [n: int = 999] {
     ^git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n $n
     | lines
@@ -201,21 +225,19 @@ alias lt = eza --tree --level 2 --git-ignore
 alias g = git
 alias v = nvim
 alias x = do --env { cd (xplr --print-pwd-as-result) }
-alias c = do --env {
-    fd --type directory
-    | fzf --preview="eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git --long --color=always {}"
-    | cd $in
-}
+
+alias clip = xclip -selection clipboard
 
 alias sctl = sudo systemctl
 alias uctl = systemctl --user
 alias jctl = journalctl
 
-alias clip = xclip -selection clipboard
-
-# FEAT: move aliases for the kitty kittens to a separate script
+# FIX: LATER: set kitty specific aliases only if $env.TERM == "xterm-kitty"
+# | conditional alias is not supported as of v0.94.2 (nushell/nushell#5068)
 alias ssh = kitty +kitten ssh
+alias icat = kitty +kitten icat
 
+# FIX: ASAP: atuin is getting significantly slower
 source atuin.nu
 source starship.nu
 source zoxide.nu
