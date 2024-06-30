@@ -2,6 +2,7 @@
 
 [include]
 	path = delta
+	path = lfs
 	path = maintenance
 
 [user]
@@ -10,7 +11,6 @@
 
 [core]
 	editor = nvim
-
 
 [init]
 	defaultBranch = master
@@ -21,12 +21,14 @@
 [diff]
 	colorMoved = default
 	algorithm = histogram
+	submodule = log
 
 [pull]
-	rebase = true
+	rebase = false
 
 [push]
 	default = current
+	autoSetupRemote = true
 
 [merge]
 	autoStash = true
@@ -41,15 +43,16 @@
 [help]
 	autoCorrect = prompt
 
-
 [alias]
     s = status
     d = diff
+	a = add
     c = commit
 
     b = branch
 	sw = switch
 	sc = switch --create
+	sd = switch --detach
 
     m = merge
 	ms = merge --squash
@@ -66,13 +69,7 @@
 	partial = clone --filter=blob:none
 	dwarf = clone --filter=tree:0  # what are you, a bloody leaf lover?
 
+	l = log
+    lg = log --oneline --graph  # FEAT: show author and relative date
     ls = ls-tree -r --name-only HEAD
-    lg = log --oneline --graph
 	who = blame -w -C -C -C
-
-
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
