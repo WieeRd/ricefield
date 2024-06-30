@@ -11,11 +11,11 @@ Welcome to my rice field, nerd.
 
 ## Deployment
 
-I honestly got tired of gimmicks and hassles of so called "dotfiles managers".
+I got tired of gimmicks and hassles of so called "dotfiles managers".
 
-This repository is now simply a `$HOME/.config` directory managed by Git.
+This repository is now simply a `~/.config` directory managed by Git.
 
-```bash
+```text
 git clone https://github.com/WieeRd/ricefield ~/.config
 ```
 
@@ -23,7 +23,13 @@ Should be enough to get things started.
 
 ## The Workflow
 
-I will (try to) document things later (hopefully).
+I will (try to) document things in detail later (hopefully).
+
+- OS: Arch Linux
+- WM: Qtile
+- Terminal: Kitty
+- Shell: Nushell
+- Editor: Neovim
 
 ## License
 
