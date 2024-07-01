@@ -9,6 +9,7 @@ return {
   -- my absolute favorite since June 2022, had to drop the said tradition
   {
     "rebelot/kanagawa.nvim",
+    priority = 1831,
     opts = {
       compile = true,
       colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
@@ -26,7 +27,19 @@ return {
       context_char = "┊",
       show_current_context = true,
       use_treesitter = true,
-      filetype_exclude = { "help", "markdown", "text", "gitcommit" },
+      filetype_exclude = {
+        "fugitive",
+        "gitcommit",
+        "help",
+        "markdown",
+        "text",
+      },
+      buftype_exclude = {
+        "nofile",
+        "prompt",
+        "quickfix",
+        "terminal",
+      },
     },
   },
 
@@ -64,6 +77,6 @@ return {
       map("n", "zm", ufo.closeFoldsWith)
       map("n", "z[", ufo.goPreviousClosedFold)
       map("n", "z]", ufo.goNextClosedFold)
-    end
+    end,
   },
 }

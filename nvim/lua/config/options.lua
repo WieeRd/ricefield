@@ -98,9 +98,8 @@ return {
   wrap = true,
   showbreak = "↪ ",
   linebreak = true,
+  breakat = " 	!;:,./?",
   breakindent = true,
-  -- FEAT: MAYBE: sync shift value to 'shiftwidth'
-  -- breakindentopt = { "shift:4", "sbr" },
 
   -- spell
   spelllang = "en",
