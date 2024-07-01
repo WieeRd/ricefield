@@ -41,7 +41,7 @@ do {
     mkdir $env.NU_TMP_DIR
     cd $env.NU_TMP_DIR
 
-    atuin init nu | save -f atuin.nu
+    atuin init nu --disable-up-arrow | save -f atuin.nu
     starship init nu | save -f starship.nu
     zoxide init nushell | save -f zoxide.nu
 }

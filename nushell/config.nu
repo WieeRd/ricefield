@@ -174,7 +174,7 @@ $env.config = {
     ]
 }
 
-# Basically `z` but child dirs instead of frequently visited
+# Basically `z` but child dirs instead of frequently visited dirs
 def --env __fuzzy_cd [search: string] {
     fd --type directory
     | fzf --scheme path --filter $search
@@ -182,7 +182,7 @@ def --env __fuzzy_cd [search: string] {
     | cd $in
 }
 
-# Basically `zi` but child dirs instead of frequently visited
+# Basically `zi` but child dirs instead of frequently visited dirs
 def --env __interactive_cd [] {
     let prevcmd = "eza --icons --group-directories-first --sort=extension --color=always {}"
     fd --type directory
@@ -238,6 +238,7 @@ alias ssh = kitty +kitten ssh
 alias icat = kitty +kitten icat
 
 # FIX: ASAP: atuin is getting significantly slower
+# | https://github.com/atuinsh/atuin/issues/2208
 source atuin.nu
 source starship.nu
 source zoxide.nu
