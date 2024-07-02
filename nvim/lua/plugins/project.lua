@@ -66,21 +66,24 @@ return {
         desc = "Next Change",
       },
       {
-        "<Leader>gi",
+        "<Leader>go",
         function()
-          local actions = require("gitsigns").get_actions() or {}
-          local hunk_or_blame = actions.preview_hunk or actions.blame_line
-          return hunk_or_blame and hunk_or_blame({
-            ignore_whitespace = true,
-            extra_opts = { "-C", "-C", "-C" },
-          })
+          local acts = require("gitsigns").get_actions() or {}
+          if acts.preview_hunk then
+            acts.preview_hunk()
+          elseif acts.blame_line then
+            acts.blame_line({
+              ignore_whitespace = true,
+              extra_opts = { "-C", "-C", "-C" },
+            })
+          end
         end,
-        desc = "Preview Hunk/Blame",
+        desc = "Hunk or Blame",
       },
       {
         "<Leader>g+",
         "<Cmd>Gitsigns toggle_signs<CR>",
-        desc = "Toggle Signs"
+        desc = "Toggle Signs",
       },
       {
         "<Leader>g=",
@@ -101,6 +104,46 @@ return {
       signs_staged_enable = false,
       current_line_blame_opts = { delay = 100 },
       preview_config = { border = "solid", row = 1, col = 1 },
+    },
+  },
+
+  -- cycle through split view of `git diff` and `git log`
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      {
+        "<Leader>gd",
+        "<Cmd>DiffviewOpen --untracked-files=false<CR>",
+        desc = "Diff",
+      },
+      {
+        "<Leader>gl",
+        "<Cmd>DiffviewFileHistory %<CR>",
+        desc = "File Revisions",
+      },
+      {
+        "<Leader>gl",
+        "<Cmd>'<,'>DiffviewFileHistory<CR>",
+        mode = "x",
+        desc = "Range Revisions",
+      },
+      {
+        "<Leader>gL",
+        "<Cmd>DiffviewFileHistory<CR>",
+        desc = "Project Revisions",
+      },
+    },
+    opts = {
+      enhanced_diff_hl = true,
+      hooks = {
+        diff_buf_read = function(_)
+          vim.wo.cursorline = true
+          vim.wo.cursorlineopt = "both"
+          vim.wo.relativenumber = false
+          vim.wo.wrap = false
+        end,
+      },
     },
   },
 }
