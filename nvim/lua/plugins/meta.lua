@@ -5,6 +5,9 @@ return {
   -- opt-in neovim stdlib at this point
   { "nvim-lua/plenary.nvim" },
 
+  -- filetype to nerd fonts icon mapping
+  { "nvim-tree/nvim-web-devicons" },
+
   -- install and manage tree-sitter parsers and modules
   {
     "nvim-treesitter/nvim-treesitter",
@@ -37,6 +40,7 @@ return {
       local wk = require("which-key")
       wk.setup(opts)
       wk.register({
+        ["<Leader>g"] = { name = "git" },
         ["<Leader>t"] = { name = "term" },
       })
     end,
