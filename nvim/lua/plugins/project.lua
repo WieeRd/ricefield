@@ -3,77 +3,104 @@ return {
   {
     "tpope/vim-fugitive",
     cmd = "G",
-    keys = { { "<Leader>gi", "<Cmd>tab G<CR>", desc = "Status" } },
+    keys = { { "<Leader>g<Tab>", "<Cmd>tab G<CR>", desc = "Status" } },
   },
 
   -- display and stage/restore hunks in the buffer
   {
     "lewis6991/gitsigns.nvim",
+    lazy = false,
+    keys = {
+      {
+        "<Leader>gR",
+        "<Cmd>Gitsigns reset_buffer<CR>",
+        desc = "Restore File",
+      },
+      {
+        "<Leader>gS",
+        "<Cmd>Gitsigns stage_buffer<CR>",
+        desc = "Stage File",
+      },
+      {
+        "<Leader>gU",
+        "<Cmd>Gitsigns reset_buffer_index<CR>",
+        desc = "Unstage File",
+      },
+      {
+        "<Leader>gr",
+        ":Gitsigns reset_hunk<CR>",
+        mode = { "n", "x" },
+        desc = "Restore Hunk",
+      },
+      {
+        "<Leader>gs",
+        ":Gitsigns stage_hunk<CR>",
+        mode = { "n", "x" },
+        desc = "Stage Hunk",
+      },
+      {
+        "<Leader>gu",
+        "<Cmd>Gitsigns undo_stage_hunk<CR>",
+        desc = "Unstage Hunk",
+      },
+      {
+        "ah",
+        "<Cmd>Gitsigns select_hunk<CR>",
+        mode = { "x", "o" },
+        desc = "a Hunk",
+      },
+      {
+        "]c",
+        function()
+          return vim.wo.diff and "]c" or "<Cmd>Gitsigns next_hunk<CR>"
+        end,
+        expr = true,
+        desc = "Next Change",
+      },
+      {
+        "[c",
+        function()
+          return vim.wo.diff and "[c" or "<Cmd>Gitsigns prev_hunk<CR>"
+        end,
+        expr = true,
+        desc = "Next Change",
+      },
+      {
+        "<Leader>gi",
+        function()
+          local actions = require("gitsigns").get_actions() or {}
+          local hunk_or_blame = actions.preview_hunk or actions.blame_line
+          return hunk_or_blame and hunk_or_blame({
+            ignore_whitespace = true,
+            extra_opts = { "-C", "-C", "-C" },
+          })
+        end,
+        desc = "Preview Hunk/Blame",
+      },
+      {
+        "<Leader>g+",
+        "<Cmd>Gitsigns toggle_signs<CR>",
+        desc = "Toggle Signs"
+      },
+      {
+        "<Leader>g=",
+        "<Cmd>Gitsigns toggle_linehl<CR>",
+        desc = "Toggle Highlights",
+      },
+      {
+        "<Leader>gb",
+        "<Cmd>Gitsigns toggle_current_line_blame<CR>",
+        desc = "Toggle Blame",
+      },
+    },
     opts = {
       signs = {
         add = { text = "▎" },
         change = { text = "▎" },
       },
-      -- FIX: need more distinguishable and prettier staged signs
       signs_staged_enable = false,
       current_line_blame_opts = { delay = 100 },
       preview_config = { border = "solid", row = 1, col = 1 },
     },
-    config = function(_, opts)
-      local gs = require("gitsigns")
-      local map = vim.keymap.set
-      gs.setup(opts)
-
-      -- buffer actions
-      map("n", "<Leader>gR", gs.reset_buffer, { desc = "Restore File" })
-      map("n", "<Leader>gS", gs.stage_buffer, { desc = "Stage File" })
-      map("n", "<Leader>gU", gs.reset_buffer_index, { desc = "Unstage File" })
-
-      -- hunk actions
-      map(
-        { "n", "x" },
-        "<Leader>gr",
-        ":Gitsigns reset_hunk<CR>",
-        { desc = "Restore Hunk" }
-      )
-      map(
-        { "n", "x" },
-        "<Leader>gs",
-        ":Gitsigns stage_hunk<CR>",
-        { desc = "Stage Hunk" }
-      )
-      map(
-        { "n", "x" },
-        "<Leader>gu",
-        ":Gitsigns undo_stage_hunk<CR>",
-        { desc = "Unstage Hunk" }
-      )
-
-      -- hunk textobject & motions
-      map({ "o", "x" }, "ah", gs.select_hunk, { desc = "a Hunk" })
-      map("n", "]c", function()
-        return vim.wo.diff and "]c" or "<Cmd>Gitsigns next_hunk<CR>"
-      end, { expr = true, desc = "Next Change" })
-      map("n", "[c", function()
-        return vim.wo.diff and "[c" or "<Cmd>Gitsigns prev_hunk<CR>"
-      end, { expr = true, desc = "Prev Change" })
-
-      -- toggle features
-      map("n", "<Leader>g+", gs.toggle_signs, { desc = "Toggle Signs" })
-      map("n", "<Leader>g=", gs.toggle_linehl, { desc = "Toggle Highlights" })
-      map(
-        "n",
-        "<Leader>gb",
-        gs.toggle_current_line_blame,
-        { desc = "Toggle Blame" }
-      )
-
-      -- hunk/blame are mutually exclusive
-      map("n", "<Leader>gp", function()
-        local acts = gs.get_actions() or {}
-        local cmd = acts.blame_line or acts.preview_hunk
-        return cmd and cmd()
-      end, { desc = "Preview Hunk/Blame" })
-    end,
   },
 }
