@@ -44,7 +44,7 @@ return {
   -- cmdline
   showcmd = false,
   showmode = false,
-  shortmess = "fTOicoltxFn",
+  shortmess = "aoOscCF",
 
   -- 'gutter' section
   signcolumn = "auto",

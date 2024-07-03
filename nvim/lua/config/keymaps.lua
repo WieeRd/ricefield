@@ -13,8 +13,9 @@ return {
   [NORMAL] = {
     -- frequently used commands
     ["<C-s>"] = "<Cmd>silent update<CR>",
-    ["<Leader>h"] = { ":h ", desc = ":help" },
     ["<Leader>="] = { ":lua =", desc = ":lua" },
+    ["<Leader>\\"] = { ":vert ", desc = ":vert" },
+    ["<Leader><Tab>"] = { ":tab ", desc = ":tab" },
 
     -- +term: open embedded terminal
     ["<Leader>t."] = { "<Cmd>term<CR>a", desc = "Current Window" },
@@ -23,9 +24,9 @@ return {
     ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>a", desc = "New Tabpage" },
 
     -- tabpage management
-    ["+"] = "<Cmd>tabnew<CR>",
-    ["-"] = "<Cmd>tabclose<CR>",
-    ["_"] = "<Cmd>tabonly<CR>",
+    ["<Leader>+"] = "<Cmd>tabnew<CR>",
+    ["<Leader>-"] = "<Cmd>tabclose<CR>",
+    ["<Leader>_"] = "<Cmd>tabonly<CR>",
 
     -- {count}<Tab> opens tabpage {count}
     -- FEAT: MAYBE: fixed number of pre-created tabpages
@@ -61,19 +62,23 @@ return {
   [MOTION] = {
     ["<Leader>"] = "<Nop>",
 
-    -- move based on display lines rather than real lines
-    -- WARN: the `g` variants are character-wise when used as an operator
-    -- ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
-    -- ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
-    -- ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
-    -- ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
-
     -- I hate the semi-regex 'magic' search mode (:h /magic)
     ["/"] = { "/\\V", desc = "Literal Search" },
     ["?"] = { "/\\V", desc = "Reverse Literal Search" },
     ["g/"] = { "/\\v", desc = "Regex Search" },
     ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
   },
+
+  [{ "n", "x" }] = {
+    -- move based on display (wrapped) lines rather than real lines
+    -- NOTE: excluded from :omap due to `g` variants being a char-wise motions
+    -- | rather than line-wise, making `dj`, `yj` and etc confusing
+    ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+    ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+    ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+    ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+  },
+
 
   [TEXTOBJ] = {
     ["."] = { "iw", desc = "inner word" },

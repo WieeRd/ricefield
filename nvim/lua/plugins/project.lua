@@ -2,7 +2,7 @@ return {
   -- `:Git` wrapper command & interactive git status
   {
     "tpope/vim-fugitive",
-    cmd = "G",
+    event = "User GitSignsUpdate",
     keys = { { "<Leader>g<Tab>", "<Cmd>tab G<CR>", desc = "Status" } },
   },
 
