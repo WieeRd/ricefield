@@ -11,15 +11,13 @@ return {
   -- keymap sequence delay
   timeoutlen = 400,
 
-  -- what to save in session files
-  -- FIX: loading folds frequently fail when using semantic folding methods
-  -- | like treesitter foldexpr or LSP foldingRange with nvim-ufo.
-  -- | would be great if we can lazy load folds in sessions
+  -- what to save and restore through sessions
   sessionoptions = {
-    "blank",
     "curdir",
-    -- "folds",
+    "folds",
+    "globals",
     "help",
+    "skiprtp",
     "localoptions",
     "tabpages",
     "terminal",

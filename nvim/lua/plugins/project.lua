@@ -1,5 +1,29 @@
 return {
-  -- `:Git` wrapper command & interactive git status
+  -- autosave and restore sessions
+  -- FEAT: implement `:SessionSearch` using `vim.ui.select`
+  {
+    "olimorris/persisted.nvim",
+    priority = 0,
+    opts = {
+      autosave = true,
+      should_autosave = function()
+        return vim.g.persisted_exists or vim.fn.isdirectory(".git") == 1
+      end,
+      autoload = true,
+      on_autoload_no_session = function()
+        if
+          vim.uv.cwd() == vim.uv.os_homedir()
+          and vim.v.argv[#vim.v.argv] ~= "+Man!"
+        then
+          -- FIX: ASAP: breaks on startup if no session is available
+          -- vim.cmd("SessionLoadLast")
+        end
+      end,
+      follow_cwd = false,
+    },
+  },
+
+  -- `:G` wrapper command & interactive git status
   {
     "tpope/vim-fugitive",
     event = "User GitSignsUpdate",

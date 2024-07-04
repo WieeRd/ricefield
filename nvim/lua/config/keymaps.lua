@@ -13,6 +13,8 @@ return {
   [NORMAL] = {
     -- frequently used commands
     ["<C-s>"] = "<Cmd>silent update<CR>",
+    ["ZA"] = "<Cmd>xall<CR>",
+
     ["<Leader>="] = { ":lua =", desc = ":lua" },
     ["<Leader>\\"] = { ":vert ", desc = ":vert" },
     ["<Leader><Tab>"] = { ":tab ", desc = ":tab" },
@@ -78,7 +80,6 @@ return {
     ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
   },
-
 
   [TEXTOBJ] = {
     ["."] = { "iw", desc = "inner word" },
