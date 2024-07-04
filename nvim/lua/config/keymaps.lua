@@ -64,7 +64,7 @@ return {
 
     -- I hate the semi-regex 'magic' search mode (:h /magic)
     ["/"] = { "/\\V", desc = "Literal Search" },
-    ["?"] = { "/\\V", desc = "Reverse Literal Search" },
+    ["?"] = { "?\\V", desc = "Reverse Literal Search" },
     ["g/"] = { "/\\v", desc = "Regex Search" },
     ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
   },
