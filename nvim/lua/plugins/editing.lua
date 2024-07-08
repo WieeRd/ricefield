@@ -55,21 +55,27 @@ return {
   {
     "kiyoon/treesitter-indent-object.nvim",
     keys = {
-      { "ai", mode = { "x", "o" }, desc = "Around indented block" },
-      { "ii", mode = { "x", "o" }, desc = "Inner indented block" },
+      {
+        "ai",
+        function()
+          local indentobj = require("treesitter_indent_object.textobj")
+          local refiner = require("treesitter_indent_object.refiner")
+          indentobj.select_indent_outer(true, "V")
+          refiner.include_surrounding_empty_lines()
+        end,
+        mode = { "x", "o" },
+        desc = "Around indented block",
+      },
+      {
+        "ii",
+        function()
+          local indentobj = require("treesitter_indent_object.textobj")
+          indentobj.select_indent_inner(false, "v")
+        end,
+        mode = { "x", "o" },
+        desc = "Inner indented block",
+      },
     },
-    config = function()
-      local indentobj = require("treesitter_indent_object.textobj")
-      local map = vim.keymap.set
-      -- FEAT: include surrounding whitespace in `ai`
-      -- | kiyoon/treesitter-indent-object.nvim#3
-      map({ "x", "o" }, "ai", function()
-        indentobj.select_indent_outer(true, "V")
-      end)
-      map({ "x", "o" }, "ii", function()
-        indentobj.select_indent_inner(false, "v")
-      end)
-    end,
   },
 
   -- tree-sitter nodes as textobjects
@@ -117,6 +123,7 @@ return {
       },
       swap = {
         enable = true,
+        -- FIX: ASAP: swap keymaps occasionally freezes neovim
         swap_next = {
           ["],"] = "@parameter.inner",
         },
