@@ -9,12 +9,9 @@ return {
       should_autosave = function()
         return vim.g.persisted_exists or vim.fn.isdirectory(".git") == 1
       end,
-      autoload = true,
+      autoload = vim.v.argv[#vim.v.argv] ~= "+Man!",
       on_autoload_no_session = function()
-        if
-          vim.uv.cwd() == vim.uv.os_homedir()
-          and vim.v.argv[#vim.v.argv] ~= "+Man!"
-        then
+        if vim.uv.cwd() == vim.uv.os_homedir() then
           -- FIX: ASAP: breaks on startup if no session is available
           -- vim.cmd("SessionLoadLast")
         end
@@ -26,7 +23,7 @@ return {
   -- `:G` wrapper command & interactive git status
   {
     "tpope/vim-fugitive",
-    event = "User GitSignsUpdate",
+    lazy = false,
     keys = { { "<Leader>g<Tab>", "<Cmd>tab G<CR>", desc = "Status" } },
   },
 
