@@ -25,12 +25,10 @@ $env.PROMPT_MULTILINE_INDICATOR = "∙"
 | transpose --header-row --as-record
 | load-env
 
-# use gpg-agent for SSH
-gpgconf --launch gpg-agent
+# I do not understand why I need this
 $env.GPG_TTY = (tty)
-$env.SSH_AGENT_PID = ""
-$env.SSH_AUTH_SOCK = (gpgconf --list-dirs agent-ssh-socket)
 
+# FEAT: create kanagawa palette for vivid
 $env.LS_COLORS = (vivid generate one-dark)
 
 # generate integration scripts inside tmpfs to reduce disk I/O
