@@ -28,21 +28,25 @@ return {
   },
 
   -- keymap cheatsheets
+  -- FIX: ASAP: manually trigger which-key on visual mode
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
-      -- top, right, bottom, left
-      window = { margin = { 1, 0.2, 1, 0.2 } },
-      layout = { align = "center" },
+      preset = "modern",
+      delay = function(ctx)
+        return ctx.plugin and 0 or 300
+      end,
+      win = {
+        width = 0.6,
+        border = "none",
+      },
+      icons = { rules = false },
+      modes = { x = false },
+      spec = {
+        { "<Leader>g", group = "git" },
+        { "<Leader>t", group = "term" },
+      },
     },
-    config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-      wk.register({
-        ["<Leader>g"] = { name = "git" },
-        ["<Leader>t"] = { name = "term" },
-      })
-    end,
   },
 }
