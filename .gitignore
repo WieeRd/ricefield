@@ -6,19 +6,4 @@
 !README.md
 !LICENSE
 
-!alacritty/
-!environment.d/
-!fcitx5/
-!git/
-!kanata/
-!kitty/
-!nushell/
-!nvim/
-!picom/
-!qtile/
-!starship.toml
-!systemd/
-!wezterm/
-!xplr/
-
-__pycache__/
+!.config/

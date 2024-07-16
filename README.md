@@ -13,10 +13,12 @@ Welcome to my rice field, nerd.
 
 I got tired of gimmicks and hassles of so called "dotfiles managers".
 
-This repository is now simply a `~/.config` directory managed by Git.
+This repository is simply my home directory managed by Git.
 
-```text
-git clone https://github.com/WieeRd/ricefield ~/.config
+```sh
+git init
+git remote add origin https://github.com/WieeRd/ricefield.git
+git pull origin
 ```
 
 Should be enough to get things started.
