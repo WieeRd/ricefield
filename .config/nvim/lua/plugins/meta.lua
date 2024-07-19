@@ -28,21 +28,13 @@ return {
   },
 
   -- keymap cheatsheets
-  -- FIX: ASAP: manually trigger which-key on visual mode
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
       preset = "modern",
-      delay = function(ctx)
-        return ctx.plugin and 0 or 300
-      end,
-      win = {
-        width = 0.6,
-        border = "none",
-      },
+      win = { width = 0.6, border = "none" },
       icons = { rules = false },
-      modes = { x = false },
       spec = {
         { "<Leader>g", group = "git" },
         { "<Leader>t", group = "term" },
