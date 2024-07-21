@@ -17,15 +17,12 @@ $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = "∙"
 
-# merge systemd user environments from `environment.d/`
-/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator
-| lines
-| parse "{name}={value}"
-| str trim value --char '"'
-| transpose --header-row --as-record
+# import systemd user environments from `environment.d/`
+systemctl --user show-environment --output=json
+| from json
 | load-env
 
-# I do not understand why I need this
+# not sure what this is even used for but I'm too afraid to remove it
 $env.GPG_TTY = (tty)
 
 # FEAT: create kanagawa palette for vivid
