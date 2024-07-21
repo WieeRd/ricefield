@@ -23,19 +23,23 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
+[*.nu]
+indent_style = space
+indent_size = 4
+
 [*.py]
 indent_style = space
 indent_size = 4
 
 
-[git/config]
+[.ssh/config]
 indent_style = tab
 indent_size = 4
 
-[kanata/*.kbd]
+[.config/git/config]
+indent_style = tab
+indent_size = 4
+
+[.config/kanata/*.kbd]
 indent_style = space
 indent_size = 2
-
-[nushell/*.nu]
-indent_style = space
-indent_size = 4
