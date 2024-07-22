@@ -3,5 +3,6 @@
 # import systemd user environments from `environment.d/`
 
 set -o allexport
+systemctl --user unset-environment DISPLAY XAUTHORITY
 eval "$(systemctl --user show-environment)"
 set +o allexport
