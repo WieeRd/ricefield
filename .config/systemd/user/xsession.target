@@ -1,7 +1,0 @@
-# NOTE: this target is intended to be started manually after X
-# | $ echo "systemctl --user start xsession.target" >> ~/.xsession
-
-[Unit]
-Description=X session autostart units
-BindTo=graphical-session.target
-After=graphical-session.target

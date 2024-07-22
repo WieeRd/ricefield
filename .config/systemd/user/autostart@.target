@@ -1,0 +1,9 @@
+# This unit is meant to be started by each WM/DE upon startup.
+# $ systemctl --user start autostart@qtile.target
+#
+# Register services to be autostarted with each session by adding dependencies.
+# $ systemctl --user add-wants autostart@qtile nitrogen
+
+[Unit]
+Description=Autostart services for %i session
+PartOf=graphical-session.target

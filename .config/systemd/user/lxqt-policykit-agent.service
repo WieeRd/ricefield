@@ -1,0 +1,7 @@
+[Unit]
+Description=LXQt policykit agent
+Documentation=man:lxqt-policykit-agent(1)
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=lxqt-policykit-agent

@@ -5,6 +5,3 @@ PartOf=graphical-session.target
 
 [Service]
 ExecStart=fcitx5 -r
-
-[Install]
-WantedBy=xsession.target
