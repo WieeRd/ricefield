@@ -1,5 +1,5 @@
 # symlinks of enabled daemons
 *.wants/
 
-# wonder why these aren't placed inside `~/.local/share/systemd` instead
+# maintenance timer units managed by Git
 git-maintenance@*
