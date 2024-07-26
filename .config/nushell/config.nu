@@ -76,11 +76,8 @@ $env.config = {
     hooks: {
         pre_prompt: [{ direnv export json | from json | default {} | load-env }]
         # FEAT: auto paging, save last command result
+        # | https://github.com/nushell/nushell/issues/2731
         # display_output: { table -e | into string | less -FR err> /dev/null }
-        # FEAT: ls on pwd change?
-        # env_change: {
-        #     PWD: [{|before, after| null }]
-        # }
     }
 
     menus: [

@@ -2,6 +2,7 @@ local INSERT = "i"
 local NORMAL = "n"
 local VISUAL = "x"
 local MOTION = { "n", "x", "o" }
+local NOP_MOTION = { "n", "x" }
 local TEXTOBJ = { "x", "o" }
 
 return {
@@ -15,11 +16,15 @@ return {
     ["<C-s>"] = "<Cmd>silent update<CR>",
     ["ZA"] = "<Cmd>xall<CR>",
 
-    ["<Leader>="] = { ":lua =", desc = ":lua" },
-    ["<Leader>\\"] = { ":vert ", desc = ":vert" },
-    ["<Leader><Tab>"] = { ":tab ", desc = ":tab" },
+    ["<Leader>="] = { ":lua =", desc = "Lua Prompt" },
+    ["<Leader>\\"] = { ":vert ", desc = "vert {cmd}" },
+    ["<Leader><Tab>"] = { ":tab ", desc = "tab {cmd}" },
 
-    -- +term: open embedded terminal
+    -- file explorer (netrw or oil.nvim if plugins are enabled)
+    ["-"] = { "<Cmd>edit %:h", desc = "Browse Parent Dir" },
+    ["_"] = { "<Cmd>edit .", desc = "Browse CWD" },
+
+    -- +term: open embedded terminal in:
     ["<Leader>t."] = { "<Cmd>term<CR>a", desc = "Current Window" },
     ["<Leader>ts"] = { "<Cmd>split +term<CR>a", desc = "Horizontal Split" },
     ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>a", desc = "Vertical Split" },
@@ -38,19 +43,6 @@ return {
     ["[t"] = "<Cmd>tabprevious<CR>",
     ["]T"] = "<Cmd>tabmove +1<CR>",
     ["[T"] = "<Cmd>tabmove -1<CR>",
-
-    -- yes I use colemak, how could you tell?
-    ["<C-w>n"] = "<C-w>j",
-    ["<C-w>e"] = "<C-w>k",
-    ["<C-w>i"] = "<C-w>l",
-
-    ["<C-w><C-n>"] = "<C-w>j",
-    ["<C-w><C-e>"] = "<C-w>k",
-    ["<C-w><C-i>"] = "<C-w>l",
-
-    ["<C-w>N"] = "<C-W>J",
-    ["<C-w>E"] = "<C-w>K",
-    ["<C-w>I"] = "<C-w>L",
 
     -- fzf package provides simple fuzzy finder plugin
     ["<C-p>"] = "<Cmd>FZF<CR>",
@@ -71,14 +63,27 @@ return {
     ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
   },
 
-  [{ "n", "x" }] = {
+  [NOP_MOTION] = {
     -- move based on display (wrapped) lines rather than real lines
-    -- NOTE: excluded from :omap due to `g` variants being a char-wise motions
-    -- | rather than line-wise, making `dj`, `yj` and etc confusing
+    -- NOTE: gj, gk are char-wise while j, k are line-wise
+    -- | this makes dj and dgj behave very differently.
     ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
     ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+
+    -- yes I use colemak, how could you tell?
+    ["<C-w>n"] = "<C-w>j",
+    ["<C-w>e"] = "<C-w>k",
+    ["<C-w>i"] = "<C-w>l",
+
+    ["<C-w><C-n>"] = "<C-w>j",
+    ["<C-w><C-e>"] = "<C-w>k",
+    ["<C-w><C-i>"] = "<C-w>l",
+
+    ["<C-w>N"] = "<C-W>J",
+    ["<C-w>E"] = "<C-w>K",
+    ["<C-w>I"] = "<C-w>L",
   },
 
   [TEXTOBJ] = {

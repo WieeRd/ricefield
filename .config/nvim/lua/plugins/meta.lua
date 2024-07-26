@@ -31,6 +31,15 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Local Keymaps",
+      },
+    },
     opts = {
       preset = "modern",
       win = { width = 0.6, border = "none" },
