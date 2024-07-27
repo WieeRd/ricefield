@@ -8,6 +8,12 @@ return {
   -- filetype to nerd fonts icon mapping
   { "nvim-tree/nvim-web-devicons" },
 
+  -- symbol type to nerd fonts icon mapping
+  {
+    "onsails/lspkind.nvim",
+    opts = { preset = "codicons" },
+  },
+
   -- install and manage tree-sitter parsers and modules
   {
     "nvim-treesitter/nvim-treesitter",
@@ -45,6 +51,7 @@ return {
       win = { width = 0.6, border = "none" },
       icons = { rules = false },
       spec = {
+        { "<Leader>f", group = "find" },
         { "<Leader>g", group = "git" },
         { "<Leader>t", group = "term" },
       },

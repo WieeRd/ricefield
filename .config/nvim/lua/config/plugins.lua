@@ -20,7 +20,14 @@ return {
       notify = false,
     },
     performance = {
-      rtp = { reset = false },
+      rtp = {
+        reset = true,
+        disabled_plugins = {
+          "matchit",
+          "matchparen",
+          "netrwPlugin",
+        },
+      },
     },
   },
 }
