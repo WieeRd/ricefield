@@ -1,6 +1,7 @@
 /*
 
 !.gitignore
+!.editorconfig
 
 !alacritty/
 !environment.d/

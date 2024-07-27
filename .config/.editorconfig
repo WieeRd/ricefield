@@ -1,0 +1,41 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+
+[*.md]
+indent_style = space
+indent_size = 2
+
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.toml]
+indent_style = space
+indent_size = 4
+
+
+[*.lua]
+indent_style = space
+indent_size = 2
+
+[*.nu]
+indent_style = space
+indent_size = 4
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+
+[git/config]
+indent_style = tab
+indent_size = 4
+
+[kanata/*.kbd]
+indent_style = space
+indent_size = 2
