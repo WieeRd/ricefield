@@ -1,0 +1,7 @@
+[Unit]
+Documentation=man:nm-applet(1)
+Description=NetworkManager Applet
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=nm-applet
