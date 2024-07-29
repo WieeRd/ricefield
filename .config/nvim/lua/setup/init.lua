@@ -107,12 +107,9 @@ function M.load_plugins(plugins)
 
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  if not vim.uv.fs_stat(lazypath) then
-    if not M.bool_or_func(plugins.bootstrap) then
-      return false
-    end
 
-    vim.notify("Bootstrapping the plugin manager...", vim.log.levels.WARN)
+  if not vim.uv.fs_stat(lazypath) then
+    vim.notify("Bootstrapping the plugin manager...")
     vim.fn.system({
       "git",
       "clone",
