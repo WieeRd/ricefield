@@ -2,14 +2,13 @@ return {
   -- highlight and jump(%) between matching pairs
   {
     "andymass/vim-matchup",
+    opts = {
+      enable = true,
+      disable_virtual_text = true,
+    },
     config = function(_, opts)
       vim.g.matchup_matchparen_offscreen = {}
-      require("nvim-treesitter.configs").setup({
-        matchup = {
-          enable = true,
-          disable_virtual_text = true,
-        },
-      })
+      require("nvim-treesitter.configs").setup({ matchup = opts })
     end,
   },
 
@@ -31,10 +30,9 @@ return {
   {
     "RRethy/nvim-treesitter-endwise",
     event = "InsertEnter",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        endwise = { enable = true },
-      })
+    opts = { enable = true },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup({ endwise = opts })
     end,
   },
 

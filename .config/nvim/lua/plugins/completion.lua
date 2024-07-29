@@ -92,11 +92,12 @@ return {
         mode = { "i", "s" },
       },
     },
-    config = function()
-      require("luasnip").setup({
-        history = true,
-        delete_check_events = "TextChanged",
-      })
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    config = function(_, opts)
+      require("luasnip").setup(opts)
       require("luasnip.loaders.from_vscode").lazy_load()
     end,
   },
