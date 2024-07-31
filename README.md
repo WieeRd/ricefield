@@ -18,15 +18,17 @@ This repository is simply my home directory being tracked by Git.
 ```nushell
 git init
 git remote add origin https://github.com/WieeRd/ricefield.git
-git pull origin
+git fetch
+git reset --hard origin/master
 ```
 
-Alternatively, use the [--separate-git-dir] strategy.
+Optionally, apply the [--separate-git-dir] strategy.
 
 ```nushell
-git clone --bare https://github.com/WieeRd/ricefield.git ~/.ricefield.git
+mv ~/.git ~/.ricefield.git
 cd ~/.ricefield.git/
 git config core.worktree ~
+git status
 ```
 
 It can avoid some unwanted noises from making `$HOME` a Git repository.
