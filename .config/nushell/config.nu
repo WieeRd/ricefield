@@ -197,6 +197,8 @@ def capture [command: string] {
     | xclip -selection clipboard
 }
 
+alias dots = env $"GIT_DIR=($env.HOME)/.ricefield.git" $"GIT_WORK_TREE=($env.HOME)"
+
 alias eza = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
 alias l = eza
 alias ll = eza --long

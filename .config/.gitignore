@@ -2,6 +2,7 @@
 
 !.gitignore
 !.editorconfig
+!.envrc
 
 !alacritty/
 !environment.d/
