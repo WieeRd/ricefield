@@ -2,10 +2,9 @@
 
 (defcfg
   process-unmapped-keys yes
-  log-layer-changes false
+  log-layer-changes no
 
   ;; Linux exclusive
-  ;; FIX: LATER: xset fails if Kanata starts before Xorg
   linux-x11-repeat-delay-rate 400,25
 
   ;; Windows exclusive
@@ -22,9 +21,9 @@
   lctl lmet lalt           spc            ralt rmet cmp  rctl
 )
 
-;; FEAT: force-enable qwerty while Korean IME is enabled
+;; FEAT: force-enable qwerty while Korean IME is active
 (deffakekeys
-  korean (layer-while-held qwerty)
+  hangul (layer-while-held qwerty)
 )
 
 (defalias
@@ -40,13 +39,10 @@
 
   ;; LAlt + hjkl => Arrow keys
   ;; LAlt + {other} => LAlt + {other}
-  arr (multi lalt (layer-while-held arrows))
-
-  ;; FIX: ASAP: prevent tapping LAlt when using arrows
-  lt (multi (release-key lalt) left)
-  rt (multi (release-key lalt) rght)
-  dn (multi (release-key lalt) down)
-  up (multi (release-key lalt) up)
+  arr (multi
+    (tap-hold-except-keys 300 300 XX _ (h j k l))
+    (layer-while-held arrows)
+  )
 ) 
 
 ;; hacked qwerty
@@ -71,33 +67,21 @@
 
 ;; normie qwerty
 (deflayer factory
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  esc  a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rmet cmp  rctl
 )
 
-;; vim hjkl arrow keys
-(deflayer arrows
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    @lt  @dn  @up  @rt  _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _    _    _    _
+;; vim arrow keys
+(deflayermap (arrows)
+  h left
+  j down
+  k up
+  l rght
 )
-
-;; ;; type numbers on the home row + layout switching
-;; (deflayer numbers
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    1    2    3    4    5    6    7    8    9    0    `    _
-;;   _    @qwe @col @fac _    _    _    _    _    _    _    _
-;;   _    _    _              _              _    _    _    _
-;; )
 
 ;; (deflayer template
 ;;   _    _    _    _    _    _    _    _    _    _    _    _    _
