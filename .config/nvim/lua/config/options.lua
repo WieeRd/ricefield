@@ -45,7 +45,7 @@ return {
   shortmess = "aoOscCF",
 
   -- 'gutter' section
-  signcolumn = "auto",
+  signcolumn = "auto:1",
   foldcolumn = "0",
   number = true,
   relativenumber = true,

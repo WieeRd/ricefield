@@ -73,7 +73,7 @@ return {
       { "<Leader>a", "<Cmd>AerialToggle<CR>", desc = "Code Outline" },
     },
     opts = {
-      backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+      backends = { "treesitter", "markdown", "asciidoc", "man" },
       layout = {
         min_width = 24,
         max_width = 34,
