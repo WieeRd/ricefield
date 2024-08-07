@@ -1,0 +1,4 @@
+enter_accept = true
+
+[daemon]
+enabled = true

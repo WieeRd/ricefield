@@ -1,0 +1,9 @@
+[Unit]
+Description=Atuin shell history daemon
+Documentation=https://docs.atuin.sh
+
+[Service]
+ExecStart=atuin daemon
+
+[Install]
+WantedBy=default.target
