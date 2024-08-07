@@ -31,6 +31,12 @@ return {
         ["<C-Space>"] = map.confirm({ select = true }),
         ["<C-d>"] = map.scroll_docs(4),
         ["<C-u>"] = map.scroll_docs(-4),
+        ["<Tab>"] = map(function(fallback)
+          return require("luasnip").expand_or_jump() or fallback()
+        end, { "i", "s" }),
+        ["<S-Tab>"] = map(function(fallback)
+          return require("luasnip").jump(-1) or fallback()
+        end, { "i", "s" }),
       })
 
       opts.sources = {
@@ -75,23 +81,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = "rafamadriz/friendly-snippets",
-    event = "InsertEnter",
-    keys = {
-      {
-        "<Tab>",
-        function()
-          require("luasnip").expand_or_jump()
-        end,
-        mode = { "i", "s" },
-      },
-      {
-        "<S-Tab>",
-        function()
-          require("luasnip").jump(-1)
-        end,
-        mode = { "i", "s" },
-      },
-    },
+    lazy = true,
     opts = {
       history = true,
       delete_check_events = "TextChanged",
