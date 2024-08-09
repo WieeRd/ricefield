@@ -3,6 +3,9 @@ Description=Atuin shell history daemon
 Documentation=https://docs.atuin.sh
 
 [Service]
+# FIX: atuin daemon fails if the socket already exists
+# | https://github.com/atuinsh/atuin/issues/2289
+ExecStartPre=rm -f %h/.local/share/atuin/atuin.sock
 ExecStart=atuin daemon
 
 [Install]
