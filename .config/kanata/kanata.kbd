@@ -73,6 +73,7 @@
 )
 
 ;; vim arrow keys
+;; FIX: make arrow keys layer work with rmeta as well so that I can control wm with colemak layout
 (deflayermap (arrows)
   h left
   j down

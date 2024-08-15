@@ -31,6 +31,10 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
+[*.scm]
+indent_style = space
+indent_size = 2
+
 
 [git/config]
 indent_style = tab
