@@ -7,7 +7,7 @@ return {
     opts = {
       autosave = true,
       should_autosave = function()
-        return vim.g.persisted_exists or vim.fn.isdirectory(".git") == 1
+        return vim.g.persisting or vim.fn.isdirectory(".git") == 1
       end,
       -- FIX: do not autoload if there are piped data
       autoload = vim.v.argv[#vim.v.argv] ~= "+Man!",
