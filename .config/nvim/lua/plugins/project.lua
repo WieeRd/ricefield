@@ -6,17 +6,17 @@ return {
     priority = 0,
     opts = {
       autosave = true,
-      should_autosave = function()
-        return vim.g.persisting or vim.fn.isdirectory(".git") == 1
+      should_save = function()
+        return vim.g.persisting
+          and (
+            vim.g.persisted_loaded_session
+            or vim.fn.isdirectory(".git") == 1
+            or vim.fn.filereadable(".git") == 1
+          )
       end,
-      -- FIX: do not autoload if there are piped data
+      -- FIX: do not autoload if neovim was started with piped data
+      -- | https://github.com/olimorris/persisted.nvim/discussions/140
       autoload = vim.v.argv[#vim.v.argv] ~= "+Man!",
-      on_autoload_no_session = function()
-        if vim.uv.cwd() == vim.uv.os_homedir() then
-          -- FIX: ASAP: breaks on startup if no session is available
-          -- vim.cmd("SessionLoadLast")
-        end
-      end,
       follow_cwd = false,
     },
   },
