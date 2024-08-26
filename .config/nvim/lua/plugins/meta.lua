@@ -54,7 +54,10 @@ return {
     },
     opts = {
       preset = "modern",
-      win = { width = 0.6, border = "none" },
+      win = {
+        width = { min = 120, max = 0.6 },
+        border = "none",
+      },
       icons = { rules = false },
       spec = {
         { "<Leader>f", group = "find" },

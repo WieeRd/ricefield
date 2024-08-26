@@ -14,7 +14,7 @@ return {
 
       local function visible_buffers()
         local buffers = {}
-        local windows = vim.api.nvim_tabpage_list_wins(0)
+        local windows = vim.api.nvim_list_wins()
         for _, win in ipairs(windows) do
           buffers[#buffers + 1] = vim.api.nvim_win_get_buf(win)
         end
@@ -58,8 +58,9 @@ return {
 
       opts.window = {
         completion = {
-          border = "none",
-          -- winhighlight = "Search:None",
+          border = "rounded",
+          winhighlight = "Search:None,NormalFloat:Normal,FloatBorder:NonText",
+          col_offset = -1,
         },
         documentation = {
           border = "solid",
@@ -68,7 +69,16 @@ return {
       }
 
       opts.formatting = {
-        format = require("lspkind").cmp_format(),
+        format = require("lspkind").cmp_format({
+          mode = "symbol_text",
+          maxwidth = 35,
+          menu = {
+            luasnip = "[SNIP]",
+            nvim_lsp = "[LSP]",
+            path = "[PATH]",
+            buffer = "[BUF]",
+          },
+        }),
       }
 
       opts.experimental = { ghost_text = { hl = "NonText" } }
