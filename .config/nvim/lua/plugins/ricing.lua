@@ -13,6 +13,13 @@ return {
     opts = {
       compile = true,
       colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+      overrides = function(_)
+        return {
+          IlluminatedWordRead = { link = "CursorLine" },
+          IlluminatedWordWrite = { link = "CursorLine" },
+          IlluminatedWordText = { link = "CursorLine" },
+        }
+      end
     },
   },
 
