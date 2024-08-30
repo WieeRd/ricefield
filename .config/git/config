@@ -43,6 +43,9 @@
 [help]
 	autoCorrect = prompt
 
+[url "git@github.com:"]
+	pushInsteadOf = "https://github.com/"
+
 [alias]
     s = status
     d = diff
