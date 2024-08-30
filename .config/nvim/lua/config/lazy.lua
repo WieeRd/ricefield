@@ -1,7 +1,10 @@
 return {
   -- FEAT: disable plugin when being used for `sudoedit`
   enabled = vim.env.USER ~= "root",
-  spec = "plugins",
+  spec = {
+    { import = "plugins" },
+    { import = "plugins.extra" },
+  },
   opts = {
     install = {
       colorscheme = { "kanagawa" },

@@ -9,11 +9,15 @@ return {
           capabilities = require("cmp_nvim_lsp").default_capabilities(),
         }
       end,
+      ["ltex"] = {
+        filetypes = { "markdown", "rst" },
+      },
       ["lua_ls"] = {
         settings = {
           Lua = { completion = { showWord = "Disable" } },
         },
       },
+      ["rust_analyzer"] = false,
     },
   },
 
