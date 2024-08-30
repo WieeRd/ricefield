@@ -10,7 +10,7 @@ require("setup").setup({
   keymaps = "config.keymaps",
   autocmds = "config.autocmds",
   commands = "config.commands",
-  plugins = "config.lazy",
+  plugins = "config.plugins",
   colorscheme = {
     builtin = "habamax",
     plugin = "kanagawa",
