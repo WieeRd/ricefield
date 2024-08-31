@@ -15,6 +15,7 @@ return {
       colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
       overrides = function(_)
         return {
+          CurSearch = { link = "IncSearch" },
           IlluminatedWordRead = { link = "CursorLine" },
           IlluminatedWordWrite = { link = "CursorLine" },
           IlluminatedWordText = { link = "CursorLine" },

@@ -1,4 +1,5 @@
 return {
+  -- setup lua_ls for Neovim config / plugin development
   {
     "folke/lazydev.nvim",
     ft = "lua",
@@ -7,5 +8,6 @@ return {
     },
   },
 
+  -- provide types for Luvit (vim.uv) API
   { "Bilal2453/luvit-meta", lazy = true },
 }
