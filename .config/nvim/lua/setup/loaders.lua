@@ -39,7 +39,7 @@ end
 function M.autocmds(autocmds)
   local autocmd = vim.api.nvim_create_autocmd
   local augroup = vim.api.nvim_create_augroup
-  local group = augroup("cfg", { clear = true })
+  local group = augroup("setup", { clear = true })
 
   for i = 1, #autocmds do
     local opts = autocmds[i]
@@ -76,6 +76,8 @@ function M.signs(signs)
     sign_define(name, attr)
   end
 end
+
+M.diagnostics = vim.diagnostic.config
 
 function M.plugins(plugins)
   if not plugins.enabled then

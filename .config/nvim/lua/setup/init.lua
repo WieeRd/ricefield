@@ -1,7 +1,6 @@
 local vim = vim
 local M = {}
 
--- FEAT: add loaders - lsp(diagnostics, keymaps)
 -- FEAT: add management commands
 -- FEAT: keep both original and evaluated config table
 
@@ -23,11 +22,15 @@ function M.setup(cfg)
     "autocmds",
     "commands",
     "signs",
+    "diagnostics",
   }
 
   cfg = tbl_or_mod(cfg or {})
   for _, mod in ipairs(modules) do
-    loaders[mod](tbl_or_mod(cfg[mod] or {}))
+    if cfg[mod] then
+      local opts = tbl_or_mod(cfg[mod])
+      loaders[mod](opts)
+    end
   end
 
   if loaders.plugins(tbl_or_mod(cfg.plugins or {})) then
