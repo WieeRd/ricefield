@@ -20,7 +20,7 @@ return {
           IlluminatedWordWrite = { link = "CursorLine" },
           IlluminatedWordText = { link = "CursorLine" },
         }
-      end
+      end,
     },
   },
 

@@ -7,5 +7,5 @@ return {
     opts = {
       path = vim.fn.stdpath("data") .. "/ltex",
     },
-  }
+  },
 }

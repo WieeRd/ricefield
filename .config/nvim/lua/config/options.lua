@@ -7,7 +7,7 @@ return {
   swapfile = false,
 
   -- CursorHold event delay
-  updatetime = 150,
+  updatetime = 1000,
   -- keymap sequence delay
   timeoutlen = 400,
 
