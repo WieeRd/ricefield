@@ -28,9 +28,6 @@ return {
     "TermOpen",
     callback = function(_)
       local wo = vim.wo
-      -- FIX: LATER: stop window-local opts getting transferred to new buffers
-      -- wo.winhl = "Normal:NormalFloat"
-      -- wo.cursorline = true
       wo.scrolloff = 0
       wo.number = false
       wo.relativenumber = false
@@ -54,5 +51,13 @@ return {
       vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
     desc = "Auto create intermediate parent directories upon write",
+  },
+
+  {
+    { "BufEnter", "TextChanged", "InsertLeave" },
+    callback = function(event)
+      vim.lsp.codelens.refresh({ bufnr = event.buf })
+    end,
+    desc = "Auto refresh CodeLens on changes",
   },
 }
