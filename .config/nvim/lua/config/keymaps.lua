@@ -62,7 +62,7 @@ return {
     ["[d"] = { vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
 
     -- fzf package provides simple fuzzy finder plugin
-    ["<C-p>"] = "<Cmd>FZF<CR>",
+    ["<Leader> "] = "<Cmd>FZF<CR>",
   },
 
   [VISUAL] = {

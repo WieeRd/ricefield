@@ -4,7 +4,7 @@ return {
     "ibhagwan/fzf-lua",
     keys = {
       {
-        "<C-p>",
+        "<Leader> ",
         function()
           require("fzf-lua").files({
             header = false,
