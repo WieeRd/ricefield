@@ -1,3 +1,10 @@
+local FZF_DROPDOWN = {
+  fzf_opts = { ["--layout"] = "reverse" },
+  header = false,
+  previewer = false,
+  winopts = { width = 80, height = 24, row = 0.5, col = 0.5 },
+}
+
 return {
   -- fuzzy finder: FZF integration
   {
@@ -6,13 +13,16 @@ return {
       {
         "<Leader> ",
         function()
-          require("fzf-lua").files({
-            header = false,
-            previewer = false,
-            winopts = { width = 80, height = 24, row = 0.5, col = 0.5 },
-          })
+          require("fzf-lua").files(FZF_DROPDOWN)
         end,
         desc = "Find Files",
+      },
+      {
+        "<Leader>/",
+        function()
+          require("fzf-lua").lsp_document_symbols(FZF_DROPDOWN)
+        end,
+        desc = "Find Symbols",
       },
       -- meta
       { "<Leader>f ", "<Cmd>FzfLua builtin<CR>", desc = "Pickers" },
@@ -29,9 +39,32 @@ return {
       -- lists
       { "<Leader>fa", "<Cmd>FzfLua args<CR>", desc = "Args" },
       { "<Leader>fq", "<Cmd>FzfLua quickfix<CR>", desc = "Quickfix" },
-      { "<Leader>fa", "<Cmd>FzfLua loclist<CR>", desc = "Loclist" },
+      { "<Leader>fl", "<Cmd>FzfLua loclist<CR>", desc = "Loclist" },
+      -- LSP
+      { "<Leader>fi", "<Cmd>FzfLua lsp_finder<CR>", desc = "LSP Finder" },
+      {
+        "<Leader>fd",
+        "<Cmd>FzfLua diagnostics_document<CR>",
+        desc = "Document Diagnostics",
+      },
+      {
+        "<Leader>fD",
+        "<Cmd>FzfLua diagnostics_workspace<CR>",
+        desc = "Workspace Diagnostics",
+      },
+      {
+        "<Leader>fs",
+        "<Cmd>FzfLua lsp_document_symbols<CR>",
+        desc = "Document Symbols",
+      },
+      {
+        "<Leader>fS",
+        "<Cmd>FzfLua lsp_live_workspace_symbols<CR>",
+        desc = "Workspace Symbols",
+      },
       -- misc
-      { "<Leader>fp", "<Cmd>FzfLua registers<CR>", desc = "Registers" },
+      { "<Leader>f:", "<Cmd>FzfLua commands<CR>", desc = "Commands" },
+      { "<Leader>fy", "<Cmd>FzfLua registers<CR>", desc = "Registers" },
     },
     opts = {
       "telescope",
