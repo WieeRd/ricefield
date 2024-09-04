@@ -59,6 +59,18 @@ return {
       mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "zt", "zz", "zb" },
       hide_cursor = false,
       easing = "quadratic",
+      pre_hook = function()
+        vim.opt.eventignore:append({
+          "WinScrolled",
+          "CursorMoved",
+        })
+      end,
+      post_hook = function()
+        vim.opt.eventignore:remove({
+          "WinScrolled",
+          "CursorMoved",
+        })
+      end,
     },
   },
 
