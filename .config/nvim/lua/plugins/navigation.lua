@@ -1,8 +1,19 @@
-local FZF_DROPDOWN = {
+local FZF_DROPDOWN_MINIMAL = {
   fzf_opts = { ["--layout"] = "reverse" },
   header = false,
   previewer = false,
   winopts = { width = 80, height = 24, row = 0.5, col = 0.5 },
+}
+
+local FZF_DROPDOWN_PREVIEW = {
+  fzf_opts = { ["--layout"] = "reverse" },
+  winopts = {
+    width = 80,
+    height = 48,
+    row = 0.5,
+    col = 0.5,
+    preview = { layout = "vertical" },
+  },
 }
 
 return {
@@ -10,17 +21,18 @@ return {
   {
     "ibhagwan/fzf-lua",
     keys = {
+      -- frequently used navigation methods
       {
         "<Leader> ",
         function()
-          require("fzf-lua").files(FZF_DROPDOWN)
+          require("fzf-lua").files(FZF_DROPDOWN_MINIMAL)
         end,
         desc = "Find Files",
       },
       {
         "<Leader>/",
         function()
-          require("fzf-lua").lsp_document_symbols(FZF_DROPDOWN)
+          require("fzf-lua").lsp_document_symbols(FZF_DROPDOWN_PREVIEW)
         end,
         desc = "Find Symbols",
       },
@@ -66,6 +78,13 @@ return {
       { "<Leader>f:", "<Cmd>FzfLua commands<CR>", desc = "Commands" },
       { "<Leader>fy", "<Cmd>FzfLua registers<CR>", desc = "Registers" },
     },
+    init = function(_)
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("fzf-lua").register_ui_select(FZF_DROPDOWN_PREVIEW)
+        return vim.ui.select(...)
+      end
+    end,
     opts = {
       "telescope",
       winopts = { backdrop = 100 },
@@ -77,7 +96,7 @@ return {
     "stevearc/oil.nvim",
     lazy = false,
     keys = {
-      { "<C-n>", "<Cmd>Oil . --float<CR>", "Browse CWD" },
+      { "<C-n>", "<Cmd>Oil --float<CR>", "Browse CWD" },
       { "-", "<Cmd>Oil<CR>", "Browse Parent Dir" },
       { "_", "<Cmd>Oil .<CR>", "Browse CWD" },
     },
