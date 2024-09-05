@@ -95,10 +95,11 @@ return {
             symbol_hl = function(s)
               return "Aerial" .. s .. "Icon"
             end,
-            symbol_fmt = function(s)
-              return s .. "\t"
+            symbol_fmt = function(s, _)
+              return s
             end,
           },
+          code_actions = { previewer = "codeaction_native" }
         },
       }
     end,

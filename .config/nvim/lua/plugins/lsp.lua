@@ -38,14 +38,14 @@ return {
         function()
           require("illuminate").goto_next_reference()
         end,
-        desc = "Goto next reference",
+        desc = "Next Reference",
       },
       {
         "[r",
         function()
           require("illuminate").goto_prev_reference()
         end,
-        desc = "Goto previous reference",
+        desc = "Prev Reference",
       },
     },
     opts = {
