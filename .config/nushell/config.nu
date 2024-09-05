@@ -220,8 +220,6 @@ alias jctl = journalctl
 alias ktsh = kitten ssh
 alias icat = kitten icat
 
-# FIX: ASAP: atuin is getting significantly slower
-# | https://github.com/atuinsh/atuin/issues/2208
 source atuin.nu
 source starship.nu
 source zoxide.nu

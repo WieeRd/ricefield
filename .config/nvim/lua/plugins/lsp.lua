@@ -14,7 +14,14 @@ return {
       },
       ["lua_ls"] = {
         settings = {
-          Lua = { completion = { showWord = "Disable" } },
+          Lua = {
+            completion = { showWord = "Disable" },
+            hint = {
+              enable = true,
+              setType = true,
+              arrayIndex = "Disable",
+            },
+          },
         },
       },
       ["rust_analyzer"] = false,
