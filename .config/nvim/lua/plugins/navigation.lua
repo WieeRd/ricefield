@@ -85,10 +85,23 @@ return {
         return vim.ui.select(...)
       end
     end,
-    opts = {
-      "telescope",
-      winopts = { backdrop = 100 },
-    },
+    opts = function(_, _)
+      return {
+        "telescope",
+        winopts = { backdrop = 100 },
+        lsp = {
+          symbols = {
+            symbol_icons = require("lspkind").symbol_map,
+            symbol_hl = function(s)
+              return "Aerial" .. s .. "Icon"
+            end,
+            symbol_fmt = function(s)
+              return s .. "\t"
+            end,
+          },
+        },
+      }
+    end,
   },
 
   -- file explorer: edit filesystem like a text buffer
