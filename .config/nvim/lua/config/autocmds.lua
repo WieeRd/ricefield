@@ -37,7 +37,11 @@ return {
 
   {
     "VimResized",
-    command = "tabdo wincmd =",
+    callback = function(_)
+      local current = vim.api.nvim_get_current_tabpage()
+      vim.cmd("tabdo wincmd =")
+      vim.api.nvim_set_current_tabpage(current)
+    end,
     desc = "Resize panes on terminal window resize",
   },
 
