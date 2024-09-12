@@ -12,6 +12,12 @@ return {
     end,
   },
 
+  {
+    "folke/ts-comments.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
+
   -- manipulate surrounding pairs
   {
     "kylechui/nvim-surround",
