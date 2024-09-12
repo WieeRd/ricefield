@@ -10,7 +10,8 @@ return {
     },
     event = "InsertEnter",
     opts = function(_, opts)
-      local map = require("cmp").mapping
+      local cmp = require("cmp")
+      local map = cmp.mapping
 
       local function visible_buffers()
         local buffers = {}
@@ -40,13 +41,14 @@ return {
       })
 
       opts.sources = {
-        { name = "luasnip" },
-        { name = "nvim_lsp" },
-        { name = "path" },
+        { name = "luasnip", group_index = 1 },
+        { name = "nvim_lsp", group_index = 1 },
+        { name = "path", group_index = 2 },
         {
           name = "buffer",
           keyword_length = 3,
           option = { get_bufnrs = visible_buffers },
+          group_index = 2,
         },
       }
 
