@@ -3,11 +3,12 @@ return {
   ["Bind"] = "windo set cursorline! cursorbind! scrollbind!",
   ["Eval"] = {
     function(opts)
-      local cmd = vim.api.nvim_parse_cmd(opts.args, {})
-      local output = vim.api.nvim_cmd(cmd, { output = true })
-      vim.api.nvim_paste(output, true, -1)
+      local cmd = opts.args
+      local result = vim.api.nvim_exec2(cmd, { output = true })
+      vim.api.nvim_paste(result.output, true, -1)
     end,
     nargs = 1,
-    desc = "paste the output of the given command",
+    complete = "command",
+    desc = "Paste the output of the given command",
   },
 }
