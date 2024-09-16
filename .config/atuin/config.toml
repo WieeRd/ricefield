@@ -1,4 +1,12 @@
 enter_accept = true
 
+invert = true
+inline_height = 14
+
+show_help = false
+show_tabs = false
+
+prefers_reduced_motion = true
+
 [daemon]
 enabled = true
