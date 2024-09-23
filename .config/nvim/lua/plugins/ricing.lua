@@ -81,7 +81,7 @@ return {
     opts = {
       -- FEAT: MAYBE: custom fold text
       -- | fold_virt_text_handler = nil,
-      provider_selector = function(bufnr, filetype, buftype)
+      provider_selector = function(_, _, _)
         return { "treesitter", "indent" }
       end,
     },
