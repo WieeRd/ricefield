@@ -34,8 +34,9 @@
   ;; Esc when tapped / LCtrl when held
   e/c (tap-hold-press 300 300 esc lctl)
 
-  ;; RAlt when tapped / LMeta when held
-  a/m (tap-hold-press 300 300 ralt lmet)
+  ;; WM keymaps are defined in QWERTY,
+  ;; so always switch to QWERTY when using Meta chords
+  mod (multi lmet (layer-while-held qwerty))
 
   ;; LAlt + hjkl => Arrow keys
   ;; LAlt + {other} => LAlt + {other}
@@ -49,17 +50,17 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @e/c a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet @arr           spc            @a/m rmet cmp  @col
+  lctl lmet @arr           spc            @mod rmet cmp  @col
 )
 
-;; Hacked Colemak-DHm
+;; Hacked Colemak DH(m)
 (deflayer colemak-dh
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
   @e/c a    r    s    t    g    m    n    e    i    o    '    ret
   lsft z    x    c    d    v    k    h    ,    .    /    rsft
-  lctl lmet @arr           spc            @a/m rmet cmp  @qwe
+  lctl lmet @arr           spc            @mod rmet cmp  @qwe
 )
 
 ;; Normie QWERTY
