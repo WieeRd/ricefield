@@ -1,0 +1,7 @@
+[Unit]
+Description=Polybar status bar
+Documentation=man:polybar(1)
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=polybar
