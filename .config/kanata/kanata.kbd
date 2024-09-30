@@ -27,9 +27,8 @@
 )
 
 (defalias
-  qwe (layer-switch qwerty)
-  col (layer-switch colemak-dh)
-  fac (layer-switch factory)
+  ;; switch layout
+  lay (multi rctl (layer-while-held layers))
 
   ;; Esc when tapped / LCtrl when held
   e/c (tap-hold-press 300 300 esc lctl)
@@ -50,7 +49,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @e/c a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet @arr           spc            @mod rmet cmp  @col
+  lctl lmet @arr           spc            @mod rmet cmp  @lay
 )
 
 ;; Hacked Colemak DH(m)
@@ -60,7 +59,7 @@
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
   @e/c a    r    s    t    g    m    n    e    i    o    '    ret
   lsft z    x    c    d    v    k    h    ,    .    /    rsft
-  lctl lmet @arr           spc            @mod rmet cmp  @qwe
+  lctl lmet @arr           spc            @mod rmet cmp  @lay
 )
 
 ;; Normie QWERTY
@@ -70,7 +69,13 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   esc  a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet cmp  rctl
+  lctl lmet lalt           spc            ralt rmet cmp  @lay
+)
+
+(deflayermap (layers)
+  1 (layer-switch qwerty)
+  2 (layer-switch colemak-dh)
+  3 (layer-switch factory)
 )
 
 ;; vim arrow keys
