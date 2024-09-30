@@ -79,15 +79,18 @@ return {
     ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
     ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
 
-    -- yes I use colemak, how could you tell?
+    -- "Why yes, I use Colemak-DH. How could you tell?"
+    ["<C-w>m"] = "<C-w>h",
     ["<C-w>n"] = "<C-w>j",
     ["<C-w>e"] = "<C-w>k",
     ["<C-w>i"] = "<C-w>l",
 
+    ["<C-w><C-m>"] = "<C-w>h",
     ["<C-w><C-n>"] = "<C-w>j",
     ["<C-w><C-e>"] = "<C-w>k",
     ["<C-w><C-i>"] = "<C-w>l",
 
+    ["<C-w>M"] = "<C-W>H",
     ["<C-w>N"] = "<C-W>J",
     ["<C-w>E"] = "<C-w>K",
     ["<C-w>I"] = "<C-w>L",
