@@ -7,13 +7,14 @@ from libqtile.lazy import lazy
 mod = "mod4"
 terminal = "kitty"
 
+# FEAT: use the EzKey helper
 keys = [
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "p", lazy.layout.next(), desc="Move window focus to other window"),
 
     # Move between windows
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -26,7 +27,7 @@ keys = [
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "equal", lazy.layout.normalize(), desc="Reset all window sizes"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -54,7 +55,7 @@ keys = [
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "asdfg"]
+groups = [Group(i) for i in "asdf1234"]
 
 for i in groups:
     keys.extend(
@@ -64,14 +65,14 @@ for i in groups:
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
+                desc=f"Switch to group {i.name}",
             ),
             # mod1 + shift + group number = switch to & move focused window to group
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
+                desc=f"Switch to & move focused window to group {i.name}",
             ),
             # Or, use below if you prefer not to switch to that group.
             # # mod1 + shift + group number = move focused window to group
@@ -96,11 +97,11 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
-)
+widget_defaults = {
+    "font": "sans",
+    "fontsize": 12,
+    "padding": 3,
+}
 extension_defaults = widget_defaults.copy()
 
 screens = [
@@ -155,6 +156,6 @@ wl_input_rules = None
 wmname = "LG3D"
 
 @hook.subscribe.startup
-def autostart():
+def autostart() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
