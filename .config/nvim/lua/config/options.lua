@@ -1,6 +1,7 @@
 return {
-  clipboard = "unnamedplus",
   mouse = "nv",
+  title = true,
+  clipboard = "unnamedplus",
 
   -- recovery files
   undofile = false,
