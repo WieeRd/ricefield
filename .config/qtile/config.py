@@ -1,5 +1,7 @@
 # pyright: reportPrivateImportUsage=false
 # FIX(upstream): explicitly re-export symbols
+# | https://github.com/qtile/qtile/pull/5023
+# | ^ has been merged, will have to wait for the new release
 
 import subprocess
 
@@ -14,7 +16,7 @@ screens = [Screen()]  # FEAT: come up with a sensible dual monitor workflow
 groups = [Group(i) for i in "asdf1234"]
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2),
     layout.Max(),
 ]
 
@@ -24,6 +26,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
+# FEAT: use KeyChord to imitate modal keybinds
 keys = [
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -112,6 +115,7 @@ floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
         Match(wm_class="ssh-askpass"),
+        Match(wm_class="pavucontrol"),
         Match(wm_class="pinentry-gtk"),
         Match(title="pinentry"),
     ]
@@ -126,3 +130,4 @@ reconfigure_screens = True
 def autostart() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
+    subprocess.run(["nitrogen", "--restore"])
