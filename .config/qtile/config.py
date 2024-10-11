@@ -33,12 +33,11 @@ mouse = [
 keys = [
     # Launch programs
     Key([mod], "z", lazy.spawn(TERMINAL), desc="Launch terminal"),
-    Key([mod], "x", lazy.spawn(BROWSER), desc="Launch browser"),
+    Key([mod], "x", lazy.spawn("rofi -show drun"), desc="Launch application"),
     Key([mod], "c", lazy.spawn("rofi -show run"), desc="Launch command"),
-    Key([mod], "v", lazy.spawn("rofi -show drun"), desc="Launch application"),
+    Key([mod], "v", lazy.spawn(BROWSER), desc="Launch browser"),
 
-    # Switch between windows
-    # FEAT: goto last visited group
+    # Switch windows
     Key([mod], "h", lazy.layout.left(), desc="Focus left"),
     Key([mod], "j", lazy.layout.down(), desc="Focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Focus up"),
@@ -50,28 +49,31 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move up"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move right"),
-    Key([mod], "semicolon", lazy.layout.swap_column_left(), desc="Swap column"),
+    Key([mod, "mod1"], "h", lazy.layout.swap_column_left(), desc="Swap column left"),
+    Key([mod, "mod1"], "l", lazy.layout.swap_column_right(), desc="Swap column right"),
 
     # Resize windows
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow left"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow up"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow right"),
-    Key([mod], "equal", lazy.layout.normalize(), desc="Reset all window sizes"),
-
-    # Manage windows
-    Key([mod], "w", lazy.window.kill(), desc="Close window"),
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
-    Key([mod], "Tab", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    Key([mod], "equal", lazy.layout.normalize(), desc="Reset window sizes"),
 
     # Manage layouts
-    Key([mod], "o", lazy.layout.toggle_split(), desc="Toggle stacks"),
-    Key([mod, "shift"], "o", lazy.next_layout(), desc="Toggle layouts"),
+    Key([mod], "u", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    Key([mod], "i", lazy.layout.toggle_split(), desc="Toggle stacking"),
+    Key([mod], "o", lazy.next_layout(), desc="Toggle layout"),
+    Key([mod], "p", lazy.window.toggle_floating(), desc="Toggle floating"),
+
+    # Thy end is now
+    Key([mod], "w", lazy.window.kill(), desc="Close window"),
 
     # Manage desktop
-    # FEAT: shutdown, lock, reboot, restart
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload config"),
+    # FEAT: setup lockscreen
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod, "shift"], "r", lazy.spawn("reboot"), desc="Reboot Desktop"),
+    Key([mod, "shift"], "q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
 ]
 
 # REFACTOR: use list comprehension
@@ -90,7 +92,7 @@ for i in groups:
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
-                desc=f"Switch to & move focused window to group {i.name}",
+                desc=f"Move window to group {i.name}",
             ),
         ]
     )
