@@ -14,14 +14,38 @@ mod = "mod4"
 TERMINAL = "kitty"
 BROWSER = "vivaldi"
 
+FOCUS = "#54546d"
+NORMAL = "#16161d"
+SPECIAL = "#7e9cd8"
+
 screens = [Screen()]  # FEAT: come up with a sensible dual monitor workflow
 groups = [Group(i) for i in "asdf1234"]  # FEAT: add scratchpad groups
 
 # FIX: fitting border colors for the kanagawa theme.
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2),
+    layout.Columns(
+        border_focus=FOCUS,
+        border_normal=NORMAL,
+        border_focus_stack=SPECIAL,
+        border_normal_stack=NORMAL,
+        border_width=1,
+        grow_amount=5,
+    ),
     layout.Max(),
 ]
+
+floating_layout = layout.Floating(
+    # NOTE: use `xprop` to see the wm class and name of an X client.
+    float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(wm_class="ssh-askpass"),
+        Match(wm_class="pavucontrol"),
+        Match(wm_class="pinentry-gtk"),
+        Match(title="pinentry"),
+    ],
+    border_focus=SPECIAL,
+    border_normal=NORMAL,
+)
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
@@ -112,17 +136,6 @@ dgroups_app_rules = []
 dgroups_key_binder = None
 
 floats_kept_above = True
-floating_layout = layout.Floating(
-    # NOTE: use `xprop` to see the wm class and name of an X client.
-    float_rules=[
-        *layout.Floating.default_float_rules,
-        Match(wm_class="ssh-askpass"),
-        Match(wm_class="pavucontrol"),
-        Match(wm_class="pinentry-gtk"),
-        Match(title="pinentry"),
-    ]
-)
-
 focus_on_window_activation = "smart"
 follow_mouse_focus = True
 reconfigure_screens = True
