@@ -9,8 +9,6 @@ from libqtile import hook, layout
 from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Mouse, Screen
 from libqtile.lazy import lazy
 
-mod = "mod4"
-
 TERMINAL = "kitty"
 BROWSER = "vivaldi"
 
@@ -18,10 +16,12 @@ FOCUS = "#54546d"
 NORMAL = "#16161d"
 SPECIAL = "#7e9cd8"
 
-screens = [Screen()]  # FEAT: come up with a sensible dual monitor workflow
-groups = [Group(i) for i in "asdf1234"]  # FEAT: add scratchpad groups
+# FEAT: come up with a sensible dual monitor workflow
+screens = [Screen()]
 
-# FIX: fitting border colors for the kanagawa theme.
+# FEAT: utilize scratchpads
+groups = [Group(i) for i in "ABCD1234"]  
+
 layouts = [
     layout.Columns(
         border_focus=FOCUS,
@@ -48,20 +48,40 @@ floating_layout = layout.Floating(
 )
 
 mouse: list[Mouse] = [
-    EzClick("M-1", lazy.window.bring_to_front()),
     EzDrag(
-        "M-2",
+        "M-1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
     EzDrag(
-        "M-3",
+        "M-2",
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
+    EzClick("M-3", lazy.window.bring_to_front()),
 ]
 
-keys = [
+keys: list[Key] = [
+    # Switch groups
+    *(
+        key
+        for g, k in zip(groups, "asdf1234")
+        for key in (
+            Key(
+                ["mod4"],
+                k,
+                lazy.group[g.name].toscreen(),
+                desc=f"Group {g.name}",
+            ),
+            Key(
+                ["mod4", "shift"],
+                k,
+                lazy.window.togroup(g.name, switch_group=True),
+                desc=f"Move window to group {g.name}",
+            ),
+        )
+    ),
+
     # Launch programs
     EzKey("M-z", lazy.spawn(TERMINAL), desc="Launch terminal"),
     EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
@@ -76,10 +96,10 @@ keys = [
     EzKey("M-<Space>", lazy.spawn("rofi -show window"), desc="Browse windows"),
 
     # Rearrange windows
-    EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Move left"),
-    EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Move down"),
-    EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Move up"),
-    EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Move right"),
+    EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Shuffle left"),
+    EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Shuffle down"),
+    EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Shuffle up"),
+    EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Shuffle right"),
     EzKey("M-A-h", lazy.layout.swap_column_left(), desc="Swap column left"),
     EzKey("M-A-l", lazy.layout.swap_column_right(), desc="Swap column right"),
 
@@ -100,33 +120,14 @@ keys = [
     EzKey("M-w", lazy.window.kill(), desc="Close window"),
 
     # Manage desktop
-    # FEAT: setup lockscreen & suspend
     EzKey("M-C-r", lazy.reload_config(), desc="Reload Qtile"),
     EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
     EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
     EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
-]
 
-# REFACTOR: use list comprehension
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + group number = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc=f"Switch to group {i.name}",
-            ),
-            # mod1 + shift + group number = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc=f"Move window to group {i.name}",
-            ),
-        ]
-    )
+    # FEAT: setup lockscreen & suspend
+    # FEAT: screenshot using flameshot
+]
 
 wmname = "Qtile"
 
