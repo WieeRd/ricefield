@@ -5,8 +5,8 @@
 
 import subprocess
 
-from libqtile import layout, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile import hook, layout
+from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Mouse, Screen
 from libqtile.lazy import lazy
 
 mod = "mod4"
@@ -47,57 +47,64 @@ floating_layout = layout.Floating(
     border_normal=NORMAL,
 )
 
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+mouse: list[Mouse] = [
+    EzClick("M-1", lazy.window.bring_to_front()),
+    EzDrag(
+        "M-2",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    EzDrag(
+        "M-3",
+        lazy.window.set_size_floating(),
+        start=lazy.window.get_size(),
+    ),
 ]
 
-# FIX: use EzKey helper
 keys = [
     # Launch programs
-    Key([mod], "z", lazy.spawn(TERMINAL), desc="Launch terminal"),
-    Key([mod], "x", lazy.spawn("rofi -show drun"), desc="Launch application"),
-    Key([mod], "c", lazy.spawn("rofi -show run"), desc="Launch command"),
-    Key([mod], "v", lazy.spawn(BROWSER), desc="Launch browser"),
+    EzKey("M-z", lazy.spawn(TERMINAL), desc="Launch terminal"),
+    EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
+    EzKey("M-c", lazy.spawn("rofi -show run"), desc="Launch command"),
+    EzKey("M-v", lazy.spawn(BROWSER), desc="Launch browser"),
 
     # Switch windows
-    Key([mod], "h", lazy.layout.left(), desc="Focus left"),
-    Key([mod], "j", lazy.layout.down(), desc="Focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Focus up"),
-    Key([mod], "l", lazy.layout.right(), desc="Focus right"),
-    Key([mod], "space", lazy.spawn("rofi -show window"), desc="Browse windows"),
+    EzKey("M-h", lazy.layout.left(), desc="Focus left"),
+    EzKey("M-j", lazy.layout.down(), desc="Focus down"),
+    EzKey("M-k", lazy.layout.up(), desc="Focus up"),
+    EzKey("M-l", lazy.layout.right(), desc="Focus right"),
+    EzKey("M-<Space>", lazy.spawn("rofi -show window"), desc="Browse windows"),
 
     # Rearrange windows
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move left"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move up"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move right"),
-    Key([mod, "mod1"], "h", lazy.layout.swap_column_left(), desc="Swap column left"),
-    Key([mod, "mod1"], "l", lazy.layout.swap_column_right(), desc="Swap column right"),
+    EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Move left"),
+    EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Move down"),
+    EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Move up"),
+    EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Move right"),
+    EzKey("M-A-h", lazy.layout.swap_column_left(), desc="Swap column left"),
+    EzKey("M-A-l", lazy.layout.swap_column_right(), desc="Swap column right"),
 
     # Resize windows
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow left"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow up"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow right"),
-    Key([mod], "equal", lazy.layout.normalize(), desc="Reset window sizes"),
+    EzKey("M-C-h", lazy.layout.grow_left(), desc="Grow left"),
+    EzKey("M-C-j", lazy.layout.grow_down(), desc="Grow down"),
+    EzKey("M-C-k", lazy.layout.grow_up(), desc="Grow up"),
+    EzKey("M-C-l", lazy.layout.grow_right(), desc="Grow right"),
+    EzKey("M-<Equal>", lazy.layout.normalize(), desc="Reset window sizes"),
 
     # Manage layouts
-    Key([mod], "u", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
-    Key([mod], "i", lazy.layout.toggle_split(), desc="Toggle stacking"),
-    Key([mod], "o", lazy.next_layout(), desc="Toggle layout"),
-    Key([mod], "p", lazy.window.toggle_floating(), desc="Toggle floating"),
+    EzKey("M-u", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    EzKey("M-i", lazy.layout.toggle_split(), desc="Toggle stacking"),
+    EzKey("M-o", lazy.next_layout(), desc="Toggle layout"),
+    EzKey("M-p", lazy.window.toggle_floating(), desc="Toggle floating"),
 
     # Thy end is now
-    Key([mod], "w", lazy.window.kill(), desc="Close window"),
+    EzKey("M-w", lazy.window.kill(), desc="Close window"),
 
     # Manage desktop
-    # FEAT: setup lockscreen
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod, "shift"], "r", lazy.spawn("reboot"), desc="Reboot Desktop"),
-    Key([mod, "shift"], "q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
+    # FEAT: setup lockscreen & suspend
+    EzKey("M-C-r", lazy.reload_config(), desc="Reload Qtile"),
+    EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
+    EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
 ]
 
 # REFACTOR: use list comprehension
