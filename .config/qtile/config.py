@@ -88,6 +88,7 @@ keys: list[Key] = [
     EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
     EzKey("M-c", lazy.spawn("rofi -show run"), desc="Launch command"),
     EzKey("M-v", lazy.spawn(BROWSER), desc="Launch browser"),
+    EzKey("M-w", lazy.window.kill(), desc="Close window"),
 
     # Switch windows
     EzKey("M-h", lazy.layout.left(), desc="Focus left"),
@@ -117,9 +118,6 @@ keys: list[Key] = [
     EzKey("M-o", lazy.next_layout(), desc="Toggle layout"),
     EzKey("M-p", lazy.window.toggle_floating(), desc="Toggle floating"),
 
-    # Thy end is now
-    EzKey("M-w", lazy.window.kill(), desc="Close window"),
-
     # Manage desktop
     EzKey("M-C-r", lazy.reload_config(), desc="Reload Qtile"),
     EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -130,7 +128,25 @@ keys: list[Key] = [
     EzKey("M-g", lazy.spawn("flameshot gui"), desc="Capture area"),
     EzKey("M-b", lazy.spawn("flameshot full --clipboard"), desc="Capture screen"),
 
+    # Adjust volume
+    EzKey(
+        "<XF86AudioRaiseVolume>",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+        desc="Volume up",
+    ),
+    EzKey(
+        "<XF86AudioLowerVolume>",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        desc="Volume down",
+    ),
+    EzKey(
+        "<XF86AudioMute>",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+        desc="Mute/Unmute",
+    ),
+
     # FEAT: setup lockscreen & suspend
+    # FEAT: brightness keys using brightnessctl
 ]
 
 wmname = "Qtile"
