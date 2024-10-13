@@ -38,9 +38,10 @@ floating_layout = layout.Floating(
     # NOTE: use `xprop` to see the wm class and name of an X client.
     float_rules=[
         *layout.Floating.default_float_rules,
-        Match(wm_class="ssh-askpass"),
+        Match(wm_class="flameshot"),
         Match(wm_class="pavucontrol"),
         Match(wm_class="pinentry-gtk"),
+        Match(wm_class="ssh-askpass"),
         Match(title="pinentry"),
     ],
     border_focus=SPECIAL,
@@ -54,11 +55,11 @@ mouse: list[Mouse] = [
         start=lazy.window.get_position(),
     ),
     EzDrag(
-        "M-2",
+        "M-3",
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
-    EzClick("M-3", lazy.window.bring_to_front()),
+    EzClick("M-2", lazy.window.bring_to_front()),
 ]
 
 keys: list[Key] = [
@@ -125,8 +126,11 @@ keys: list[Key] = [
     EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
     EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
 
+    # Take screenshots
+    EzKey("M-g", lazy.spawn("flameshot gui"), desc="Capture area"),
+    EzKey("M-b", lazy.spawn("flameshot full --clipboard"), desc="Capture screen"),
+
     # FEAT: setup lockscreen & suspend
-    # FEAT: screenshot using flameshot
 ]
 
 wmname = "Qtile"
@@ -154,3 +158,5 @@ def autostart() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
     subprocess.run(["nitrogen", "--restore"])
+
+# FEAT: stop & restart dependent units with PartOf=
