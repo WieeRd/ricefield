@@ -41,7 +41,7 @@ return {
       { "<Leader>f.", "<Cmd>FzfLua resume<CR>", desc = "Resume" },
       -- files
       { "<Leader>ff", "<Cmd>FzfLua files<CR>", desc = "Files" },
-      { "<Leader>fF", "<Cmd>FzfLua git_files<CR>", desc = "Git Files" },
+      { "<Leader>fg", "<Cmd>FzfLua git_files<CR>", desc = "Git Files" },
       -- search
       { "<Leader>f/", "<Cmd>FzfLua grep_curbuf<CR>", desc = "Grep File" },
       { "<Leader>f?", "<Cmd>FzfLua live_grep<CR>", desc = "Grep CWD" },
