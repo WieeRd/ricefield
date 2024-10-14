@@ -28,7 +28,7 @@ layouts = [
         border_normal=NORMAL,
         border_focus_stack=SPECIAL,
         border_normal_stack=NORMAL,
-        border_width=1,
+        border_width=2,
         grow_amount=5,
     ),
     layout.Max(),
@@ -95,15 +95,14 @@ keys: list[Key] = [
     EzKey("M-j", lazy.layout.down(), desc="Focus down"),
     EzKey("M-k", lazy.layout.up(), desc="Focus up"),
     EzKey("M-l", lazy.layout.right(), desc="Focus right"),
-    EzKey("M-<Space>", lazy.spawn("rofi -show window"), desc="Browse windows"),
+    EzKey("M-<Semicolon>", lazy.spawn("rofi -show window"), desc="Browse windows"),
 
     # Rearrange windows
     EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Shuffle left"),
     EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Shuffle down"),
     EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Shuffle up"),
     EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Shuffle right"),
-    EzKey("M-A-h", lazy.layout.swap_column_left(), desc="Swap column left"),
-    EzKey("M-A-l", lazy.layout.swap_column_right(), desc="Swap column right"),
+    EzKey("M-S-<Semicolon>", lazy.layout.swap_column_left(), desc="Swap columns"),
 
     # Resize windows
     EzKey("M-C-h", lazy.layout.grow_left(), desc="Grow left"),
@@ -145,8 +144,19 @@ keys: list[Key] = [
         desc="Mute/Unmute",
     ),
 
+    # Adjust brightness
+    EzKey(
+        "<XF86KbdBrightnessUp>",
+        lazy.spawn("brightnessctl set 5%-"),
+        desc="Brightness up",
+    ),
+    EzKey(
+        "<XF86KbdBrightnessDown>",
+        lazy.spawn("brightnessctl set +5%"),
+        desc="Brightness down",
+    ),
+
     # FEAT: setup lockscreen & suspend
-    # FEAT: brightness keys using brightnessctl
 ]
 
 wmname = "Qtile"
