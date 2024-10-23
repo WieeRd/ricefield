@@ -146,14 +146,14 @@ keys: list[Key] = [
 
     # Adjust brightness
     EzKey(
-        "<XF86KbdBrightnessUp>",
-        lazy.spawn("brightnessctl set 5%-"),
-        desc="Brightness up",
-    ),
-    EzKey(
-        "<XF86KbdBrightnessDown>",
+        "<XF86MonBrightnessUp>",
         lazy.spawn("brightnessctl set +5%"),
         desc="Brightness down",
+    ),
+    EzKey(
+        "<XF86MonBrightnessDown>",
+        lazy.spawn("brightnessctl set 5%-"),
+        desc="Brightness up",
     ),
 
     # FEAT: setup lockscreen & suspend
