@@ -1,0 +1,31 @@
+output-format = "grouped"
+
+[lint]
+extend-select = [
+    "C90", # mccabe
+    "N", # pep8-naming
+    "UP", # pyupgrade
+    "ANN001", "ANN2", # annotations
+    "ASYNC", # async
+    "BLE", # blind-except
+    "FBT", # boolean-trap
+    "B", # bugbear
+    "A", # builtin
+    "COM818", "COM819", # commas
+    "C4", # comprehensions
+    "ISC", # implicit-str-concat
+    "G", # logging-format
+    "INP", # no-pep420
+    "PIE", # pie
+    "RET", # return
+    "SIM", # simplify
+    "TCH", # type-checking
+    "PGH003", "PGH004", # pygrep-hooks
+    "RUF", # ruff
+]
+
+# allow wildcard imports in `__init__.py`
+per-file-ignores = { "__init__.py" = ["F403"] }
+
+[format]
+preview = true
