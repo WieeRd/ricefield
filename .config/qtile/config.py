@@ -1,12 +1,18 @@
-# pyright: reportPrivateImportUsage=false
-# FIX(upstream): explicitly re-export symbols
-# | https://github.com/qtile/qtile/pull/5023
-# | ^ has been merged, will have to wait for the new release
-
 import subprocess
 
 from libqtile import hook, layout
-from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Mouse, Screen
+from libqtile.config import (
+    DropDown,
+    EzClick,
+    EzDrag,
+    EzKey,
+    Group,
+    Key,
+    Match,
+    Mouse,
+    ScratchPad,
+    Screen,
+)
 from libqtile.lazy import lazy
 
 TERMINAL = "kitty"
@@ -19,8 +25,23 @@ SPECIAL = "#7e9cd8"
 # FEAT: come up with a sensible dual monitor workflow
 screens = [Screen()]
 
-# FEAT: utilize scratchpads
-groups = [Group(i) for i in "ABCD1234"]  
+groups = [
+    *(Group(i) for i in "ABCD1234"),
+    ScratchPad(
+        "scratchpad",
+        [
+            DropDown(
+                "term",
+                TERMINAL,
+                opacity=1.0,
+                height=0.6,
+                width=0.6,
+                x=0.2,
+                y=0.2,
+            )
+        ],
+    ),
+]
 
 layouts = [
     layout.Columns(
@@ -44,8 +65,9 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),
         Match(title="pinentry"),
     ],
-    border_focus=SPECIAL,
+    border_focus=FOCUS,
     border_normal=NORMAL,
+    border_width=2,
 )
 
 mouse: list[Mouse] = [
@@ -88,21 +110,30 @@ keys: list[Key] = [
     EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
     EzKey("M-c", lazy.spawn("rofi -show run"), desc="Launch command"),
     EzKey("M-v", lazy.spawn(BROWSER), desc="Launch browser"),
+
+    # Die worthless window
     EzKey("M-w", lazy.window.kill(), desc="Close window"),
 
-    # Switch windows
+    # Toggle dropdowns
+    EzKey(
+        "M-<Semicolon>",
+        lazy.group["scratchpad"].dropdown_toggle("term"),
+        desc="Dropdown terminal",
+    ),
+
+    # Navigate windows
     EzKey("M-h", lazy.layout.left(), desc="Focus left"),
     EzKey("M-j", lazy.layout.down(), desc="Focus down"),
     EzKey("M-k", lazy.layout.up(), desc="Focus up"),
     EzKey("M-l", lazy.layout.right(), desc="Focus right"),
-    EzKey("M-<Semicolon>", lazy.spawn("rofi -show window"), desc="Browse windows"),
+    EzKey("M-<Slash>", lazy.spawn("rofi -show window"), desc="Browse windows"),
 
     # Rearrange windows
     EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Shuffle left"),
     EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Shuffle down"),
     EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Shuffle up"),
     EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Shuffle right"),
-    EzKey("M-S-<Semicolon>", lazy.layout.swap_column_left(), desc="Swap columns"),
+    EzKey("M-S-<Slash>", lazy.layout.swap_column_left(), desc="Swap columns"),
 
     # Resize windows
     EzKey("M-C-h", lazy.layout.grow_left(), desc="Grow left"),
@@ -116,12 +147,7 @@ keys: list[Key] = [
     EzKey("M-i", lazy.layout.toggle_split(), desc="Toggle stacking"),
     EzKey("M-o", lazy.next_layout(), desc="Toggle layout"),
     EzKey("M-p", lazy.window.toggle_floating(), desc="Toggle floating"),
-
-    # Manage desktop
-    EzKey("M-C-r", lazy.reload_config(), desc="Reload Qtile"),
-    EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
-    EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
-    EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
+    EzKey("M-<Tab>", lazy.next_screen(), desc="Switch screen"),
 
     # Take screenshots
     EzKey("M-g", lazy.spawn("flameshot gui"), desc="Capture area"),
@@ -156,7 +182,12 @@ keys: list[Key] = [
         desc="Brightness up",
     ),
 
+    # Restart & Shutdown
     # FEAT: setup lockscreen & suspend
+    EzKey("M-C-r", lazy.reload_config(), desc="Reload Qtile"),
+    EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
+    EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
 ]
 
 wmname = "Qtile"
