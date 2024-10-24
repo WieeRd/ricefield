@@ -29,10 +29,11 @@ groups = [
     *(Group(i) for i in "ABCD1234"),
     ScratchPad(
         "scratchpad",
-        [
+        dropdowns=[
             DropDown(
                 "term",
                 TERMINAL,
+                on_focus_lost_hide=False,
                 opacity=1.0,
                 height=0.6,
                 width=0.6,
@@ -188,7 +189,7 @@ keys: list[Key] = [
     EzKey("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
     EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
     EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
-]
+]  # fmt: skip
 
 wmname = "Qtile"
 
@@ -210,10 +211,9 @@ follow_mouse_focus = True
 reconfigure_screens = True
 
 
+# FEAT: stop & restart dependent units with PartOf=
 @hook.subscribe.startup
 def autostart() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
     subprocess.run(["nitrogen", "--restore"])
-
-# FEAT: stop & restart dependent units with PartOf=
