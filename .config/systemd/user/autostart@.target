@@ -6,4 +6,4 @@
 
 [Unit]
 Description=Autostart services for %i session
-PartOf=graphical-session.target
+Wants=graphical-session.target
