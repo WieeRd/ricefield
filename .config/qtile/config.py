@@ -211,9 +211,13 @@ follow_mouse_focus = True
 reconfigure_screens = True
 
 
-# FEAT: stop & restart dependent units with PartOf=
 @hook.subscribe.startup
-def autostart() -> None:
+def startup() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
     subprocess.run(["nitrogen", "--restore"])
+
+
+@hook.subscribe.shutdown
+def shutdown() -> None:
+    subprocess.run(["systemctl", "--user", "stop", "autostart@qtile.target"])
