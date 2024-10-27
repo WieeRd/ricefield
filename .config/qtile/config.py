@@ -26,7 +26,7 @@ SPECIAL = "#7e9cd8"
 screens = [Screen()]
 
 groups = [
-    *(Group(i) for i in "ABCD1234"),
+    *(Group(i) for i in "123456"),
     ScratchPad(
         "scratchpad",
         dropdowns=[
@@ -89,7 +89,7 @@ keys: list[Key] = [
     # Switch groups
     *(
         key
-        for g, k in zip(groups, "asdf1234")
+        for g, k in zip(groups, "asdfwe")
         for key in (
             Key(
                 ["mod4"],
@@ -108,12 +108,9 @@ keys: list[Key] = [
 
     # Launch programs
     EzKey("M-z", lazy.spawn(TERMINAL), desc="Launch terminal"),
-    EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
-    EzKey("M-c", lazy.spawn("rofi -show run"), desc="Launch command"),
     EzKey("M-v", lazy.spawn(BROWSER), desc="Launch browser"),
-
-    # Die worthless window
-    EzKey("M-w", lazy.window.kill(), desc="Close window"),
+    EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
+    EzKey("M-c", lazy.window.kill(), desc="Close window"),
 
     # Toggle dropdowns
     EzKey(
@@ -190,6 +187,7 @@ keys: list[Key] = [
     EzKey("M-S-r", lazy.spawn("reboot"), desc="Reboot Desktop"),
     EzKey("M-S-q", lazy.spawn("shutdown now"), desc="Shutdown Desktop"),
 ]  # fmt: skip
+
 
 wmname = "Qtile"
 
