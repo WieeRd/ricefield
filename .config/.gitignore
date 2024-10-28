@@ -16,6 +16,7 @@
 !nushell/
 !nvim/
 !picom/
+!polybar/
 !qtile/
 !ruff/
 !starship.toml
