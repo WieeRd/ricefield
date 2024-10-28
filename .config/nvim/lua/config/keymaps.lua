@@ -10,6 +10,9 @@ return {
     -- ESC alternative
     ["kj"] = "<Esc>",
 
+    -- consistency with other linux text inputs, delete a word before the cursor
+    ["<C-BS>"] = "<C-w>",
+
     -- I prefer manually triggering the signature help
     ["<C-s>"] = { vim.lsp.buf.signature_help, desc = "Signature Help" },
   },
