@@ -74,6 +74,19 @@ return {
     },
   },
 
+  -- highlight hex color codes such as #RRGGBB
+  {
+    "NvChad/nvim-colorizer.lua",
+    opts = {
+      user_default_options = {
+        RGB = false,
+        names = false,
+        mode = "virtualtext",
+        virtualtext = "󰝤 ",
+      },
+    },
+  },
+
   -- fancy folding powered by LSP/TS
   {
     "kevinhwang91/nvim-ufo",
