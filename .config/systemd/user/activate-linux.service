@@ -1,0 +1,10 @@
+# "Science isn't about WHY. It's about WHY NOT."
+# - Cave Johnson -
+
+[Unit]
+Description=Activate Linux watermark
+Documentation=https://github.com/MrGlockenspiel/activate-linux
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=activate-linux
