@@ -18,9 +18,9 @@ from libqtile.lazy import lazy
 TERMINAL = "kitty"
 BROWSER = "vivaldi"
 
-FOCUS = "#54546d"
-NORMAL = "#16161d"
-SPECIAL = "#7e9cd8"
+FOCUS = "#54546D"
+NORMAL = "#16161D"
+SPECIAL = "#7E9CD8"
 
 # FEAT: come up with a sensible dual monitor workflow
 screens = [Screen()]
@@ -213,7 +213,6 @@ reconfigure_screens = True
 def startup() -> None:
     # see `~/.config/systemd/user/autostart@.service`
     subprocess.run(["systemctl", "--user", "start", "autostart@qtile.target"])
-    subprocess.run(["nitrogen", "--restore"])
 
 
 @hook.subscribe.shutdown
