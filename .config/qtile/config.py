@@ -52,6 +52,8 @@ layouts = [
         border_normal_stack=NORMAL,
         border_width=2,
         grow_amount=5,
+        wrap_focus_columns=False,
+        wrap_focus_rows=False,
     ),
     layout.Max(),
 ]
