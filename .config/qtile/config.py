@@ -55,7 +55,11 @@ layouts = [
         wrap_focus_columns=False,
         wrap_focus_rows=False,
     ),
-    layout.Max(),
+    layout.Max(
+        border_focus=FOCUS,
+        border_normal=NORMAL,
+        border_width=2,
+    ),
 ]
 
 floating_layout = layout.Floating(
