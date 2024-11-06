@@ -1,9 +1,5 @@
 #!/usr/bin/env nu
 
-let carapace_completer = { |spans|
-    carapace $spans.0 nushell $spans | from json | sort-by value --reverse
-}
-
 let fish_completer = { |spans|
     fish --command $'complete "--do-complete=($spans | str join " ")"'
     | $"value(char tab)description(char newline)" + $in
@@ -14,7 +10,7 @@ let zoxide_completer = { |spans|
     $spans | skip 1 | zoxide query -l $in | lines | where { |x| $x != $env.PWD }
 }
 
-# FIX: LATER: auto completion does not work for aliases
+# FIX(upstream): auto completion does not work for aliases
 # | https://github.com/nushell/nushell/issues/8483
 # | below workaround method will be removed after the issue gets resolved
 let external_completer = { |spans| 
@@ -137,7 +133,8 @@ $env.config = {
     ]
 
     # FEAT: keymaps/aliases for `cd -`, `cd ..` and `cd (xplr)`
-    # FIX: not all emacs keybinds are available in vi_insert
+    # FEAT: ctrl + backspace = ctrl + w (delete a word)
+    # FIX(upstream): not all emacs keybinds are available in vi_insert
     # | make a PR to `nushell/reedline` to move default keybinds
     keybindings: [
         {
@@ -160,28 +157,18 @@ $env.config = {
     ]
 }
 
-# Basically `z` but child dirs instead of frequently visited dirs
-def --env __fuzzy_cd [search: string] {
-    fd --type directory
-    | fzf --scheme path --filter $search
-    | head -n1
-    | cd $in
-}
-
-# Basically `zi` but child dirs instead of frequently visited dirs
-def --env __interactive_cd [] {
-    let prevcmd = "eza --icons --group-directories-first --sort=extension --color=always {}"
-    fd --type directory
-    | fzf --scheme path --height 45% --preview-window down,30% --preview $prevcmd
-    | cd $in
-}
-
 # Fuzzy & Interactive `cd` using `fd` and `fzf`
 def --env c [search?: string] {
     if $search != null {
-        __fuzzy_cd $search
+        fd --type directory
+        | fzf --scheme path --filter $search
+        | head -n1
+        | cd $in
     } else {
-        __interactive_cd
+        let prevcmd = "eza --icons --group-directories-first --sort=extension --color=always {}"
+        fd --type directory
+        | fzf --scheme path --height 45% --preview-window down,30% --preview $prevcmd
+        | cd $in
     }
 }
 
@@ -228,3 +215,11 @@ alias icat = kitten icat
 source atuin.nu
 source starship.nu
 source zoxide.nu
+
+def --env z [search?: string] {
+    if $search != null {
+        __zoxide_z $search
+    } else {
+        __zoxide_zi
+    }
+}

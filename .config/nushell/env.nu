@@ -38,5 +38,5 @@ do {
 
     atuin init nu --disable-up-arrow | save -f atuin.nu
     starship init nu | save -f starship.nu
-    zoxide init nushell | save -f zoxide.nu
+    zoxide init nushell --no-cmd | save -f zoxide.nu
 }
