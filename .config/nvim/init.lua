@@ -1,4 +1,3 @@
-local vim = vim
 vim.loader.enable()
 
 require("setup").setup({

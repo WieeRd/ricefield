@@ -27,8 +27,8 @@ return {
     ["<Leader><Tab>"] = { ":tab ", desc = "tab {cmd}" },
 
     -- file explorer (netrw or oil.nvim if plugins are enabled)
-    ["-"] = { "<Cmd>edit %:h", desc = "Browse Parent Dir" },
-    ["_"] = { "<Cmd>edit .", desc = "Browse CWD" },
+    ["-"] = { "<Cmd>edit %:h<CR>", desc = "Browse Parent Dir" },
+    ["_"] = { "<Cmd>edit .<CR>", desc = "Browse CWD" },
 
     -- tabpage management
     ["<Leader>+"] = "<Cmd>tabnew<CR>",
