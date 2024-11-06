@@ -4,4 +4,4 @@ Documentation=man:polybar(1)
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=polybar
+ExecStart=polybar -r
