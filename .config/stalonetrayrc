@@ -1,0 +1,9 @@
+#!/hint/sh
+
+background "#16161D"
+vertical true 
+geometry 1x1-10+52
+grow_gravity NE 
+icon_gravity NE
+icon_size 32
+slot_size 48

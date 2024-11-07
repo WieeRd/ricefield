@@ -19,7 +19,9 @@
 !polybar/
 !qtile/
 !ruff/
-!starship.toml
 !systemd/
 !wezterm/
 !xplr/
+
+!stalonetrayrc
+!starship.toml
