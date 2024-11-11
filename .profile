@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 # ~/.profile: sourced by display managers before the graphical session.
-# import systemd user environments from `environment.d/`
 
 set -o allexport
-systemctl --user unset-environment DISPLAY XAUTHORITY
-eval "$(systemctl --user show-environment)"
+
+# use fcitx5 as an input method
+XMODIFIERS=@im=fcitx
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
+
 set +o allexport
