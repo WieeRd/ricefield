@@ -17,11 +17,6 @@ $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = "∙"
 
-# import systemd user environments from `environment.d/`
-systemctl --user show-environment --output=json
-| from json
-| load-env
-
 # default applications
 $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
