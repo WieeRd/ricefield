@@ -1,11 +1,11 @@
 #!/usr/bin/env nu
 
-# NOTE: the conversions happen *after* `{env, config}.nu` are loaded
 let PATH_CONVERSION = {
-    from_string: { |s| $s | split row (char esep) | path expand | uniq }
+    from_string: { |s| $s | split row (char esep) | uniq }
     to_string: { |v| $v | path expand | str join (char esep) }
 }
 
+# NOTE: the conversions happen *after* `{env, config}.nu` are loaded
 $env.ENV_CONVERSIONS = {
     # Linux
     "PATH": $PATH_CONVERSION
@@ -13,20 +13,12 @@ $env.ENV_CONVERSIONS = {
     "Path": $PATH_CONVERSION
 }
 
-$env.PROMPT_INDICATOR_VI_INSERT = ""
-$env.PROMPT_INDICATOR_VI_NORMAL = ""
-$env.PROMPT_MULTILINE_INDICATOR = "∙"
+# ...which is why a manual conversion is needed here before using `append`
+$env.PATH = do $PATH_CONVERSION.from_string $env.PATH
+| append ~/.local/bin
+| append ~/.cargo/bin
+| append ~/go/bin
 
-# default applications
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim"
-$env.MANPAGER = "nvim +Man!"
-
-# not sure what this is even used for but I'm too afraid to remove it
-$env.GPG_TTY = (tty)
-
-# FEAT: create kanagawa palette for vivid
-$env.LS_COLORS = (vivid generate one-dark)
 
 # generate integration scripts inside tmpfs to reduce disk I/O
 $env.NU_TMP_DIR = ($env.XDG_RUNTIME_DIR | path join "nu")
@@ -40,3 +32,20 @@ do {
     starship init nu | save -f starship.nu
     zoxide init nushell --no-cmd | save -f zoxide.nu
 }
+
+
+# disable native shell prompt and leave it up to starship
+$env.PROMPT_INDICATOR_VI_INSERT = ""
+$env.PROMPT_INDICATOR_VI_NORMAL = ""
+$env.PROMPT_MULTILINE_INDICATOR = "∙"
+
+# set default applications
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim"
+$env.MANPAGER = "nvim +Man!"
+
+# not sure what this is even used for but I'm too afraid to remove it
+$env.GPG_TTY = (tty)
+
+# FEAT: create kanagawa palette for vivid
+$env.LS_COLORS = (vivid generate one-dark)
