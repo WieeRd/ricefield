@@ -22,6 +22,11 @@ systemctl --user show-environment --output=json
 | from json
 | load-env
 
+# default applications
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim"
+$env.MANPAGER = "nvim +Man!"
+
 # not sure what this is even used for but I'm too afraid to remove it
 $env.GPG_TTY = (tty)
 
