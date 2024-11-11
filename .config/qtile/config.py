@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from libqtile import hook, layout
@@ -14,9 +15,10 @@ from libqtile.config import (
     Screen,
 )
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
-TERMINAL = "kitty"
-BROWSER = "vivaldi"
+BROWSER = os.getenv("BROWSER") or "xdg-open https://"
+TERMINAL = guess_terminal(os.getenv("TERMINAL")) or "notify-send 'Terminal Unavailable'"
 
 FOCUS = "#54546D"
 NORMAL = "#16161D"
@@ -88,6 +90,9 @@ mouse: list[Mouse] = [
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
+    # FIX: with focus following the cursor, this is not needed. may as well switch to close window.
+    # | on the other hand focus follow is annoying on laptop with touchpad misinputs
+    # | partially mitiaged by warping the cursor on dropdowns
     EzClick("M-2", lazy.window.bring_to_front()),
 ]
 

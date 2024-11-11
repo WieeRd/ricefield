@@ -9,4 +9,8 @@ GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 
+# default applications
+BROWSER=vivaldi
+TERMINAL=kitty
+
 set +o allexport
