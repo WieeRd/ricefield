@@ -1,9 +1,9 @@
 #!/hint/sh
 
 background "#16161D"
-vertical true 
-geometry 1x1-10+52
+vertical true
+geometry 1x1-9+36
 grow_gravity NE 
 icon_gravity NE
-icon_size 32
-slot_size 48
+icon_size 24
+slot_size 32

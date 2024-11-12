@@ -64,4 +64,15 @@ return {
     end,
     desc = "Auto refresh CodeLens on changes",
   },
+
+  -- FIX(upstream): lazily setup servers may not have `K` keymap setup
+  -- | https://github.com/WieeRd/auto-lsp.nvim/issues/9
+  {
+    "LspAttach",
+    callback = function(_)
+      local map = vim.keymap.set
+      map("n", "K", vim.lsp.buf.hover)
+    end,
+    desc = "Band-aid fix for WieeRd/auto-lsp.nvim#9",
+  },
 }
