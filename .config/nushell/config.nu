@@ -1,33 +1,24 @@
 #!/usr/bin/env nu
 
-let fish_completer = { |spans|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | $"value(char tab)description(char newline)" + $in
-    | from tsv --flexible --no-infer
-}
-
-let zoxide_completer = { |spans|
-    $spans | skip 1 | zoxide query -l $in | lines | where { |x| $x != $env.PWD }
-}
-
 # FIX(upstream): auto completion does not work for aliases
 # | https://github.com/nushell/nushell/issues/8483
-# | below workaround method will be removed after the issue gets resolved
+# | below is a workaround that manually expands aliases before the completion
 let external_completer = { |spans| 
-    # if the current command is an alias, get it's expansion
-    let expanded_alias = (scope aliases | where name == $spans.0 | get -i expansion.0)
+    let expanded_alias = (
+        scope aliases
+        | where name == $spans.0 
+        | get -i expansion.0
+    )
 
-    # put the first word of the expanded alias first in the span
     let spans = if $expanded_alias != null  {
         $spans | skip 1 | prepend ($expanded_alias | split row " ")
     } else {
         $spans
     }
 
-    match $spans.0 {
-        z | zi => $zoxide_completer,
-        _ => $fish_completer,
-    } | do $in $spans
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | from tsv --flexible --no-infer
+    | rename value description
 } 
 
 $env.config = {
@@ -81,6 +72,7 @@ $env.config = {
         # display_output: { table -e | into string | less -FR err> /dev/null }
     }
 
+    # FEAT: LATER: fuzzy completion menu powered by fzf
     menus: [
         {
             name: completion_menu
@@ -157,6 +149,19 @@ $env.config = {
     ]
 }
 
+
+source atuin.nu
+source starship.nu
+source zoxide.nu
+
+def --env z [search?: string] {
+    if $search != null {
+        __zoxide_z $search
+    } else {
+        __zoxide_zi
+    }
+}
+
 # Fuzzy & Interactive `cd` using `fd` and `fzf`
 def --env c [search?: string] {
     if $search != null {
@@ -211,15 +216,3 @@ alias jctl = journalctl
 # | conditional alias is not supported as of v0.94.2 (nushell/nushell#5068)
 alias ktsh = kitten ssh
 alias icat = kitten icat
-
-source atuin.nu
-source starship.nu
-source zoxide.nu
-
-def --env z [search?: string] {
-    if $search != null {
-        __zoxide_z $search
-    } else {
-        __zoxide_zi
-    }
-}

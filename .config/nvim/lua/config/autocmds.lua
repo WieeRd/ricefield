@@ -71,7 +71,7 @@ return {
     "LspAttach",
     callback = function(_)
       local map = vim.keymap.set
-      map("n", "K", vim.lsp.buf.hover)
+      map("n", "K", vim.lsp.buf.hover, { buffer = true })
     end,
     desc = "Band-aid fix for WieeRd/auto-lsp.nvim#9",
   },
