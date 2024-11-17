@@ -151,11 +151,4 @@ return {
     },
     opts = { use_default_keymaps = false },
   },
-
-  -- the year is 2024 and people still do not have .editorconfig in their repo
-  {
-    "nmac427/guess-indent.nvim",
-    event = "BufReadPre",
-    opts = {},
-  },
 }
