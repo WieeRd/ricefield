@@ -43,3 +43,7 @@ indent_size = 4
 [kanata/*.kbd]
 indent_style = space
 indent_size = 2
+
+[rofi/*.rasi]
+indent_style = space
+indent_size = 4

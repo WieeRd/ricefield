@@ -17,6 +17,7 @@
 !picom/
 !polybar/
 !qtile/
+!rofi/
 !ruff/
 !systemd/
 !wezterm/
