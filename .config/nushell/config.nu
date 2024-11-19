@@ -16,8 +16,10 @@ let external_completer = { |spans|
         $spans
     }
 
+    # FIX(upstream): `from tsv --columns value description`
+    # | https://github.com/nushell/nushell/issues/14398
     fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | from tsv --flexible --no-infer
+    | from tsv --flexible --no-infer --noheaders
     | rename value description
 } 
 
