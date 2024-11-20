@@ -12,8 +12,10 @@ return {
     end,
   },
 
+  -- enhance native `gcc` commenting
+  -- FEAT(upstream): add support for scss (#59)
   {
-    "folke/ts-comments.nvim",
+    "WieeRd/ts-comments.nvim",
     event = "VeryLazy",
     opts = {},
   },
