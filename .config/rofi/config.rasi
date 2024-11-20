@@ -1,28 +1,28 @@
-/* vim: filetype=css */
+// vim: filetype=scss
 
 configuration {
     modes: "drun,run";
     terminal: "rofi-sensible-terminal";
 
-    /* Matching */
+    // Matching
     tokenize: true;
     case-sensitive: false;
     matching: "fuzzy";
 
-    /* Sorting */
+    // Sorting
     sort: true;
     sorting-method: "fzf";
 
-    /* History */
+    // History
     disable-history: false;
     max-history-size: 15;
 
-    /* Appearance */
+    // Appearance
     font: "Roboto Mono 12";
     show-icons: true;
 
-    display-drun:               " ";
-    display-run:                " ";
-    display-filebrowser:        " ";
-    display-window:             " ";
+    // Prompts
+    display-drun: " ";
+    display-run: " ";
+    display-window: " ";
 }
