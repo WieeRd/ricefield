@@ -11,21 +11,6 @@
   windows-altgr cancel-lctl-press
 )
 
-;; representation of the physical keyboard
-(defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet cmp  rctl
-)
-
-;; FEAT: force-enable qwerty while Korean IME is active
-(deffakekeys
-  hangul (layer-while-held qwerty)
-)
-
 (defalias
   ;; switch layout
   lay (multi rctl (layer-while-held layers))
@@ -37,10 +22,20 @@
   t/a (tap-hold-press 300 300 tab (layer-while-held fn-arrows))
   e/a (tap-hold-press 300 300 esc (layer-while-held fn-arrows))
 
-  ;; WM keymaps are defined in QWERTY,
+  ;; WM keymaps are defined based on QWERTY key positions,
   ;; so always switch to QWERTY when using Meta chords
   mod (multi lmet (layer-while-held qwerty))
 ) 
+
+;; representation of the physical keyboard
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet cmp  rctl
+)
 
 ;; Hacked QWERTY
 (deflayer qwerty
@@ -49,17 +44,18 @@
   @t/a q    w    e    r    t    y    u    i    o    p    [    ]    \
   @e/c a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            @mod rmet cmp  @lay
+  lctl lalt lmet           spc            ralt rmet cmp  @lay
 )
 
 ;; Hacked Colemak DH(m)
+;; FEAT: force-enable qwerty while Korean IME is active
 (deflayer colemak-dh
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @t/a q    w    f    p    b    j    l    u    y    ;    [    ]    \
   @e/c a    r    s    t    g    m    n    e    i    o    '    ret
   lsft z    x    c    d    v    k    h    ,    .    /    rsft
-  lctl lmet lalt           spc            @mod rmet cmp  @lay
+  lctl lalt @mod           spc            ralt rmet cmp  @lay
 )
 
 ;; Engineer gaming
@@ -69,7 +65,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   lctl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  @e/a lmet lalt           spc            @mod rmet cmp  @lay
+  @e/a lmet lalt           spc            ralt rmet cmp  @lay
 )
 
 ;; Function keys and Arrow keys
