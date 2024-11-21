@@ -1,0 +1,9 @@
+[Unit]
+Description=Feh wallpaper setter
+Documentation=man:feh(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=bash -c ~/.fehbg
