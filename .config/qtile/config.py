@@ -10,7 +10,6 @@ from libqtile.config import (
     Group,
     Key,
     Match,
-    Mouse,
     ScratchPad,
     Screen,
 )
@@ -78,23 +77,27 @@ floating_layout = layout.Floating(
     border_width=2,
 )
 
-# FEAT: cycle through stacked windows using meta + scroll
-# | haven't figured out how to bind stuffs to scrolling
-mouse: list[Mouse] = [
+# FIX(upstream): ASAP: cannot cycle through stacks using mouse
+# | https://github.com/qtile/qtile/issues/5092
+mouse = [
+    # Left click
     EzDrag(
         "M-1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
+    # Right click
     EzDrag(
         "M-3",
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
-    EzClick("M-2", lazy.window.kill()),
+    EzClick("M-2", lazy.window.kill()),  # Wheel click
+    EzClick("M-4", lazy.layout.up()),  # Scroll up
+    EzClick("M-5", lazy.layout.down()),  # Scroll down
 ]
 
-keys: list[Key] = [
+keys = [
     # Switch groups
     *(
         key
