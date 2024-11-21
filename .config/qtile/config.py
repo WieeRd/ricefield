@@ -116,14 +116,14 @@ keys: list[Key] = [
     ),
 
     # Launch programs
-    EzKey("M-z", lazy.spawn(TERMINAL), desc="Launch terminal"),
-    EzKey("M-v", lazy.spawn(BROWSER), desc="Launch browser"),
-    EzKey("M-x", lazy.spawn("rofi -show drun"), desc="Launch application"),
-    EzKey("M-c", lazy.window.kill(), desc="Close window"),
+    EzKey("M-r", lazy.spawn("rofi -show drun"), desc="Launch application"),
+    EzKey("M-q", lazy.window.kill(), desc="Close window"),
+    EzKey("M-<Period>", lazy.spawn(TERMINAL), desc="Launch terminal"),
+    EzKey("M-<Slash>", lazy.spawn(BROWSER), desc="Launch browser"),
 
     # Toggle dropdowns
     EzKey(
-        "M-<Semicolon>",
+        "M-<Space>",
         lazy.group["scratchpad"].dropdown_toggle("term"),
         desc="Dropdown terminal",
     ),
@@ -133,28 +133,28 @@ keys: list[Key] = [
     EzKey("M-j", lazy.layout.down(), desc="Focus down"),
     EzKey("M-k", lazy.layout.up(), desc="Focus up"),
     EzKey("M-l", lazy.layout.right(), desc="Focus right"),
-    EzKey("M-<Slash>", lazy.spawn("rofi -show window"), desc="Browse windows"),
+    EzKey("M-<Tab>", lazy.spawn("rofi -show window"), desc="Browse windows"),
 
     # Rearrange windows
     EzKey("M-S-h", lazy.layout.shuffle_left(), desc="Shuffle left"),
     EzKey("M-S-j", lazy.layout.shuffle_down(), desc="Shuffle down"),
     EzKey("M-S-k", lazy.layout.shuffle_up(), desc="Shuffle up"),
     EzKey("M-S-l", lazy.layout.shuffle_right(), desc="Shuffle right"),
-    EzKey("M-S-<Slash>", lazy.layout.swap_column_left(), desc="Swap columns"),
+    EzKey("M-S-m", lazy.layout.swap_column_left(), desc="Swap columns"),
 
     # Resize windows
     EzKey("M-C-h", lazy.layout.grow_left(), desc="Grow left"),
     EzKey("M-C-j", lazy.layout.grow_down(), desc="Grow down"),
     EzKey("M-C-k", lazy.layout.grow_up(), desc="Grow up"),
     EzKey("M-C-l", lazy.layout.grow_right(), desc="Grow right"),
-    EzKey("M-<Equal>", lazy.layout.normalize(), desc="Reset window sizes"),
+    EzKey("M-C-m", lazy.layout.normalize(), desc="Reset window sizes"),
 
     # Manage layouts
     EzKey("M-u", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
     EzKey("M-i", lazy.layout.toggle_split(), desc="Toggle stacking"),
     EzKey("M-o", lazy.next_layout(), desc="Toggle layout"),
     EzKey("M-p", lazy.window.toggle_floating(), desc="Toggle floating"),
-    EzKey("M-<Tab>", lazy.next_screen(), desc="Switch screen"),
+    EzKey("M-<Semicolon>", lazy.next_screen(), desc="Switch screen"),
 
     # Take screenshots
     EzKey("M-g", lazy.spawn("flameshot gui"), desc="Capture area"),
