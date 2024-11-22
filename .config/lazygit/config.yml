@@ -1,0 +1,7 @@
+gui:
+  nerdFontsVersion: 3
+  showFileIcons: true
+git:
+  paging:
+    colorArg: always
+    pager: "delta --paging=never"
