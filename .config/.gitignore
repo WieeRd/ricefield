@@ -23,6 +23,7 @@
 !systemd/
 !wezterm/
 !xplr/
+!xsettingsd/
 
 !stalonetrayrc
 !starship.toml
