@@ -1,0 +1,27 @@
+# ~/.inputrc : configure REPL sessions powered by `readline`
+# see `$ man 3 readline` for explanation of each option
+
+# enable 8-bit input and output (UTF-8 support)
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# enable vi keymaps and change cursor shape based on current mode
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-cmd-mode-string "\1\e[2 q\2"
+set vi-ins-mode-string "\1\e[6 q\2"
+
+# completion settings
+set completion-ignore-case On
+set show-all-if-ambiguous On
+set show-all-if-unmodified On
+set mark-directories On
+set mark-symlinked-directories On
+
+# please shut the fuck up you're not helping at all
+set bell-style none
+
+# make emacs keymaps available in vi-insert mode
+"\C-p":history-search-backward
+"\C-n":history-search-forward

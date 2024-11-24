@@ -11,4 +11,5 @@
 !.gnupg/
 !.cargo/
 
+!.inputrc
 !.profile
