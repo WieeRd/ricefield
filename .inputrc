@@ -6,22 +6,38 @@ set input-meta on
 set output-meta on
 set convert-meta off
 
-# enable vi keymaps and change cursor shape based on current mode
+# enable vi keybinds and change cursor shape based on current mode
 set editing-mode vi
 set show-mode-in-prompt on
 set vi-cmd-mode-string "\1\e[2 q\2"
 set vi-ins-mode-string "\1\e[6 q\2"
 
 # completion settings
-set completion-ignore-case On
-set show-all-if-ambiguous On
-set show-all-if-unmodified On
-set mark-directories On
-set mark-symlinked-directories On
+set completion-ignore-case on
+set menu-complete-display-prefix on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set mark-directories on
+set mark-symlinked-directories on
+
+# FEAT: LATER: enable colors for the readline completion
+# | work on vivid kanagawa theme to generate fitting $LS_COLORS
+# set colored-completion-prefix on
+# set colored-stats on
 
 # please shut the fuck up you're not helping at all
 set bell-style none
 
-# make emacs keymaps available in vi-insert mode
-"\C-p":history-search-backward
+# make emacs keybinds available in vi-insert mode
+"\C-a":beginning-of-line
+"\C-b":backward-char
+"\C-e":end-of-line
+"\C-f":forward-char
+"\C-k":kill-line
+"\C-l":clear-screen
 "\C-n":history-search-forward
+"\C-p":history-search-backward
+"\C-r":reverse-search-history
+"\C-u":unix-line-discard
+"\C-w":unix-word-rubout
+"\t":menu-complete
