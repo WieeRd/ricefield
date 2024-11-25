@@ -126,27 +126,60 @@ $env.config = {
         }
     ]
 
-    # FEAT: keymaps/aliases for `cd -`, `cd ..` and `cd (xplr)`
-    # FEAT: ctrl + backspace = ctrl + w (delete a word)
-    # FIX(upstream): not all emacs keybinds are available in vi_insert
-    # | make a PR to `nushell/reedline` to move default keybinds
+    # FEAT: MABYE: keymaps/aliases for very frequent commands
+    # | `cd -`, `cd ..`, `xplr` `__zoxide_zi`, ...
     keybindings: [
         {
-            name: history_completion
-            modifier: control
-            keycode: char_f
-            mode: [emacs, vi_insert]
-            event: { send: historyhintcomplete }
-        }
-        {
             name: pipe_on_newline
-            modifier: shift
-            keycode: enter
+            modifier: control
+            keycode: char_\
             mode: [emacs, vi_insert]
             event: {
                 edit: InsertString
                 value: "\n| "
             }
+        }
+        {
+            name: delete_prev_word
+            modifier: control
+            keycode: backspace
+            mode: [emacs, vi_insert]
+            event: { edit: CutWordLeft }
+        }
+
+        # by default vi-insert mode is missing some emacs keybinds
+        {
+            name: left
+            modifier: control
+            keycode: char_b
+            mode: [vi_insert]
+            event: { send: Left }
+        }
+        {
+            name: right_or_complete
+            modifier: control
+            keycode: char_f
+            mode: [vi_insert]
+            event: {
+                until: [
+                    { send: HistoryHintComplete } 
+                    { send: Right } 
+                ]
+            }
+        }
+        {
+            name: clear_to_end
+            modifier: control
+            keycode: char_k
+            mode: [vi_insert]
+            event: { edit: ClearToLineEnd }
+        }
+        {
+            name: clear_line
+            modifier: control
+            keycode: char_u
+            mode: [vi_insert]
+            event: { edit: Clear }
         }
     ]
 }
