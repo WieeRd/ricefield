@@ -49,3 +49,4 @@ $env.GPG_TTY = (tty)
 
 # FEAT: create kanagawa palette for vivid
 $env.LS_COLORS = (vivid generate one-dark)
+$env.LESS = "--ignore-case --tabs=4 --RAW-CONTROL-CHARS"
