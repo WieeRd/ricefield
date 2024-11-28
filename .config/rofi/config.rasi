@@ -1,36 +1,37 @@
 // vim: filetype=scss
 
 configuration {
-    modes: "drun,run";
-    terminal: "rofi-sensible-terminal";
+  modes: "drun,run";
+  terminal: "rofi-sensible-terminal";
+  dpi: env(ROFI_DPI, 96);
 
-    // Matching
-    tokenize: true;
-    case-sensitive: false;
-    matching: "fuzzy";
+  // Matching
+  tokenize: true;
+  case-sensitive: false;
+  matching: "fuzzy";
 
-    // Sorting
-    sort: true;
-    sorting-method: "fzf";
+  // Sorting
+  sort: true;
+  sorting-method: "fzf";
 
-    // History
-    disable-history: false;
-    max-history-size: 15;
+  // History
+  disable-history: false;
+  max-history-size: 15;
 
-    // Appearance
-    font: "Roboto Mono 12";
-    show-icons: true;
+  // Appearance
+  font: "Roboto Mono 12";
+  show-icons: true;
 
-    // Mode: drun
-    display-drun: " ";
-    drun-display-format: "{name}";
-    drun-match-fields: "name,generic,exec";
+  // Mode: drun
+  display-drun: " ";
+  drun-display-format: "{name}";
+  drun-match-fields: "name,generic,exec";
 
-    // Mode: run
-    display-run: " ";
+  // Mode: run
+  display-run: " ";
 
-    // Mode: window
-    display-window: " ";
-    window-format: "{w} • {c} {t}";
-    window-match-fields: "desktop,class,title";
+  // Mode: window
+  display-window: " ";
+  window-format: "{w} • {c} {t}";
+  window-match-fields: "desktop,class,title";
 }
