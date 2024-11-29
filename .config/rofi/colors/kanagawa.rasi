@@ -1,0 +1,10 @@
+// vim: filetype=scss
+
+* {
+  background: #16161D;
+  background-alt: #1F1F28;
+  foreground: #DCD7BA;
+  selected: #7E9CD8;
+  active: #76946A;
+  urgent: #C0A36E;
+}

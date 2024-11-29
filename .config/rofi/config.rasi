@@ -16,10 +16,10 @@ configuration {
 
   // History
   disable-history: false;
-  max-history-size: 15;
+  max-history-size: 12;
 
   // Appearance
-  font: "Roboto Mono 12";
+  font: "Hack Nerd Font 12.3";
   show-icons: true;
 
   // Mode: drun
@@ -32,6 +32,9 @@ configuration {
 
   // Mode: window
   display-window: " ";
-  window-format: "{w} • {c} {t}";
+  window-format: "[{w}] {t}";
   window-match-fields: "desktop,class,title";
 }
+
+@import "colors/kanagawa"
+@import "shapes/simple"
