@@ -16,8 +16,6 @@ let external_completer = { |spans|
         $spans
     }
 
-    # FIX(upstream): `from tsv --columns value description`
-    # | https://github.com/nushell/nushell/issues/14398
     fish --command $'complete "--do-complete=($spans | str join " ")"'
     | from tsv --flexible --no-infer --noheaders
     | rename value description
@@ -212,6 +210,17 @@ def --env c [search?: string] {
     }
 }
 
+# Run yazi file manager and cd on exit
+def --env x [...args] {
+	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	yazi ...$args --cwd-file $tmp
+	let cwd = (open $tmp)
+	if $cwd != "" and $cwd != $env.PWD {
+		cd $cwd
+	}
+	rm -fp $tmp
+}
+
 # Parses `git log` result into a Nushell table
 def git-log [n: int = 999] {
     ^git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n $n
@@ -229,7 +238,9 @@ def capture [command: string] {
     | xclip -selection clipboard
 }
 
-alias dots = env $"GIT_DIR=($env.HOME)/.ricefield.git" $"GIT_WORK_TREE=($env.HOME)"
+alias v = nvim
+alias g = git
+alias lg = lazygit
 
 alias eza = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
 alias l = eza
@@ -237,17 +248,10 @@ alias ll = eza --long
 alias la = eza --long --all
 alias lt = eza --tree --level 2 --git-ignore
 
-alias g = git
-alias v = nvim
-alias x = do --env { cd (xplr --print-pwd-as-result) }
-
 alias clip = xclip -selection clipboard
 
 alias sctl = systemctl
 alias uctl = systemctl --user
 alias jctl = journalctl
 
-# FIX: LATER: set kitty specific aliases only if $env.TERM == "xterm-kitty"
-# | conditional alias is not supported as of v0.94.2 (nushell/nushell#5068)
-alias ktsh = kitten ssh
-alias icat = kitten icat
+alias dots = env $"GIT_DIR=($env.HOME)/.ricefield.git" $"GIT_WORK_TREE=($env.HOME)"
