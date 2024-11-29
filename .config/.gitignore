@@ -4,10 +4,8 @@
 !.editorconfig
 !.envrc
 
-!alacritty/
 !atuin/
 !fcitx5/
-!fd/
 !flameshot/
 !gh/
 !git/
@@ -22,8 +20,6 @@
 !rofi/
 !ruff/
 !systemd/
-!wezterm/
-!xplr/
 !xsettingsd/
 !yazi/
 
