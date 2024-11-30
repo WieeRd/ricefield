@@ -113,4 +113,14 @@ return {
       map("n", "z]", ufo.goNextClosedFold)
     end,
   },
+
+  -- a framework for building statusline, tabline, and winbar
+  {
+    "rebelot/heirline.nvim",
+    event = "UIEnter",
+    config = function(_, _)
+      package.loaded["plugins.ricing.heirline"] = nil
+      require("plugins.ricing.heirline")
+    end
+  },
 }
