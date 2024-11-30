@@ -74,13 +74,14 @@ return {
     },
   },
 
-  -- highlight hex color codes such as #RRGGBB
+  -- highlight hex color codes such as #7E9CD8
   {
     "NvChad/nvim-colorizer.lua",
     opts = {
       user_default_options = {
-        RGB = false,
         names = false,
+        RGB = false,
+        RRGGBBAA = true,
         mode = "virtualtext",
         virtualtext = "󰝤 ",
       },

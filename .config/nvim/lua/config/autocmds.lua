@@ -58,6 +58,15 @@ return {
   },
 
   {
+    "ModeChanged",
+    pattern = "[iR]*:n*",
+    callback = function(_)
+      local _ = pcall(vim.system, { "fcitx5-remote", "-c" })
+    end,
+    desc = "Disable input method when leaving insert/replace mode",
+  },
+
+  {
     { "BufEnter", "TextChanged", "InsertLeave" },
     callback = function(event)
       vim.lsp.codelens.refresh({ bufnr = event.buf })
