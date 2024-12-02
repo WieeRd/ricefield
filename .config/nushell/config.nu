@@ -125,7 +125,7 @@ $env.config = {
     ]
 
     # FEAT: MABYE: keymaps/aliases for very frequent commands
-    # | `cd -`, `cd ..`, `xplr` `__zoxide_zi`, ...
+    # | `cd -`, `cd ..`, `yazi` `__zoxide_zi`, ...
     keybindings: [
         {
             name: pipe_on_newline
@@ -205,7 +205,7 @@ def --env c [search?: string] {
     } else {
         let prevcmd = "eza --icons --group-directories-first --sort=extension --color=always {}"
         fd --type directory
-        | fzf --scheme path --height 45% --preview-window down,30% --preview $prevcmd
+        | fzf --scheme path --preview $prevcmd
         | cd $in
     }
 }
@@ -239,6 +239,7 @@ def capture [command: string] {
 }
 
 alias v = nvim
+alias f = fzf --preview="bat --color=always {}"
 alias g = git
 alias lg = lazygit
 

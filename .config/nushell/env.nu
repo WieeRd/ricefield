@@ -50,3 +50,22 @@ $env.GPG_TTY = (tty)
 # FEAT: create kanagawa palette for vivid
 $env.LS_COLORS = (vivid generate one-dark)
 $env.LESS = "--ignore-case --tabs=4 --RAW-CONTROL-CHARS"
+
+# FEAT(upstream): eza config file for default flags
+# | https://github.com/eza-community/eza/issues/897
+$env.FZF_DEFAULT_COMMAND = "fd --type file"
+$env.FZF_DEFAULT_OPTS = "
+--reverse
+--info=inline
+--height=20
+--border=none
+--preview-window=right,50%,border-sharp
+--bind=btab:up,tab:down
+"
+
+$env._ZO_FZF_OPTS = $env.FZF_DEFAULT_OPTS + "
+--scheme=path
+--no-sort
+--keep-right
+--preview='eza --icons --group-directories-first --sort=extension --color=always {2..}'
+"
