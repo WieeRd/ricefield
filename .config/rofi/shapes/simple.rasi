@@ -31,15 +31,15 @@ window {
   location: center;
   anchor: center;
   fullscreen: false;
-  width: 800px;
-  x-offset: 0px;
-  y-offset: 0px;
+  width: 200mm;
+  x-offset: 0mm;
+  y-offset: 0mm;
 
   enabled: true;
-  margin: 0px;
-  padding: 0px;
-  border: 0px solid;
-  border-radius: 0px;
+  margin: 0mm;
+  padding: 0mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   cursor: "default";
   background-color: var(background-colour);
@@ -47,11 +47,11 @@ window {
 
 mainbox {
   enabled: true;
-  spacing: 10px;
-  margin: 0px;
-  padding: 30px;
-  border: 0px solid;
-  border-radius: 0px 0px 0px 0px;
+  spacing: 2.5mm;
+  margin: 0mm;
+  padding: 7.5mm;
+  border: 0mm solid;
+  border-radius: 0mm 0mm 0mm 0mm;
   border-color: var(border-colour);
   background-color: transparent;
   children: ["inputbar", "listview"];
@@ -59,11 +59,11 @@ mainbox {
 
 inputbar {
   enabled: true;
-  spacing: 10px;
-  margin: 0px;
-  padding: 0px 0px 10px 10px;
-  border: 0px;
-  border-radius: 0px;
+  spacing: 2.5mm;
+  margin: 0mm;
+  padding: 0mm 0mm 2.5mm 2.5mm;
+  border: 0mm;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: var(background-colour);
   text-color: var(foreground-colour);
@@ -105,11 +105,11 @@ listview {
   fixed-height: true;
   fixed-columns: true;
 
-  spacing: 0px;
-  margin: 0px;
-  padding: 0px;
-  border: 0px solid;
-  border-radius: 0px;
+  spacing: 0mm;
+  margin: 0mm;
+  padding: 0mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: transparent;
   text-color: var(foreground-colour);
@@ -117,19 +117,19 @@ listview {
 }
 
 scrollbar {
-  handle-width: 5px;
+  handle-width: 1.25mm;
   handle-color: var(handle-colour);
-  border-radius: 0px;
+  border-radius: 0mm;
   background-color: var(alternate-background);
 }
 
 element {
   enabled: true;
-  spacing: 10px;
-  margin: 0px;
-  padding: 5px;
-  border: 0px solid;
-  border-radius: 0px;
+  spacing: 2.5mm;
+  margin: 0mm;
+  padding: 1.25mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: transparent;
   text-color: var(foreground-colour);
@@ -184,7 +184,7 @@ element alternate.active {
 element-icon {
   background-color: transparent;
   text-color: inherit;
-  size: 24px;
+  size: 1.1em; // 6mm;
   cursor: inherit;
 }
 
@@ -199,20 +199,20 @@ element-text {
 
 mode-switcher {
   enabled: true;
-  spacing: 10px;
-  margin: 0px;
-  padding: 0px;
-  border: 0px solid;
-  border-radius: 0px;
+  spacing: 2.5mm;
+  margin: 0mm;
+  padding: 0mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: transparent;
   text-color: var(foreground-colour);
 }
 
 button {
-  padding: 10px;
-  border: 0px solid;
-  border-radius: 0px;
+  padding: 2.5mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: var(alternate-background);
   text-color: inherit;
@@ -226,19 +226,19 @@ button selected {
 
 message {
   enabled: true;
-  margin: 0px;
-  padding: 0px;
-  border: 0px solid;
-  border-radius: 0px 0px 0px 0px;
+  margin: 0mm;
+  padding: 0mm;
+  border: 0mm solid;
+  border-radius: 0mm 0mm 0mm 0mm;
   border-color: var(border-colour);
   background-color: transparent;
   text-color: var(foreground-colour);
 }
 
 textbox {
-  padding: 10px;
-  border: 0px solid;
-  border-radius: 0px;
+  padding: 2.5mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: var(alternate-background);
   text-color: var(foreground-colour);
@@ -251,9 +251,9 @@ textbox {
 }
 
 error-message {
-  padding: 10px;
-  border: 0px solid;
-  border-radius: 0px;
+  padding: 2.5mm;
+  border: 0mm solid;
+  border-radius: 0mm;
   border-color: var(border-colour);
   background-color: var(background-colour);
   text-color: var(foreground-colour);
