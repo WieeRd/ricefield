@@ -51,7 +51,6 @@ return {
 
     -- +lsp: language server interactions
     ["<Leader>lr"] = { vim.lsp.buf.rename, desc = "Rename Symbol" },
-    ["<Leader>la"] = { vim.lsp.buf.code_action, desc = "Code Actions" },
     ["<Leader>lo"] = { vim.lsp.codelens.run, desc = "Run CodeLens" },
     ["<Leader>li"] = {
       function()
@@ -74,6 +73,9 @@ return {
   },
 
   [ACTION] = {
+    -- +lsp: language server interactions
+    ["<Leader>la"] = { vim.lsp.buf.code_action, desc = "Code Actions" },
+
     -- move based on display (wrapped) lines rather than real lines
     -- NOTE: excluded from operator-pending mode because
     -- | gj, gk are char-wise while j, k are line-wise

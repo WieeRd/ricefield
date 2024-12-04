@@ -54,6 +54,7 @@ return {
       { "<Leader>fl", "<Cmd>FzfLua loclist<CR>", desc = "Loclist" },
       -- LSP
       { "<Leader>fi", "<Cmd>FzfLua lsp_finder<CR>", desc = "LSP Finder" },
+      { "<Leader>fr", "<Cmd>FzfLua lsp_references<CR>", desc = "References" },
       {
         "<Leader>fd",
         "<Cmd>FzfLua diagnostics_document<CR>",
@@ -99,7 +100,7 @@ return {
               return s
             end,
           },
-          code_actions = { previewer = "codeaction_native" }
+          code_actions = { previewer = "codeaction_native" },
         },
       }
     end,
