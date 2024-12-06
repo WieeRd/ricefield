@@ -6,13 +6,14 @@ local function get_palette()
   local hl = utils.get_highlight
   return {
     Special = hl("Special").fg,
+    Readonly = hl("Constant").fg,
   }
 end
 
 -- update the palette on colorscheme changes
 vim.api.nvim_create_augroup("Heirline", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
+  callback = function(_)
     local colors = get_palette()
     utils.on_colorscheme(colors)
   end,
@@ -23,21 +24,18 @@ local Align = { provider = "%=" }
 local Truncate = { provider = "%<" }
 local Space = { provider = " " }
 
--- `128L 64C  32% ` | `  1L  2C   3% `
+-- ` 128L 64C  32% ` | `   1L  2C   3% `
 -- Current line, column and percentage through file
 local Ruler = {
-  provider = "%3lL %2cC %3p%% ",
-  hl = { bold = true },
+  provider = " %3lL %2cC %3p%% ",
+  hl = "Bold",
 }
 
 -- `[protocol]`
 -- Extract `protocol://` from URL-like buffer names
 local FileProtocol = {
-  condition = function(self)
-    return self.protocol
-  end,
   provider = function(self)
-    return ("[%s]"):format(self.protocol)
+    return self.protocol and ("[%s]"):format(self.protocol)
   end,
   hl = { fg = "Special", bold = true },
 }
@@ -71,7 +69,37 @@ local FilePath = {
   end,
 }
 
--- `[protocol]  src/main.rs ... 128L 64C  32% `
+-- ` [+]`
+-- Modified file indicator
+local FileModified = {
+  provider = function(_)
+    return vim.bo.modified and " [+]"
+  end,
+}
+
+-- ` `
+-- Readonly file indicator
+local FileReadonly = {
+  provider = function(_)
+    return vim.bo.readonly and " "
+  end,
+  hl = { fg = "Readonly" },
+}
+
+-- ` [dos] ` | ` [mac] `
+-- Indicate non-unix line break character
+local FileFormat = {
+  condition = function(_)
+    return vim.bo.fileformat ~= "unix"
+  end,
+  provider = function(_)
+    return (" [%s] "):format(vim.bo.fileformat)
+  end,
+  hl = { fg = "Special", bold = true },
+}
+
+-- `  src/main.rs [+]       ... 128L 64C  32% `
+-- `[oil]  /etc/systemd/   ...   2L  4C   8% `
 -- Generic statusline ready for normal files as well as most special buffers
 local File = {
   init = function(self)
@@ -93,13 +121,16 @@ local File = {
   FileProtocol,
   FileIcon,
   FilePath,
+  FileModified,
+  FileReadonly,
   Align,
+  FileFormat,
   Ruler,
   Truncate,
 }
 
 local StatusLine = {
-  hl = function()
+  hl = function(_)
     return cond.is_active() and "StatusLine" or "StatusLineNC"
   end,
 
