@@ -86,6 +86,23 @@ local FileReadonly = {
   hl = { fg = "Readonly" },
 }
 
+-- ` 2  1 `
+-- File diagnostic counter
+local FileDiagnostics = {
+  init = function(self)
+    local counts = vim.diagnostic.count(0)
+    for severity = 1, 4 do
+      local count = counts[severity]
+      self[severity].provider = count and (" %d "):format(count)
+    end
+  end,
+  update = { "BufEnter", "DiagnosticChanged" },
+  { hl = "DiagnosticError" },
+  { hl = "DiagnosticWarn" },
+  { hl = "DiagnosticInfo" },
+  { hl = "DiagnosticHint" },
+}
+
 -- ` [dos] ` | ` [mac] `
 -- Indicate non-unix line break character
 local FileFormat = {
@@ -124,6 +141,7 @@ local File = {
   FileModified,
   FileReadonly,
   Align,
+  FileDiagnostics,
   FileFormat,
   Ruler,
   Truncate,
