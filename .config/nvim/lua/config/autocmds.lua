@@ -46,6 +46,17 @@ return {
   },
 
   {
+    { "FocusGained", "TermLeave" },
+    callback = function(_)
+      -- using `vim.cmd` in cmdline window will result in error E11
+      if vim.fn.getcmdwintype() == "" then
+        vim.cmd("checktime")
+      end
+    end,
+    desc = "Check if the files has been modified from the outside",
+  },
+
+  {
     "BufWritePre",
     callback = function(event)
       if event.match:match("^%w%w+:[\\/][\\/]") then
