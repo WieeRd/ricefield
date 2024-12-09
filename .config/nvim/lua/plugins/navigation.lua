@@ -123,9 +123,16 @@ return {
       skip_confirm_for_simple_edits = true,
       watch_for_changes = true,
       float = {
-        max_width = 120,
-        max_height = 35,
         border = "solid",
+        override = function(conf)
+          local col = vim.o.columns
+          local row = vim.o.lines
+          conf.width = math.max(math.floor(col * 0.66), 120)
+          conf.height = math.min(math.floor(row * 0.66), row - 6)
+          conf.col = (col - conf.width - 2) / 2
+          conf.row = (row - conf.height - 2) / 2
+          return conf
+        end,
       },
       preview = { border = "solid" },
       ssh = { border = "solid" },
@@ -176,10 +183,12 @@ return {
       float_opts = {
         border = "solid",
         width = function(_)
-          return math.min(120, vim.o.columns - 6)
+          local columns = vim.o.columns
+          return math.max(math.floor(columns * 0.66), 120)
         end,
         height = function(_)
-          return math.min(35, math.floor(vim.o.lines * 0.7))
+          local lines = vim.o.lines
+          return math.min(math.floor(lines * 0.66), lines - 6)
         end,
       },
     },
