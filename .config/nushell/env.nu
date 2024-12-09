@@ -40,8 +40,10 @@ $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = "∙"
 
 # set default applications
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim"
+# FEAT(upstream): replace `nvr` with `nvim --remote-wait --server $env.NVIM`
+# | https://github.com/neovim/neovim/issues/24788
+$env.EDITOR = if "NVIM" in $env { "nvr" } else { "nvim" }
+$env.VISUAL = $env.EDITOR
 $env.MANPAGER = "nvim +Man!"
 
 # not sure what this is even used for but I'm too afraid to remove it
@@ -60,7 +62,6 @@ $env.FZF_DEFAULT_OPTS = "
 --height=20
 --border=none
 --preview-window=right,50%,border-sharp
---bind=btab:up,tab:down
 "
 
 $env._ZO_FZF_OPTS = $env.FZF_DEFAULT_OPTS + "

@@ -238,10 +238,10 @@ def capture [command: string] {
     | xclip -selection clipboard
 }
 
-alias v = nvim
+def e [...paths: path] { ^$env.EDITOR ...$paths }
 alias f = fzf --preview="bat --color=always {}"
 alias g = git
-alias lg = lazygit
+alias G = lazygit
 
 alias eza = eza --icons --group-directories-first --sort=extension --width=80 --group --smart-group --time-style=relative --git
 alias l = eza
