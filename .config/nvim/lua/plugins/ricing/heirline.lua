@@ -5,8 +5,9 @@ local utils = require("heirline.utils")
 local function get_palette()
   local hl = utils.get_highlight
   return {
-    Special = hl("Special").fg,
     Readonly = hl("Constant").fg,
+    Special = hl("Special").fg,
+    Title = hl("Title").fg,
   }
 end
 
@@ -22,12 +23,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 local Align = { provider = "%=" }
 local Truncate = { provider = "%<" }
-local Space = { provider = " " }
 
 -- ` 128L 64C  32% ` | `   1L  2C   3% `
 -- Current line, column and percentage through file
 local Ruler = {
-  provider = " %3lL %2cC %3p%% ",
+  provider = " %3lL %2vC %3p%% ",
   hl = "Bold",
 }
 
@@ -104,7 +104,7 @@ local FileDiagnostics = {
 }
 
 -- ` [dos] ` | ` [mac] `
--- Indicate non-unix line break character
+-- Indicate the use of non-unix line break character
 local FileFormat = {
   condition = function(_)
     return vim.bo.fileformat ~= "unix"
@@ -147,6 +147,60 @@ local File = {
   Truncate,
 }
 
+-- `:Edit Command` | `/Edit Search`
+-- Display the type of `:h cmdline-window`
+local Cmdwin = {
+  condition = function(self)
+    self.kind = vim.fn.getcmdwintype()
+    return self.kind ~= ""
+  end,
+  provider = function(self)
+    local desc = {
+      [":"] = "Command",
+      [">"] = "Debug",
+      ["/"] = "Search",
+      ["?"] = "Search",
+      ["@"] = "Input",
+      ["-"] = "Text",
+      ["="] = "Expression",
+    }
+    return ("%sEdit %s"):format(self.kind, desc[self.kind])
+  end,
+}
+
+-- `[ ... Title ... ]` | `... [ Title ] ...`
+-- Sidebars and bottom panels, special plugin windows in general
+local Sidebars = {
+  provider = function(_)
+    local title = vim.api.nvim_buf_get_name(0)
+    if title ~= "" then
+      title = vim.fs.basename(title)
+    else
+      title = vim.bo.filetype
+    end
+
+    if vim.api.nvim_win_get_width(0) == vim.o.columns then
+      return ("%%=[ %s ]%%="):format(title)
+    else
+      return ("[%%=%s%%=]"):format(title)
+    end
+  end,
+}
+
+-- `:Edit Command` | `[ ... Title ... ]`
+-- Special, non-file buffers such as `:h cmdline-window` and sidebars
+local NoFile = {
+  condition = function(_)
+    return vim.bo.buftype == "nofile"
+  end,
+  hl = { fg = "Title", bold = true },
+
+  -- use the first component that matches the condition
+  fallthrough = false,
+  Cmdwin,
+  Sidebars,
+}
+
 local StatusLine = {
   hl = function(_)
     return cond.is_active() and "StatusLine" or "StatusLineNC"
@@ -154,6 +208,7 @@ local StatusLine = {
 
   -- use the first component that matches the condition
   fallthrough = false,
+  NoFile,
   File,
 }
 
