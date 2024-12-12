@@ -170,7 +170,7 @@ local Cmdwin = {
 
 -- `[ ... Title ... ]` | `... [ Title ] ...`
 -- Sidebars and bottom panels, special plugin windows in general
-local Sidebars = {
+local Panels = {
   provider = function(_)
     local title = vim.api.nvim_buf_get_name(0)
     if title ~= "" then
@@ -198,7 +198,43 @@ local NoFile = {
   -- use the first component that matches the condition
   fallthrough = false,
   Cmdwin,
-  Sidebars,
+  Panels,
+}
+
+-- `:h ` | `$ man `
+-- Prefix the manual kind, help page or man page
+local ManualKind = {
+  provider = function(_)
+    if vim.bo.buftype == "help" then
+      return ":h "
+    elseif vim.bo.filetype == "man" then
+      return "$ man "
+    end
+  end,
+  hl = { fg = "Special", bold = true },
+}
+
+-- `builtin.txt` | `git(1)`
+-- Basename of the manual path
+local ManualTitle = {
+  provider = function(_)
+    local bufname = vim.api.nvim_buf_get_name(0)
+    return vim.fs.basename(bufname)
+  end,
+  hl = "Bold",
+}
+
+-- ` :h builtin.txt ... 128L 64C  32% `
+-- ` $ man git(1)   ... 128L 64C  32% `
+local Manual = {
+  condition = function(_)
+    return vim.bo.buftype == "help" or vim.bo.filetype == "man"
+  end,
+
+  ManualKind,
+  ManualTitle,
+  Align,
+  Ruler,
 }
 
 local StatusLine = {
@@ -208,6 +244,7 @@ local StatusLine = {
 
   -- use the first component that matches the condition
   fallthrough = false,
+  Manual,
   NoFile,
   File,
 }
