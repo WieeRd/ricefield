@@ -5,6 +5,7 @@ local utils = require("heirline.utils")
 local function get_palette()
   local hl = utils.get_highlight
   return {
+    Breadcrumbs = hl("Comment").fg,
     Readonly = hl("Constant").fg,
     Special = hl("Special").fg,
     Title = hl("Title").fg,
@@ -29,6 +30,42 @@ local Truncate = { provider = "%<" }
 local Ruler = {
   provider = " %3lL %2vC %3p%% ",
   hl = "Bold",
+}
+
+-- `   Foo   bar`
+-- Display current code context
+local Breadcrumbs = {
+  static = {
+    loose_hierarchy = {
+      help = true,
+      man = true,
+      markdown = true,
+    },
+  },
+  provider = function(self)
+    local exact = not self.loose_hierarchy[vim.bo.filetype]
+    local symbols = require("aerial").get_location(exact)
+    if #symbols == 0 then
+      return
+    end
+
+    local crumbs = {}
+    for i, symbol in ipairs(symbols) do
+      crumbs[i] = {
+        {
+          provider = " ",
+          hl = { fg = "Breadcrumbs" },
+        },
+        {
+          provider = " " .. symbol.icon .. " ",
+          hl = "Aerial" .. symbol.kind .. "Icon",
+        },
+        { provider = symbol.name },
+      }
+    end
+
+    return self:new(crumbs):eval()
+  end,
 }
 
 -- `[protocol]`
@@ -115,8 +152,8 @@ local FileFormat = {
   hl = { fg = "Special", bold = true },
 }
 
--- `  src/main.rs [+]       ... 128L 64C  32% `
--- `[oil]  /etc/systemd/   ...   2L  4C   8% `
+-- `  src/lib.rs [+]   Foo   bar ... 128L 64C  32% `
+-- `[oil]  /etc/systemd/            ...   2L  4C   8% `
 -- Generic statusline ready for normal files as well as most special buffers
 local File = {
   init = function(self)
@@ -140,6 +177,7 @@ local File = {
   FilePath,
   FileModified,
   FileReadonly,
+  Breadcrumbs,
   Align,
   FileDiagnostics,
   FileFormat,
@@ -150,12 +188,8 @@ local File = {
 -- `:Edit Command` | `/Edit Search`
 -- Display the type of `:h cmdline-window`
 local Cmdwin = {
-  condition = function(self)
-    self.kind = vim.fn.getcmdwintype()
-    return self.kind ~= ""
-  end,
-  provider = function(self)
-    local desc = {
+  static = {
+    desc = {
       [":"] = "Command",
       [">"] = "Debug",
       ["/"] = "Search",
@@ -163,8 +197,14 @@ local Cmdwin = {
       ["@"] = "Input",
       ["-"] = "Text",
       ["="] = "Expression",
-    }
-    return ("%sEdit %s"):format(self.kind, desc[self.kind])
+    },
+  },
+  condition = function(self)
+    self.kind = vim.fn.getcmdwintype()
+    return self.kind ~= ""
+  end,
+  provider = function(self)
+    return ("%sEdit %s"):format(self.kind, self.desc[self.kind])
   end,
 }
 
@@ -221,11 +261,10 @@ local ManualTitle = {
     local bufname = vim.api.nvim_buf_get_name(0)
     return vim.fs.basename(bufname)
   end,
-  hl = "Bold",
 }
 
--- ` :h builtin.txt ... 128L 64C  32% `
--- ` $ man git(1)   ... 128L 64C  32% `
+-- ` :h builtin.txt   expand()             ... 128L 64C  32% `
+-- ` $ man git(1)   OPTIONS   -h, --help ... 128L 64C  32% `
 local Manual = {
   condition = function(_)
     return vim.bo.buftype == "help" or vim.bo.filetype == "man"
@@ -233,6 +272,7 @@ local Manual = {
 
   ManualKind,
   ManualTitle,
+  Breadcrumbs,
   Align,
   Ruler,
 }
