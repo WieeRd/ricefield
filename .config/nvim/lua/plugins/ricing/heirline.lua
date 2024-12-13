@@ -280,6 +280,69 @@ local Manual = {
   Truncate,
 }
 
+-- `  `
+-- Terminal icon.
+local TermIcon = {
+  provider = "  ",
+  hl = { fg = "TermIcon" },
+}
+
+-- `Yazi: ~/.config/nvim` | `cargo test`
+-- Title set by the running program. Default to the command line used to launch the program.
+local TermTitle = {
+  provider = function(_)
+    local title = vim.b.term_title
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if title ~= bufname then
+      -- terminal title set by the running program
+      return title
+    else
+      -- the command line used to launch the program
+      return bufname:match("//%d+:(.+)$")
+    end
+  end,
+}
+
+-- ` [+]`
+-- Use modified sign to indicate terminal mode.
+local TermMode = {
+  provider = function(_)
+    return vim.api.nvim_get_mode().mode == "t" and " [+]"
+  end,
+  -- force refresh after switching from/to terminal mode
+  update = {
+    "ModeChanged",
+    pattern = { "t:*", "*:t" },
+    callback = vim.schedule_wrap(function()
+      vim.cmd("redrawstatus")
+    end),
+  },
+}
+
+-- ` PID 12345 `
+-- Process ID of the program running in the terminal buffer.
+local TermPid = {
+  provider = function(_)
+    return (" PID %d "):format(vim.b.terminal_job_pid)
+  end,
+  hl = "Bold",
+}
+
+-- `  Yazi: ~/.config/nvim ... PID 41774 `
+-- Embedded terminal buffers `:h :terminal`
+local Term = {
+  condition = function(_)
+    return vim.bo.buftype == "terminal"
+  end,
+
+  TermIcon,
+  TermTitle,
+  TermMode,
+  Align,
+  TermPid,
+  Truncate,
+}
+
 local StatusLine = {
   hl = function(_)
     return cond.is_active() and "StatusLine" or "StatusLineNC"
@@ -287,6 +350,7 @@ local StatusLine = {
 
   -- use the first component that matches the condition
   fallthrough = false,
+  Term,
   Manual,
   NoFile,
   File,
