@@ -8,6 +8,7 @@ local function get_palette()
     Breadcrumbs = hl("Comment").fg,
     Readonly = hl("Constant").fg,
     Special = hl("Special").fg,
+    TermIcon = hl("String").fg,
     Title = hl("Title").fg,
   }
 end
@@ -26,14 +27,14 @@ local Align = { provider = "%=" }
 local Truncate = { provider = "%<" }
 
 -- ` 128L 64C  32% ` | `   1L  2C   3% `
--- Current line, column and percentage through file
+-- Current line, column and percentage through file.
 local Ruler = {
   provider = " %3lL %2vC %3p%% ",
   hl = "Bold",
 }
 
 -- `   Foo   bar`
--- Display current code context
+-- Display current code context.
 local Breadcrumbs = {
   static = {
     loose_hierarchy = {
@@ -69,7 +70,7 @@ local Breadcrumbs = {
 }
 
 -- `[protocol]`
--- Extract `protocol://` from URL-like buffer names
+-- Extract `protocol://` from URL-like buffer names.
 local FileProtocol = {
   provider = function(self)
     return self.protocol and ("[%s]"):format(self.protocol)
@@ -78,7 +79,7 @@ local FileProtocol = {
 }
 
 -- `  `
--- Filetype icon from Devicon
+-- Filetype icon from Devicon.
 local FileIcon = {
   init = function(self)
     if self.path:match("/$") then
@@ -99,7 +100,7 @@ local FileIcon = {
 }
 
 -- `/etc/fstab` | `~/.profile` | `src/main.rs`
--- Shortened path relative to $HOME and $PWD
+-- Shortened path relative to $HOME and $PWD.
 local FilePath = {
   provider = function(self)
     return vim.fn.fnamemodify(self.path, ":~:.")
@@ -107,7 +108,7 @@ local FilePath = {
 }
 
 -- ` [+]`
--- Modified file indicator
+-- Modified file indicator.
 local FileModified = {
   provider = function(_)
     return vim.bo.modified and " [+]"
@@ -115,7 +116,7 @@ local FileModified = {
 }
 
 -- ` `
--- Readonly file indicator
+-- Readonly file indicator.
 local FileReadonly = {
   provider = function(_)
     return vim.bo.readonly and " "
@@ -124,7 +125,7 @@ local FileReadonly = {
 }
 
 -- ` 2  1 `
--- File diagnostic counter
+-- File diagnostic counter.
 local FileDiagnostics = {
   init = function(self)
     local counts = vim.diagnostic.count(0)
@@ -141,7 +142,7 @@ local FileDiagnostics = {
 }
 
 -- ` [dos] ` | ` [mac] `
--- Indicate the use of non-unix line break character
+-- Indicate the use of non-unix line break character.
 local FileFormat = {
   condition = function(_)
     return vim.bo.fileformat ~= "unix"
@@ -154,7 +155,7 @@ local FileFormat = {
 
 -- `  src/lib.rs [+]   Foo   bar ... 128L 64C  32% `
 -- `[oil]  /etc/systemd/            ...   2L  4C   8% `
--- Generic statusline ready for normal files as well as most special buffers
+-- Generic statusline ready for normal files as well as most special buffers.
 local File = {
   init = function(self)
     self.protocol = nil
@@ -186,7 +187,7 @@ local File = {
 }
 
 -- `:Edit Command` | `/Edit Search`
--- Display the type of `:h cmdline-window`
+-- Display the type of `:h cmdline-window`.
 local Cmdwin = {
   static = {
     desc = {
@@ -209,7 +210,7 @@ local Cmdwin = {
 }
 
 -- `[ ... Title ... ]` | `... [ Title ] ...`
--- Sidebars and bottom panels, special plugin windows in general
+-- Sidebars and bottom panels, special plugin windows in general.
 local Panels = {
   provider = function(_)
     local title = vim.api.nvim_buf_get_name(0)
@@ -228,7 +229,7 @@ local Panels = {
 }
 
 -- `:Edit Command` | `[ ... Title ... ]`
--- Special, non-file buffers such as `:h cmdline-window` and sidebars
+-- Special, non-file buffers such as `:h cmdline-window` and sidebars.
 local NoFile = {
   condition = function(_)
     return vim.bo.buftype == "nofile"
@@ -242,7 +243,7 @@ local NoFile = {
 }
 
 -- `:h ` | `$ man `
--- Prefix the manual kind, help page or man page
+-- Prefix the manual kind, help page or man page.
 local ManualKind = {
   provider = function(_)
     if vim.bo.buftype == "help" then
@@ -255,7 +256,7 @@ local ManualKind = {
 }
 
 -- `builtin.txt` | `git(1)`
--- Basename of the manual path
+-- Basename of the manual path.
 local ManualTitle = {
   provider = function(_)
     local bufname = vim.api.nvim_buf_get_name(0)
@@ -265,6 +266,7 @@ local ManualTitle = {
 
 -- ` :h builtin.txt   expand()             ... 128L 64C  32% `
 -- ` $ man git(1)   OPTIONS   -h, --help ... 128L 64C  32% `
+-- :help pages and :Man pages.
 local Manual = {
   condition = function(_)
     return vim.bo.buftype == "help" or vim.bo.filetype == "man"
@@ -275,6 +277,7 @@ local Manual = {
   Breadcrumbs,
   Align,
   Ruler,
+  Truncate,
 }
 
 local StatusLine = {

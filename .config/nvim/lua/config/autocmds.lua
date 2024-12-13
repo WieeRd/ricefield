@@ -29,6 +29,7 @@ return {
     callback = function(_)
       local wo = vim.wo
       wo.scrolloff = 0
+      wo.sidescrolloff = 0
       wo.number = false
       wo.relativenumber = false
     end,

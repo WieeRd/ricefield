@@ -58,7 +58,11 @@ return {
         width = { min = 120, max = 0.6 },
         border = "none",
       },
-      icons = { rules = false },
+      icons = {
+        breadcrumb = "»",
+        separator = "»",
+        rules = false,
+      },
       spec = {
         { "<Leader>f", group = "find" },
         { "<Leader>g", group = "git" },
