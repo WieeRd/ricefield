@@ -9,16 +9,24 @@ return {
   -- my absolute favorite since June 2022, had to drop the said tradition
   {
     "rebelot/kanagawa.nvim",
+    build = ":KanagawaCompile",
     priority = 1831,
     opts = {
       compile = true,
       colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
-      overrides = function(_)
+      overrides = function(colors)
+        local Color = require("kanagawa.lib.color")
+        local theme = colors.theme
+        local function fade(color, ratio)
+          return Color(color):blend(theme.ui.bg, ratio):to_hex()
+        end
         return {
           CurSearch = { link = "IncSearch" },
           IlluminatedWordRead = { link = "CursorLine" },
           IlluminatedWordWrite = { link = "CursorLine" },
           IlluminatedWordText = { link = "CursorLine" },
+          IndentBlanklineChar = { fg = fade(theme.ui.whitespace, 0.66) },
+          IndentBlanklineContextChar = { fg = fade(theme.ui.special, 0.33) },
         }
       end,
     },
@@ -31,8 +39,6 @@ return {
     -- | after lukas-reineke/indent-blankline.nvim#649 is resolved
     version = "2",
     opts = {
-      char = "┊",
-      context_char = "┊",
       show_current_context = true,
       use_treesitter = true,
       filetype_exclude = {
@@ -121,6 +127,6 @@ return {
     config = function(_, _)
       package.loaded["plugins.ricing.heirline"] = nil
       require("plugins.ricing.heirline")
-    end
+    end,
   },
 }
