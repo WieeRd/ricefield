@@ -92,7 +92,7 @@ return {
   -- snippet engine
   {
     "L3MON4D3/LuaSnip",
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = "WieeRd/friendly-snippets",
     lazy = true,
     opts = {
       history = true,

@@ -8,7 +8,7 @@ local function get_palette()
     Breadcrumbs = hl("Comment").fg,
     Readonly = hl("Constant").fg,
     Special = hl("Special").fg,
-    TermIcon = hl("String").fg,
+    TermIcon = hl("DiffAdded").fg,
     Title = hl("Title").fg,
   }
 end
@@ -283,7 +283,7 @@ local Manual = {
 -- `  `
 -- Terminal icon.
 local TermIcon = {
-  provider = "  ",
+  provider = " ❯ ",
   hl = { fg = "TermIcon" },
 }
 

@@ -125,12 +125,12 @@ return {
       float = {
         border = "solid",
         override = function(conf)
-          local col = vim.o.columns
-          local row = vim.o.lines
-          conf.width = math.max(math.floor(col * 0.66), 120)
-          conf.height = math.min(math.floor(row * 0.66), row - 6)
-          conf.col = (col - conf.width - 2) / 2
-          conf.row = (row - conf.height - 2) / 2
+          local columns = vim.o.columns
+          local lines = vim.o.lines
+          conf.width = math.max(math.floor(columns * 0.66 - 2), 120)
+          conf.height = math.min(math.floor(lines * 0.66 - 2), lines - 6)
+          conf.col = (columns - conf.width) / 2 - 1
+          conf.row = (lines - conf.height) / 2 - 1
           return conf
         end,
       },
@@ -184,11 +184,11 @@ return {
         border = "solid",
         width = function(_)
           local columns = vim.o.columns
-          return math.max(math.floor(columns * 0.66), 120)
+          return math.max(math.floor(columns * 0.66 - 2), 120)
         end,
         height = function(_)
           local lines = vim.o.lines
-          return math.min(math.floor(lines * 0.66), lines - 6)
+          return math.min(math.floor(lines * 0.66 - 2), lines - 6)
         end,
       },
     },

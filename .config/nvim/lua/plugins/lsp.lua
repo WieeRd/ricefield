@@ -2,7 +2,7 @@ return {
   -- automatically detect and setup language servers
   {
     "WieeRd/auto-lsp.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
+    dependencies = "neovim/nvim-lspconfig",
     event = "VeryLazy",
     opts = {
       ["*"] = function()
