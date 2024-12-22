@@ -14,3 +14,43 @@
 	hyperlinks = true
 	line-numbers = true
 	side-by-side = false
+
+	features = kanagawa
+
+[delta "kanagawa"]
+	dark = true
+	syntax-theme = kanagawa
+
+	minus-style = syntax "#43242B"
+	minus-non-emph-style = syntax "#43242B"
+	minus-emph-style = "#1F1F28" "#C34043"
+	minus-empty-line-marker-style = normal "#43242B"
+
+	plus-style = syntax "#2B3328"
+	plus-non-emph-style = syntax "#2B3328"
+	plus-emph-style = "#1F1F28" "#76946A"
+	plus-empty-line-marker-style = normal "#2B3328"
+
+	line-numbers-left-format = "{nm:>4}⋮"
+	line-numbers-left-style = "#54546D"
+	line-numbers-right-format = "{np:>4}│"
+	line-numbers-right-style = "#54546D"
+
+	line-numbers-minus-style = "#C34043"
+	line-numbers-plus-style = "#76946A"
+	line-numbers-zero-style = "#54546D"
+
+	whitespace-error-style = normal "#FF9E3B"
+
+	file-style = "#7E9CD8" bold
+	file-decoration-style = "#7E9CD8" overline
+	file-added-label = [+]
+	file-modified-label = [~]
+	file-removed-label = [-]
+	file-copied-label = [cp]
+	file-renamed-label = [mv]
+
+	hunk-header-style = line-number syntax
+	hunk-header-file-style = "#7E9CD8"
+	hunk-header-line-number-style = "#7E9CD8"
+	hunk-header-decoration-style = "#54546D" box
