@@ -99,11 +99,12 @@ local FileIcon = {
   end,
 }
 
--- `/etc/fstab` | `~/.profile` | `src/main.rs`
--- Shortened path relative to $HOME and $PWD.
+-- `/etc/fstab` | `~/.profile` | `src/main.rs` | `[No Name]`
+-- Path shortened relative to $HOME and $PWD.
 local FilePath = {
   provider = function(self)
-    return vim.fn.fnamemodify(self.path, ":~:.")
+    return self.path == "" and "[No Name]"
+      or vim.fn.fnamemodify(self.path, ":~:.")
   end,
 }
 
@@ -156,20 +157,15 @@ local FileFormat = {
 -- `  src/lib.rs [+]   Foo   bar ... 128L 64C  32% `
 -- `[oil]  /etc/systemd/            ...   2L  4C   8% `
 -- Generic statusline ready for normal files as well as most special buffers.
-local File = {
+local Files = {
   init = function(self)
     self.protocol = nil
     self.path = vim.api.nvim_buf_get_name(0)
 
-    if self.path == "" then
-      self.path = "[No Name]"
-      return
-    end
-
-    local protocol, name = self.path:match("(.-)://(.-/?)/?$")
+    local protocol, path = self.path:match("(.-)://(.-/?)/?$")
     if protocol then
       self.protocol = protocol
-      self.path = name
+      self.path = path
     end
   end,
 
@@ -213,11 +209,16 @@ local Cmdwin = {
 -- Sidebars and bottom panels, special plugin windows in general.
 local Panels = {
   provider = function(_)
-    local title = vim.api.nvim_buf_get_name(0)
-    if title ~= "" then
-      title = vim.fs.basename(title)
-    else
+    -- vim.api.nvim_buf_get_name() tend to return more verbose name
+    local bufname = vim.fn.bufname()
+    local title = nil
+
+    if bufname == "" then
       title = vim.bo.filetype
+    elseif bufname:match("^%S*/") then
+      title = vim.fs.basename(bufname)
+    else
+      title = bufname
     end
 
     if vim.api.nvim_win_get_width(0) == vim.o.columns then
@@ -229,8 +230,8 @@ local Panels = {
 }
 
 -- `:Edit Command` | `[ ... Title ... ]`
--- Special, non-file buffers such as `:h cmdline-window` and sidebars.
-local NoFile = {
+-- Special, 'nofile' buffers such as `:h cmdline-window` and sidebars.
+local NoFiles = {
   condition = function(_)
     return vim.bo.buftype == "nofile"
   end,
@@ -243,8 +244,8 @@ local NoFile = {
 }
 
 -- `:h ` | `$ man `
--- Prefix the manual kind, help page or man page.
-local ManualKind = {
+-- Prefix the documentation type: help page or man page.
+local DocType = {
   provider = function(_)
     if vim.bo.buftype == "help" then
       return ":h "
@@ -256,8 +257,8 @@ local ManualKind = {
 }
 
 -- `builtin.txt` | `git(1)`
--- Basename of the manual path.
-local ManualTitle = {
+-- Basename of the path to the docs.
+local DocTitle = {
   provider = function(_)
     local bufname = vim.api.nvim_buf_get_name(0)
     return vim.fs.basename(bufname)
@@ -267,20 +268,20 @@ local ManualTitle = {
 -- ` :h builtin.txt   expand()             ... 128L 64C  32% `
 -- ` $ man git(1)   OPTIONS   -h, --help ... 128L 64C  32% `
 -- :help pages and :Man pages.
-local Manual = {
+local Docs = {
   condition = function(_)
     return vim.bo.buftype == "help" or vim.bo.filetype == "man"
   end,
 
-  ManualKind,
-  ManualTitle,
+  DocType,
+  DocTitle,
   Breadcrumbs,
   Align,
   Ruler,
   Truncate,
 }
 
--- `  `
+-- ` ❯ `
 -- Terminal icon.
 local TermIcon = {
   provider = " ❯ ",
@@ -328,9 +329,9 @@ local TermPid = {
   hl = "Bold",
 }
 
--- `  Yazi: ~/.config/nvim ... PID 41774 `
+-- ` ❯ Yazi: ~/.config/nvim ... PID 41774 `
 -- Embedded terminal buffers `:h :terminal`
-local Term = {
+local Terminals = {
   condition = function(_)
     return vim.bo.buftype == "terminal"
   end,
@@ -350,10 +351,10 @@ local StatusLine = {
 
   -- use the first component that matches the condition
   fallthrough = false,
-  Term,
-  Manual,
-  NoFile,
-  File,
+  Terminals,
+  Docs,
+  NoFiles,
+  Files,
 }
 
 require("heirline").setup({
