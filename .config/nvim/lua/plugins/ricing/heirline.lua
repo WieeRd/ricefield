@@ -82,20 +82,23 @@ local FileProtocol = {
 -- Filetype icon from Devicon.
 local FileIcon = {
   init = function(self)
+    local devicons = require("nvim-web-devicons")
+    local by_name = devicons.get_icon
+    local by_ft = devicons.get_icon_by_filetype
+
+    local icon, color
     if self.path:match("/$") then
-      self.icon = ""
-      self.highlight = "Directory"
-    else
-      local devicons = require("nvim-web-devicons")
-      self.icon, self.highlight =
-        devicons.get_icon_by_filetype(vim.bo.filetype, { default = true })
+      icon, color = "", "Directory"
     end
-  end,
-  provider = function(self)
-    return (" %s "):format(self.icon)
-  end,
-  hl = function(self)
-    return self.highlight
+    if not icon then
+      icon, color = by_name(vim.fs.basename(self.path))
+    end
+    if not icon then
+      icon, color = by_ft(vim.bo.filetype, { default = true })
+    end
+
+    self.provider = (" %s "):format(icon)
+    self.hl = color
   end,
 }
 
@@ -120,7 +123,7 @@ local FileModified = {
 -- Readonly file indicator.
 local FileReadonly = {
   provider = function(_)
-    return vim.bo.readonly and " "
+    return (vim.bo.readonly or not vim.bo.modifiable) and " "
   end,
   hl = { fg = "Readonly" },
 }
