@@ -162,13 +162,24 @@ local FileFormat = {
 -- Generic statusline ready for normal files as well as most special buffers.
 local Files = {
   init = function(self)
-    self.protocol = nil
     self.path = vim.api.nvim_buf_get_name(0)
+    self.protocol = nil
 
-    local protocol, path = self.path:match("(.-)://(.-/?)/?$")
+    -- "oil", "/etc/systemd/" = "oil:///etc/systemd/"
+    local protocol, path = self.path:match("^(.-)://(.+)$")
     if protocol then
       self.protocol = protocol
       self.path = path
+    end
+
+    -- strip git dir from typical "${GIT_DIR}/{ref}/path" git related plugin buffers
+    -- e.g. "diffview:///home/wieerd/.ricefield.git/a85c65fda83/.profile"
+    -- FEAT: LATER: add git reference component
+    if protocol and protocol ~= "oil" then
+      local gitdir, gitpath = self.path:match("^(.-%.git/?)/(.*)$")
+      if gitdir then
+        self.path = gitpath ~= "" and gitpath or gitdir
+      end
     end
   end,
 
