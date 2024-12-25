@@ -46,12 +46,15 @@ $env.EDITOR = if "NVIM" in $env { "nvr" } else { "nvim" }
 $env.VISUAL = $env.EDITOR
 $env.MANPAGER = "nvim +Man!"
 
-# not sure what this is even used for but I'm too afraid to remove it
-$env.GPG_TTY = (tty)
-
 # FEAT: create kanagawa palette for vivid
 $env.LS_COLORS = (vivid generate one-dark)
 $env.LESS = "--ignore-case --tabs=4 --RAW-CONTROL-CHARS"
+
+# not sure what this is even used for but I'm too afraid to remove it
+$env.GPG_TTY = (tty)
+
+# force Python 3.13+ to use readline and apply my ~/.inputrc
+$env.PYTHON_BASIC_REPL = 1
 
 # FEAT(upstream): eza config file for default flags
 # | https://github.com/eza-community/eza/issues/897
