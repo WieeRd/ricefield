@@ -15,18 +15,27 @@ return {
       compile = true,
       colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
       overrides = function(colors)
-        local Color = require("kanagawa.lib.color")
-        local theme = colors.theme
+        local ui = colors.theme.ui
         local function fade(color, ratio)
-          return Color(color):blend(theme.ui.bg, ratio):to_hex()
+          return require("kanagawa.lib.color")(color)
+            :blend(ui.bg, ratio)
+            :to_hex()
         end
         return {
+          -- search highlight
           CurSearch = { link = "IncSearch" },
+          -- popup menu
+          Pmenu = { fg = ui.fg_dim, bg = ui.bg_dim },
+          PmenuSel = { fg = "none", bg = ui.bg_p1 },
+          PmenuSbar = { bg = ui.bg_p2 },
+          PmenuThumb = { bg = ui.whitespace },
+          -- vim-illuminate
           IlluminatedWordRead = { link = "CursorLine" },
           IlluminatedWordWrite = { link = "CursorLine" },
           IlluminatedWordText = { link = "CursorLine" },
-          IndentBlanklineChar = { fg = fade(theme.ui.whitespace, 0.66) },
-          IndentBlanklineContextChar = { fg = fade(theme.ui.special, 0.33) },
+          -- indent-blankline.nvim
+          IndentBlanklineChar = { fg = fade(ui.whitespace, 0.66) },
+          IndentBlanklineContextChar = { fg = fade(ui.special, 0.33) },
         }
       end,
     },
