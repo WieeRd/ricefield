@@ -38,6 +38,7 @@ return {
     -- FIX: LATER: upgrade indent-blankline.nvim to v3
     -- | after lukas-reineke/indent-blankline.nvim#649 is resolved
     version = "2",
+    event = "UIEnter",
     opts = {
       show_current_context = true,
       use_treesitter = true,
@@ -83,6 +84,7 @@ return {
   -- highlight hex color codes such as #7E9CD8
   {
     "NvChad/nvim-colorizer.lua",
+    event = "VeryLazy",
     opts = {
       user_default_options = {
         names = false,

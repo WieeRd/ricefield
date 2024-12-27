@@ -31,7 +31,7 @@ return {
   -- display and stage/restore hunks in the buffer
   {
     "lewis6991/gitsigns.nvim",
-    lazy = false,
+    event = "VeryLazy",
     keys = {
       {
         "<Leader>gR",
