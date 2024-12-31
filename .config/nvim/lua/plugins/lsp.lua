@@ -6,9 +6,7 @@ return {
     event = "VeryLazy",
     opts = {
       ["*"] = function()
-        return {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        }
+        return { capabilities = require("blink.cmp").get_lsp_capabilities() }
       end,
       ["ltex"] = {
         filetypes = { "markdown", "rst" },
