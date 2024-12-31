@@ -16,7 +16,8 @@ from libqtile.config import (
 from libqtile.lazy import lazy
 
 BROWSER = os.getenv("BROWSER") or "xdg-open https://"
-TERMINAL = os.getenv("TERMINAL") or "rofi-sensible-terminal"
+# FIX: LATER: `kitty --single-instance` cannot be used for dropdowns
+# TERMINAL = os.getenv("TERMINAL") or "rofi-sensible-terminal"
 
 FOCUS = "#54546D"
 NORMAL = "#16161D"
@@ -32,7 +33,7 @@ groups = [
         dropdowns=[
             DropDown(
                 "term",
-                TERMINAL,
+                "kitty",
                 on_focus_lost_hide=False,
                 opacity=1.0,
                 height=0.66,
@@ -121,7 +122,7 @@ keys = [
     # Launch programs
     EzKey("M-r", lazy.spawn("rofi -show drun"), desc="Launch application"),
     EzKey("M-q", lazy.window.kill(), desc="Close window"),
-    EzKey("M-<Period>", lazy.spawn(TERMINAL), desc="Launch terminal"),
+    EzKey("M-<Period>", lazy.spawn("kitty --single-instance"), desc="Launch terminal"),
     EzKey("M-<Slash>", lazy.spawn(BROWSER), desc="Launch browser"),
 
     # Toggle dropdowns
