@@ -86,24 +86,22 @@ return {
         return vim.ui.select(...)
       end
     end,
-    opts = function(_, _)
-      return {
-        "telescope",
-        winopts = { backdrop = 100 },
-        lsp = {
-          symbols = {
-            symbol_icons = require("lspkind").symbol_map,
-            symbol_hl = function(s)
-              return "Aerial" .. s .. "Icon"
-            end,
-            symbol_fmt = function(s, _)
-              return s
-            end,
-          },
-          code_actions = { previewer = "codeaction_native" },
+    opts = {
+      "telescope",
+      winopts = { backdrop = 100 },
+      lsp = {
+        symbols = {
+          symbol_icons = vim.g.lspkind,
+          symbol_hl = function(s)
+            return "Aerial" .. s .. "Icon"
+          end,
+          symbol_fmt = function(s, _)
+            return s
+          end,
         },
-      }
-    end,
+        code_actions = { previewer = "codeaction_native" },
+      },
+    },
   },
 
   -- file explorer: edit filesystem like a text buffer

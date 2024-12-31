@@ -11,13 +11,7 @@ return {
   -- symbol type to nerd fonts icon mapping
   {
     "onsails/lspkind.nvim",
-    opts = {
-      preset = "codicons",
-      symbol_map = {
-        Text = "󰉿",
-        Snippet = "",
-      },
-    },
+    opts = { symbol_map = vim.g.lspkind },
   },
 
   -- install and manage tree-sitter parsers and modules

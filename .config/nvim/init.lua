@@ -1,10 +1,7 @@
 vim.loader.enable()
 
 require("setup").setup({
-  globals = {
-    mapleader = " ",
-    maplocalleader = "\\",
-  },
+  globals = "config.globals",
   options = "config.options",
   keymaps = "config.keymaps",
   autocmds = "config.autocmds",
