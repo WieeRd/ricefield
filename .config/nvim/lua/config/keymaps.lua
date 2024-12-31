@@ -6,123 +6,123 @@ local MOTION = { "n", "x", "o" }
 local TEXTOBJ = { "x", "o" }
 
 return {
-  [INSERT] = {
-    -- ESC alternative
-    ["kj"] = "<Esc>",
+    [INSERT] = {
+        -- ESC alternative
+        ["kj"] = "<Esc>",
 
-    -- consistency with other linux text inputs, delete a word before the cursor
-    ["<C-BS>"] = "<C-w>",
+        -- consistency with other linux text inputs, delete a word before the cursor
+        ["<C-BS>"] = "<C-w>",
 
-    -- I prefer manually triggering the signature help
-    ["<C-s>"] = { vim.lsp.buf.signature_help, desc = "Signature Help" },
-  },
-
-  [NORMAL] = {
-    -- frequently used commands
-    ["<C-s>"] = "<Cmd>silent update<CR>",
-    ["ZA"] = "<Cmd>xall<CR>",
-
-    ["<Leader>="] = { ":lua =", desc = "Lua Prompt" },
-    ["<Leader>\\"] = { ":vert ", desc = "vert {cmd}" },
-    ["<Leader><Tab>"] = { ":tab ", desc = "tab {cmd}" },
-
-    -- file explorer (netrw or oil.nvim if plugins are enabled)
-    ["-"] = { "<Cmd>edit %:h<CR>", desc = "Browse Parent Dir" },
-    ["_"] = { "<Cmd>edit .<CR>", desc = "Browse CWD" },
-
-    -- tabpage management
-    ["<Leader>+"] = "<Cmd>tabnew<CR>",
-    ["<Leader>-"] = "<Cmd>tabclose<CR>",
-    ["<Leader>_"] = "<Cmd>tabonly<CR>",
-
-    ["]t"] = "<Cmd>tabnext<CR>",
-    ["[t"] = "<Cmd>tabprevious<CR>",
-    ["]T"] = "<Cmd>tabmove +1<CR>",
-    ["[T"] = "<Cmd>tabmove -1<CR>",
-
-    -- {N}<Tab> opens {N}th tabpage
-    ["<Tab>"] = { "v:count == 0 ? '<C-i>' : 'gt'", expr = true },
-
-    -- +term: open embedded terminal
-    ["<Leader>t."] = { "<Cmd>term<CR>a", desc = "Current Window" },
-    ["<Leader>ts"] = { "<Cmd>split +term<CR>a", desc = "Horizontal Split" },
-    ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>a", desc = "Vertical Split" },
-    ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>a", desc = "New Tabpage" },
-
-    -- +lsp: language server interactions
-    ["<Leader>lr"] = { vim.lsp.buf.rename, desc = "Rename Symbol" },
-    ["<Leader>lo"] = { vim.lsp.codelens.run, desc = "Run CodeLens" },
-    ["<Leader>li"] = {
-      function()
-        local hint = vim.lsp.inlay_hint
-        hint.enable(not hint.is_enabled())
-      end,
-      desc = "Toggle Inlay Hints",
+        -- I prefer manually triggering the signature help
+        ["<C-s>"] = { vim.lsp.buf.signature_help, desc = "Signature Help" },
     },
 
-    ["]d"] = { vim.diagnostic.goto_next, desc = "Next Diagnostic" },
-    ["[d"] = { vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
+    [NORMAL] = {
+        -- frequently used commands
+        ["<C-s>"] = "<Cmd>silent update<CR>",
+        ["ZA"] = "<Cmd>xall<CR>",
 
-    -- fzf package provides simple fuzzy finder plugin
-    ["<Leader> "] = "<Cmd>FZF<CR>",
-  },
+        ["<Leader>="] = { ":lua =", desc = "Lua Prompt" },
+        ["<Leader>\\"] = { ":vert ", desc = "vert {cmd}" },
+        ["<Leader><Tab>"] = { ":tab ", desc = "tab {cmd}" },
 
-  [VISUAL] = {
-    -- ["<"] = "<gv",
-    -- [">"] = ">gv",
-  },
+        -- file explorer (netrw or oil.nvim if plugins are enabled)
+        ["-"] = { "<Cmd>edit %:h<CR>", desc = "Browse Parent Dir" },
+        ["_"] = { "<Cmd>edit .<CR>", desc = "Browse CWD" },
 
-  [ACTION] = {
-    -- +lsp: language server interactions
-    ["<Leader>la"] = { vim.lsp.buf.code_action, desc = "Code Actions" },
+        -- tabpage management
+        ["<Leader>+"] = "<Cmd>tabnew<CR>",
+        ["<Leader>-"] = "<Cmd>tabclose<CR>",
+        ["<Leader>_"] = "<Cmd>tabonly<CR>",
 
-    -- move based on display (wrapped) lines rather than real lines
-    -- NOTE: excluded from operator-pending mode because
-    -- | gj, gk are char-wise while j, k are line-wise
-    ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
-    ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
-    ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
-    ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+        ["]t"] = "<Cmd>tabnext<CR>",
+        ["[t"] = "<Cmd>tabprevious<CR>",
+        ["]T"] = "<Cmd>tabmove +1<CR>",
+        ["[T"] = "<Cmd>tabmove -1<CR>",
 
-    -- "Why yes, I use Colemak-DH. How could you tell?"
-    ["<C-w>m"] = "<C-w>h",
-    ["<C-w>n"] = "<C-w>j",
-    ["<C-w>e"] = "<C-w>k",
-    ["<C-w>i"] = "<C-w>l",
+        -- {N}<Tab> opens {N}th tabpage
+        ["<Tab>"] = { "v:count == 0 ? '<C-i>' : 'gt'", expr = true },
 
-    ["<C-w><C-m>"] = "<C-w>h",
-    ["<C-w><C-n>"] = "<C-w>j",
-    ["<C-w><C-e>"] = "<C-w>k",
-    ["<C-w><C-i>"] = "<C-w>l",
+        -- +term: open embedded terminal
+        ["<Leader>t."] = { "<Cmd>term<CR>a", desc = "Current Window" },
+        ["<Leader>ts"] = { "<Cmd>split +term<CR>a", desc = "Horizontal Split" },
+        ["<Leader>tv"] = { "<Cmd>vsplit +term<CR>a", desc = "Vertical Split" },
+        ["<Leader>t<Tab>"] = { "<Cmd>tab term<CR>a", desc = "New Tabpage" },
 
-    ["<C-w>M"] = "<C-W>H",
-    ["<C-w>N"] = "<C-W>J",
-    ["<C-w>E"] = "<C-w>K",
-    ["<C-w>I"] = "<C-w>L",
-  },
+        -- +lsp: language server interactions
+        ["<Leader>lr"] = { vim.lsp.buf.rename, desc = "Rename Symbol" },
+        ["<Leader>lo"] = { vim.lsp.codelens.run, desc = "Run CodeLens" },
+        ["<Leader>li"] = {
+            function()
+                local hint = vim.lsp.inlay_hint
+                hint.enable(not hint.is_enabled())
+            end,
+            desc = "Toggle Inlay Hints",
+        },
 
-  [MOTION] = {
-    ["<Leader>"] = "<Nop>",
+        ["]d"] = { vim.diagnostic.goto_next, desc = "Next Diagnostic" },
+        ["[d"] = { vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
 
-    -- I hate the semi-regex 'magic' search mode (:h /magic)
-    ["/"] = { "/\\V", desc = "Literal Search" },
-    ["?"] = { "?\\V", desc = "Reverse Literal Search" },
-    ["g/"] = { "/\\v", desc = "Regex Search" },
-    ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
-  },
-
-  [TEXTOBJ] = {
-    ["."] = { "iw", desc = "inner word" },
-    [","] = { "aW", desc = "a WORD (with white space)" },
-
-    ["ae"] = {
-      function()
-        vim.cmd("norm! m'vV")
-        vim.cmd("keepjumps 0")
-        vim.cmd("norm! o")
-        vim.cmd("keepjumps $")
-      end,
-      desc = "Entire Buffer",
+        -- fzf package provides simple fuzzy finder plugin
+        ["<Leader> "] = "<Cmd>FZF<CR>",
     },
-  },
+
+    [VISUAL] = {
+        -- ["<"] = "<gv",
+        -- [">"] = ">gv",
+    },
+
+    [ACTION] = {
+        -- +lsp: language server interactions
+        ["<Leader>la"] = { vim.lsp.buf.code_action, desc = "Code Actions" },
+
+        -- move based on display (wrapped) lines rather than real lines
+        -- NOTE: excluded from operator-pending mode because
+        -- | gj, gk are char-wise while j, k are line-wise
+        ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+        ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+        ["<Down>"] = { "v:count == 0 ? 'gj' : 'j'", expr = true },
+        ["<Up>"] = { "v:count == 0 ? 'gk' : 'k'", expr = true },
+
+        -- "Why yes, I use Colemak-DH. How could you tell?"
+        ["<C-w>m"] = "<C-w>h",
+        ["<C-w>n"] = "<C-w>j",
+        ["<C-w>e"] = "<C-w>k",
+        ["<C-w>i"] = "<C-w>l",
+
+        ["<C-w><C-m>"] = "<C-w>h",
+        ["<C-w><C-n>"] = "<C-w>j",
+        ["<C-w><C-e>"] = "<C-w>k",
+        ["<C-w><C-i>"] = "<C-w>l",
+
+        ["<C-w>M"] = "<C-W>H",
+        ["<C-w>N"] = "<C-W>J",
+        ["<C-w>E"] = "<C-w>K",
+        ["<C-w>I"] = "<C-w>L",
+    },
+
+    [MOTION] = {
+        ["<Leader>"] = "<Nop>",
+
+        -- I hate the semi-regex 'magic' search mode (:h /magic)
+        ["/"] = { "/\\V", desc = "Literal Search" },
+        ["?"] = { "?\\V", desc = "Reverse Literal Search" },
+        ["g/"] = { "/\\v", desc = "Regex Search" },
+        ["g?"] = { "?\\v", desc = "Reverse Regex Search" },
+    },
+
+    [TEXTOBJ] = {
+        ["."] = { "iw", desc = "inner word" },
+        [","] = { "aW", desc = "a WORD (with white space)" },
+
+        ["ae"] = {
+            function()
+                vim.cmd("norm! m'vV")
+                vim.cmd("keepjumps 0")
+                vim.cmd("norm! o")
+                vim.cmd("keepjumps $")
+            end,
+            desc = "Entire Buffer",
+        },
+    },
 }
