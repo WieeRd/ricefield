@@ -36,6 +36,8 @@ return {
                     -- indent-blankline.nvim
                     IndentBlanklineChar = { fg = fade(ui.whitespace, 0.66) },
                     IndentBlanklineContextChar = { fg = fade(ui.special, 0.33) },
+                    -- blink.cmp
+                    BlinkCmpGhostText = { link = "Comment" },
                 }
             end,
         },
