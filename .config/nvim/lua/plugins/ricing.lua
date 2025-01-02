@@ -38,6 +38,7 @@ return {
                     IndentBlanklineContextChar = { fg = fade(ui.special, 0.33) },
                     -- blink.cmp
                     BlinkCmpGhostText = { link = "Comment" },
+                    BlinkCmpLabelDetail = { link = "Comment" },
                 }
             end,
         },

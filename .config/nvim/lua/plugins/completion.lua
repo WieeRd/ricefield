@@ -13,13 +13,31 @@ return {
             },
             completion = {
                 keyword = { range = "full" },
+                trigger = { prefetch_on_insert = true },
+                list = {
+                    max_items = 40,
+                    selection = function(ctx)
+                        return ctx.mode == "cmdline" and "auto_insert"
+                            or "preselect"
+                    end,
+                },
+                menu = {
+                    auto_show = function(ctx, _)
+                        return ctx.trigger.kind ~= "keyword"
+                            or ctx.bounds.length >= 3
+                    end,
+                    draw = {
+                        -- FIX(upstream): LATER: exclude label details
+                        columns = { { "label" }, { "kind_icon" } },
+                    },
+                },
                 documentation = { window = { border = "solid" } },
                 ghost_text = { enabled = true },
             },
             keymap = {
                 preset = "none",
                 -- accept
-                ["<C-Space>"] = { "show", "select_and_accept" },
+                ["<C-Space>"] = { "select_and_accept", "show" },
                 ["<C-c>"] = { "cancel", "fallback" },
                 -- select
                 ["<C-n>"] = { "show", "select_next" },
