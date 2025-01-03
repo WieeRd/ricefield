@@ -3,11 +3,11 @@ return {
     {
         "saghen/blink.cmp",
         version = "*",
-        dependencies = "WieeRd/friendly-snippets",
         event = { "InsertEnter", "CmdlineEnter" },
         opts = {
             appearance = {
-                -- FEAT(upstream): kanagawa blink.cmp support
+                -- FEAT(upstream): kanagawa.nvim blink.cmp support
+                -- | https://github.com/rebelot/kanagawa.nvim/pull/271
                 use_nvim_cmp_as_default = true,
                 kind_icons = vim.g.lspkind,
             },
@@ -68,6 +68,60 @@ return {
                     ["<S-Tab>"] = { "show", "select_prev" },
                 },
             },
+            snippets = {
+                expand = function(snippet)
+                    require("luasnip").lsp_expand(snippet)
+                end,
+                active = function(filter)
+                    local direction = filter and filter.direction or 1
+                    if direction > 0 then
+                        return require("luasnip").expand_or_locally_jumpable()
+                    else
+                        return require("luasnip").locally_jumpable(direction)
+                    end
+                end,
+                jump = function(direction)
+                    if direction > 0 then
+                        require("luasnip").expand_or_jump()
+                    else
+                        require("luasnip").jump(direction)
+                    end
+                end,
+            },
+            sources = {
+                default = { "lsp", "path", "luasnip", "buffer" },
+            },
         },
+    },
+
+    -- snippet engine
+    {
+        "L3MON4D3/LuaSnip",
+        dependencies = "WieeRd/friendly-snippets",
+        keys = {
+            {
+                "<C-f>",
+                function()
+                    local ls = require("luasnip")
+                    return ls.choice_active() and ls.change_choice(1)
+                end,
+                mode = { "i", "s" },
+            },
+            {
+                "<C-b>",
+                function()
+                    require("luasnip").unlink_current()
+                end,
+                mode = { "i", "s" },
+            },
+        },
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
+        config = function(_, opts)
+            require("luasnip").setup(opts)
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
     },
 }
